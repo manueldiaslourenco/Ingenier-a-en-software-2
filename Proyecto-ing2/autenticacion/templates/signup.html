@@ -1,0 +1,57 @@
+{% extends 'layouts/base.html' %}
+
+{% block content %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Registrarse</title>
+</head>
+<body>
+    <section class="form-main">
+        <div class="form-content">
+            <div class="box">
+                <h3>Crear una cuenta</h3>
+                <form action="{% url 'crear cuenta' %}" method="post">
+                    {% csrf_token %}               
+                    <div>
+                        <input type="text" name="nombre" placeholder="Nombre" maxlength="50", value="{{ form.nombre.value|default_if_none:'' }}">
+                        {% if form.nombre.errors %}
+                            <div class="error">{{ form.nombre.errors }}</div>
+                        {% endif %}
+                    </div>
+                    <div>
+                        <input type="text" name="apellido" placeholder="Apellido" maxlength="50", value="{{ form.apellido.value|default_if_none:'' }}">
+                        {% if form.apellido.errors %}
+                            <div class="error">{{ form.apellido.errors }}</div>
+                        {% endif %}
+                    </div>
+                    <div>
+                        <input type="number" name="dni" placeholder="Dni", value="{{ form.dni.value|default_if_none:'' }}">
+                        {% if form.dni.errors %}
+                            <div class="error">{{ form.dni.errors }}</div>
+                        {% endif %}
+                    </div>
+                    <div>
+                        <input type="text" name="mail" placeholder="Mail" maxlength="50", value="{{ form.mail.value|default_if_none:'' }}">
+                        {% if form.mail.errors %}
+                            <div class="error">{{ form.mail.errors }}</div>
+                        {% endif %}
+                    </div>
+                    <div>
+                        <input type="password" name="contraseña" placeholder="Contraseña", maxlength="50", value="{{ form.contraseña.value|default_if_none:'' }}">
+                        {% if form.contraseña.errors %}
+                            <div class="error">{{ form.contraseña.errors }}</div>
+                        {% endif %}
+                    </div>
+                    <button type="submit" class="btn">Crear cuenta</button>
+                </form>
+                <a href="{% url 'iniciar sesion' %}"> Ya tengo una cuenta</a>
+            </div>
+        </div>
+    </section>
+</body>
+</html>
+
+{% endblock %}

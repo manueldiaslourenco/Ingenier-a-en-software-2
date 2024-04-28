@@ -1,0 +1,35 @@
+{% extends 'layouts/base.html' %}
+
+{% block content %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>IniciarSesion</title>
+</head>
+<body>
+    <section class="form-main">
+        <div class="form-content">
+            <div class="box">
+                <h3>Iniciar Sesión</h3>
+                <form action="">
+                    <div class="input-box">
+                        <input type="text" placeholder="Email" class="input-control">
+                    </div>
+                    <div class="input-box">
+                        <input type="password" placeholder="password" class="input-control">
+                        <div class="input-link">
+                            <a href="#" class="">¿Olvidaste tu contraseña?</a>
+                        </div>
+                    </div>
+                    <button type="submit" class="btn">Acceder</button>
+                </form>
+                <a href="{% url 'crear cuenta' %}"> Crear cuenta nueva</a>
+            </div>
+        </div>
+    </section>
+</body>
+</html>
+
+{% endblock %}
