@@ -3,7 +3,7 @@ from django.shortcuts import render
 from django.shortcuts import redirect
 from .forms import cuestionarioRegistro
 
-def mi_vista(request):
+def formulario_iniciar_sesion(request):
     form = cuestionarioRegistro()
     if request.method == 'POST':
         form = cuestionarioRegistro(request.POST)
