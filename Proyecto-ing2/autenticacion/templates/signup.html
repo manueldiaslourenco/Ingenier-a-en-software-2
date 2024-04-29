@@ -13,7 +13,7 @@
         <div class="form-content">
             <div class="box">
                 <h3>Crear una cuenta</h3>
-                <form action="{% url 'crear cuenta' %}" method="post">
+                <form action="{% url 'crear cuenta' %}" method="post" novalidate>
                     {% csrf_token %}               
                     <div>
                         <input type="text" name="nombre" placeholder="Nombre" maxlength="50", value="{{ form.nombre.value|default_if_none:'' }}">
@@ -28,13 +28,25 @@
                         {% endif %}
                     </div>
                     <div>
-                        <input type="number" name="dni" placeholder="Dni", value="{{ form.dni.value|default_if_none:'' }}">
+                        <input type="text" name="dni" placeholder="Dni" maxlength="8" value="{{ form.dni.value|default_if_none:'' }}" onkeypress="return (event.charCode >= 48 && event.charCode <= 57)">
                         {% if form.dni.errors %}
                             <div class="error">{{ form.dni.errors }}</div>
                         {% endif %}
                     </div>
                     <div>
-                        <input type="text" name="mail" placeholder="Mail" maxlength="50", value="{{ form.mail.value|default_if_none:'' }}">
+                        <input type="text" name="fecha_nacimiento" placeholder="Fecha de nacimiento (dia/mes/año)" value="{{ form.fecha_nacimiento.value|default_if_none:'' }}" onkeypress="return ((event.charCode >= 48 && event.charCode <= 57) || event.charCode == 47)">
+                        {% if form.fecha_nacimiento.errors %}
+                            <div class="error">{{ form.fecha_nacimiento.errors }}</div>
+                        {% endif %}
+                    </div>
+                    <div>
+                        <input type="text" name="telefono" placeholder="Telefono" maxlength="13" value="{{ form.telefono.value|default_if_none:'' }}" onkeypress="return (event.charCode >= 48 && event.charCode <= 57)">
+                        {% if form.telefono.errors %}
+                            <div class="error">{{ form.telefono.errors }}</div>
+                        {% endif %}
+                    </div>
+                    <div>
+                        <input type="text" name="mail" placeholder="Mail" maxlength="50" value="{{ form.mail.value|default_if_none:'' }}">
                         {% if form.mail.errors %}
                             <div class="error">{{ form.mail.errors }}</div>
                         {% endif %}

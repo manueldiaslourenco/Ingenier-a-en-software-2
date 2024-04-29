@@ -21,11 +21,14 @@ def formulario_crear_cuenta(request):
         if form.is_valid():
             nombre = form.cleaned_data['nombre']
             apellido= form.cleaned_data['apellido']
-            email = form.cleaned_data['mail']
             dni= form.cleaned_data['dni']
+            fecha_nacimiento= form.cleaned_data['fecha_nacimiento']
+            telefono= form.cleaned_data['telefono']
+            email = form.cleaned_data['mail']
             contraseña= form.cleaned_data['contraseña']
+            
             # Guardo datos en una lista
-            unaP = [nombre,apellido,email,contraseña,dni]
+            unaP = [nombre,apellido,dni,fecha_nacimiento,telefono,email,contraseña]
             
             print(unaP)
             return redirect('home')
