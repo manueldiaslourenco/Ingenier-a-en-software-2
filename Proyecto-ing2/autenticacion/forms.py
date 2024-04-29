@@ -1,4 +1,5 @@
 from django import forms
+from django.contrib.auth.hashers import make_password
 
 class formularioRecuperarContraseña(forms.Form):
     mail= forms.CharField(label='mail', max_length=50, error_messages={
@@ -16,10 +17,6 @@ class formularioRegistro(forms.Form):
     apellido= forms.CharField(label='apellido', max_length=50, error_messages={
             'required': 'Por favor, introduce tu apellido.',
         })
-    dni = forms.CharField(label='dni', min_length=8, error_messages={
-            'required': 'Por favor, introduce tu Dni.',
-            'min_length': 'El DNI debe tener 8 digitos.'
-        })
     fecha_nacimiento = forms.DateField(label='fecha de Nacimiento', error_messages={
             'required': 'Por favor, introduce tu fecha de nacimiento.',
             'invalid': 'Fecha invalida, debe estar compuesta por dia/mes/año.',
@@ -29,10 +26,14 @@ class formularioRegistro(forms.Form):
             'required': 'Por favor, introduce tu telefono.',
             'min_length': 'El telefono debe tener minimo 10 digitos, debe ser compuesto por numero de area y numero de telefono abonado.'
          })
-    mail= forms.CharField(label='mail', max_length=50, error_messages={
+    mail= forms.EmailField(label='mail', max_length=50, error_messages={
             'required': 'Por favor, introduce tu Mail.',
         })
     contraseña= forms.CharField(label='contraseña',max_length=50, min_length=6, 
             error_messages={
             'required': 'Por favor, introduce una contraseña.',
             'min_length': 'La contraseña debe tener mínimo 6 caracteres.'})
+
+    def clean_contraseña(self):
+        password = self.cleaned_data.get('contraseña')
+        return make_password(password)
