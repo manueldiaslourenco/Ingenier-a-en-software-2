@@ -1,9 +1,9 @@
 # Ingenier-a-en-software-2
 
 Authors:
-    - Simón Mc Govern
-    - Manuel Dias Lourenco
-    - Agostina Rubbini
+    - [Simón Mc Govern](https://github.com/SimonMcGovern)
+    - [Manuel Dias Lourenco](https://github.com/manueldiaslourenco)
+    - [Agostina Rubbini](https://github.com/agosrubbini)
     - Joaquin Santa Cruz
 
 
@@ -15,7 +15,7 @@ Python 3.11 or +
 python -m venv venv
 
 #if Linux
-    /venv/bin/activate
+    source /venv/bin/activate
 #if Windows
     /venv/Scripts/activate
 
