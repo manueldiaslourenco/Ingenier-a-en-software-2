@@ -31,6 +31,13 @@
                     </ul>
                 </nav>
             </div>
+            <div>
+                {% if request.user.is_authenticated %}
+                <p>Gracias por conectarte, {{ request.user.username }}</p>
+                {% else %}
+                <p>Bienvenido, visitante</p>  
+                {% endif %}
+            </div>
         </div>
     </header>
 </body>

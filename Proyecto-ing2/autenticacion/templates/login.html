@@ -26,7 +26,7 @@
         <div>
             <div>
                 <h3>Iniciar Sesión</h3>
-                <form action="">
+                <form action="{% url 'iniciar sesion' %}" method="post" novalidate>
                     {% csrf_token %}   
                     <div>
                         <input type="text" name="mail" placeholder="Mail" class="input-control">

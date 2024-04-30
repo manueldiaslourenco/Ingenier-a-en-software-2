@@ -4,10 +4,14 @@ from django.contrib.auth.hashers import make_password
 class formularioRecuperarContraseña(forms.Form):
     mail= forms.EmailField(label='mail', max_length=50, error_messages={
             'required': 'Por favor, introduce tu Mail.',
+            'invalid': 'Mail invalido, el mail debe respetar el formato mail@direccion.'
         })
 
 class formularioIniciarSesion(forms.Form):
-    mail= forms.EmailField(label='mail')
+    mail= forms.EmailField(label='mail',  max_length=50, error_messages={
+            'required': 'Por favor, introduce tu Mail.',
+            'invalid': 'Mail invalido, el mail debe respetar el formato mail@direccion.'
+        })
     contraseña= forms.CharField(label='contrseña')
 
 class formularioRegistro(forms.Form):
@@ -19,7 +23,7 @@ class formularioRegistro(forms.Form):
         })
     fecha_nacimiento = forms.DateField(label='fecha de Nacimiento', error_messages={
             'required': 'Por favor, introduce tu fecha de nacimiento.',
-            'invalid': 'Fecha invalida, debe estar compuesta por dia/mes/año.',
+            'invalid': 'Fecha invalida, debe estar compuesta por dd/mm/aaaa.',
             }, input_formats=['%d/%m/%Y']
             )
     telefono= forms.CharField(label='telefono', max_length=13, min_length=10, error_messages={

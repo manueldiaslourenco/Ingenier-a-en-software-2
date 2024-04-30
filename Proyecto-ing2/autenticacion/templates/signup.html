@@ -36,7 +36,7 @@
                         {% endif %}
                     </div>
                     <div>
-                        <input type="text" name="fecha_nacimiento" placeholder="Fecha de nacimiento (dia/mes/año)" value="{{ form.fecha_nacimiento.value|default_if_none:'' }}" onkeypress="return ((event.charCode >= 48 && event.charCode <= 57) || event.charCode == 47)">
+                        <input type="text" name="fecha_nacimiento" value="{{ form.fecha_nacimiento.value|default_if_none:'' }}" onkeypress="return (event.charCode >= 47 && event.charCode <= 57)">
                         {% if form.fecha_nacimiento.errors %}
                             <div class="error">{{ form.fecha_nacimiento.errors }}</div>
                         {% endif %}

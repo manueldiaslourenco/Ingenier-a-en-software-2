@@ -37,7 +37,9 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
-    'usuarios'
+    'usuarios',
+    'autenticacion',
+    'inicio'
 ]
 
 MIDDLEWARE = [
@@ -127,3 +129,12 @@ STATICFILES_DIRS = [
 # https://docs.djangoproject.com/en/5.0/ref/settings/#default-auto-field
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
+
+#tiempo para que se expire la sesion
+SESSION_COOKIE_AGE = 600
+
+SESSION_EXPIRE_AT_BROWSER_CLOSE = True
+
+AUTHENTICATION_BACKENDS = ['autenticacion.backend.UsuarioBackend']
+
+AUTH_USER_MODEL = 'usuarios.Usuario'
