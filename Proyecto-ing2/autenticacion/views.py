@@ -4,13 +4,14 @@ from django.shortcuts import redirect
 from .forms import formularioRegistro
 from .forms import formularioIniciarSesion
 from .forms import formularioRecuperarContraseña
+from usuarios.models import Usuario
 
 def cuestionario_iniciar_sesion(request):
     form = formularioIniciarSesion()
     if request.method == 'POST':
         form = formularioIniciarSesion(request.POST)
         if form.is_valid():
-            print(formularioIniciarSesion)
+            return redirect('home')
     return render(request, 'login.html', {'form': form})
 
 
@@ -23,18 +24,22 @@ def cuestionario_crear_cuenta(request):
         if form.is_valid():
             nombre = form.cleaned_data['nombre']
             apellido= form.cleaned_data['apellido']
-            dni= form.cleaned_data['dni']
             fecha_nacimiento= form.cleaned_data['fecha_nacimiento']
             telefono= form.cleaned_data['telefono']
             email = form.cleaned_data['mail']
             contraseña= form.cleaned_data['contraseña']
 
-            # Guardo datos en una lista
-            unaP = [nombre,apellido,dni,fecha_nacimiento,telefono,email,contraseña]
+            usuario = Usuario(
+                nombre=nombre,
+                apellido=apellido,
+                fecha_nacimiento=fecha_nacimiento,
+                telefono=telefono,
+                mail=email,
+                contraseña=contraseña
+            )
+            #usuario.save()
             
-            print(unaP)
             return redirect('home')
-        print('cuestionarioRegistro no valida')
     return render(request, 'signup.html', {'form': form})
 
 def recuperar_contraseña(request):
@@ -45,6 +50,10 @@ def recuperar_contraseña(request):
         #if mail es valido
         print(form)
         if form.is_valid():
+        #no me toquen lo de abajo que estoy haciendo pruebas    
         #redirect parte 2
+            #usuario = Usuario.objects.get(id=1)
+        # Elimina el usuario
+           # usuario.delete()
             return redirect('home')
     return render(request, 'forget_password.html', {'form': form})
