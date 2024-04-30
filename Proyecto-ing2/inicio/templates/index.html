@@ -1,11 +1,39 @@
+{% load static %}
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+    <title>inicio</title>
+    <link rel="stylesheet" type="text/css" href="{% static 'style.css' %}">
 </head>
 <body>
-    <a href="{% url 'iniciar sesion' %}"> iniciar sesion</a>
+
+    <header>
+
+        <div class="content">
+
+            <div class="menu container">
+                <img src="{% static 'images/Oh_My_Boat_logo_2.jpg' %}" width="80" height="80">
+                <a href="{% url 'home' %}" class="logo">OhMyBoat!</a> 
+                <input type="checkbox" id="menu" />
+                <label for="menu">
+                    <img class="menu-icon" src="{% static '/images/menu.png' %}" width="50" height="50">
+                </label>
+                <nav class="navbar">
+
+                    <ul>
+                        <li><a href="{% url 'iniciar sesion' %}"> Iniciar sesion</a></li>
+                        <li><a href="#">Ver publicaciones</a>
+                        <li><a href="#">Contacto</a>
+                    </ul>
+                </nav>
+            </div>
+        </div>
+    </header>
 </body>
+
 </html>
+
