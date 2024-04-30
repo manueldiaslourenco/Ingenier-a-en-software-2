@@ -1,4 +1,4 @@
-from django.http import HttpResponse
+from django.db import IntegrityError
 from django.shortcuts import render
 from django.shortcuts import redirect
 from .forms import formularioRegistro
@@ -16,7 +16,7 @@ def cuestionario_iniciar_sesion(request):
 
 
 def cuestionario_crear_cuenta(request):
-
+    ok= False
     #Los print son imprimir en pantalla de prueba.
     form= formularioRegistro()
     if request.method == 'POST':
@@ -37,10 +37,15 @@ def cuestionario_crear_cuenta(request):
                 mail=email,
                 contraseña=contraseña
             )
-            #usuario.save()
             
-            return redirect('home')
-    return render(request, 'signup.html', {'form': form})
+            try:
+                usuario.save()
+                ok=True
+            except IntegrityError:
+                form.add_error('mail', 'El correo ingresado ya se encuentra registrado.')
+            
+           #return redirect('home')
+    return render(request, 'signup.html', {'form': form, 'ok': ok})
 
 def recuperar_contraseña(request):
     form= formularioRecuperarContraseña()
@@ -52,8 +57,8 @@ def recuperar_contraseña(request):
         if form.is_valid():
         #no me toquen lo de abajo que estoy haciendo pruebas    
         #redirect parte 2
-            #usuario = Usuario.objects.get(id=1)
-        # Elimina el usuario
-           # usuario.delete()
+            #usuario = Usuario.objects.get(id=5)
+        #Elimina el usuario
+            #usuario.delete()
             return redirect('home')
     return render(request, 'forget_password.html', {'form': form})

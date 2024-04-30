@@ -2,12 +2,12 @@ from django import forms
 from django.contrib.auth.hashers import make_password
 
 class formularioRecuperarContraseña(forms.Form):
-    mail= forms.CharField(label='mail', max_length=50, error_messages={
+    mail= forms.EmailField(label='mail', max_length=50, error_messages={
             'required': 'Por favor, introduce tu Mail.',
         })
 
 class formularioIniciarSesion(forms.Form):
-    mail= forms.CharField(label='mail')
+    mail= forms.EmailField(label='mail')
     contraseña= forms.CharField(label='contrseña')
 
 class formularioRegistro(forms.Form):
@@ -28,6 +28,7 @@ class formularioRegistro(forms.Form):
          })
     mail= forms.EmailField(label='mail', max_length=50, error_messages={
             'required': 'Por favor, introduce tu Mail.',
+            'invalid': 'Mail invalido, el mail debe respetar el formato mail@direccion.'
         })
     contraseña= forms.CharField(label='contraseña',max_length=50, min_length=6, 
             error_messages={
