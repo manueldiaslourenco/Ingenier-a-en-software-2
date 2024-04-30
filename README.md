@@ -4,7 +4,7 @@ Authors:
     - [Simón Mc Govern](https://github.com/SimonMcGovern)
     - [Manuel Dias Lourenco](https://github.com/manueldiaslourenco)
     - [Agostina Rubbini](https://github.com/agosrubbini)
-    - Joaquin Santa Cruz
+    - [Joaquin Santa Cruz](https://github.com/Joakulo)
 
 
 ___To install the project:___
