@@ -19,10 +19,17 @@ def cuestionario_iniciar_sesion(request):
         
             if usuario is not None:
                 print("El usuario se autenticó correctamente.")
-                login(request, usuario)
-                return redirect('home')
+                if usuario.is_superuser:
+                    login(request, usuario)
+                    return redirect('/admin')
+                #queda hacer empleado
+                elif not usuario.is_blocked: 
+                    login(request, usuario)
+                    return redirect('home')
+                else:
+                    form.add_error('password', 'La cuenta ingresada se encuentra bloqueada.')
             else:
-                print("La autenticación falló. Por favor, verifica tu correo y/o contraseña.")
+                form.add_error('password', 'Las credenciales ingresadas no son correspondientes.')
     return render(request, 'login.html', {'form': form})
 
 def cerrar_sesion(request):
@@ -31,7 +38,6 @@ def cerrar_sesion(request):
 
 def cuestionario_crear_cuenta(request):
     ok= False
-    #Los print son imprimir en pantalla de prueba.
     form= formularioRegistro()
     if request.method == 'POST':
         form = formularioRegistro(request.POST)
@@ -43,7 +49,6 @@ def cuestionario_crear_cuenta(request):
             contraseña= form.cleaned_data['contraseña']
             fecha_nacimiento= form.cleaned_data['fecha_nacimiento']
             if es_mayor_de_18(fecha_nacimiento):
-                #contraseña= hash_password(contraseña)
                 usuario = Usuario(
                     nombre=nombre,
                     apellido=apellido,
@@ -66,8 +71,6 @@ def recuperar_contraseña(request):
     if request.method == 'POST':
         #mail esta en la base de datos redirijo a ingresar la nueva contraseña.
         form= formularioRecuperarContraseña(request.POST)
-        #if mail es valido
-        print(form)
         if form.is_valid():
         #no me toquen lo de abajo que estoy haciendo pruebas    
         #redirect parte 2

@@ -38,9 +38,9 @@
                         {% endif %}
                     </div>
                     <div>
-                        <input type="password" name="password" placeholder="Contraseña" class="input-control">
-                        {% if form.contraseña.errors %}
-                            <div class="error">{{ form.contraseña.errors }}</div>
+                        <input type="password" name="password" placeholder="Contraseña" class="input-control" value="{{ form.password.value|default_if_none:'' }}">
+                        {% if form.password.errors %}
+                            <div class="error">{{ form.password.errors }}</div>
                         {% endif %}
                         <div>
                             <p><a href="{% url 'recuperar contraseña'%}" class="gradient-text">¿Olvidaste tu contraseña?</a></p>
