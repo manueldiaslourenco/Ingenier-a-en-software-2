@@ -1,4 +1,6 @@
 {% extends 'layouts/base.html' %}
+{% load static %}
+
 
 {% block content %}
 <!DOCTYPE html>
@@ -6,62 +8,85 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" type="text/css" href="{% static 'style_header.css' %}">
+    <link rel="stylesheet" type="text/css" href="{% static 'style_forms.css' %}">
     <title>Registrarse</title>
 </head>
 <body>
+    <header>
+
+        <div class="content">
+
+            <div class="menu container">
+                <img src="{% static 'images/Oh_My_Boat_logo_2.jpg' %}" width="95" height="95" >
+                <a href="{% url 'home' %}" class="logo">Volver al menu principal</a> 
+            </div>
+        </div>
+    </header>
     <section class="form-main">
         <div class="form-content">
             <div class="box">
                 <h3>Crear una cuenta</h3>
                 <form action="{% url 'crear cuenta' %}" method="post" novalidate>
                     {% csrf_token %}
-                    {% if form.non_field_errors %}
+                    <!-- {% if form.non_field_errors %}
                         <div class="error">{{ form.non_field_errors }}</div>
                     {% elif ok == True %}
                         <div>
                             <p> Su cuenta ha sido creada exitosamente</p> 
                             <a href="{% url 'iniciar sesion' %}"> Aceptar</a> 
                         </div>
-                    {% endif %}              
+                    {% endif %}               -->
                     <div>
-                        <input type="text" name="nombre" placeholder="Nombre" maxlength="50", value="{{ form.nombre.value|default_if_none:'' }}">
+                        <input type="text" name="nombre" placeholder="Nombre" maxlength="50" class="input-control" value="{{ form.nombre.value|default_if_none:'' }}">
                         {% if form.nombre.errors %}
                             <div class="error">{{ form.nombre.errors }}</div>
                         {% endif %}
                     </div>
                     <div>
-                        <input type="text" name="apellido" placeholder="Apellido" maxlength="50", value="{{ form.apellido.value|default_if_none:'' }}">
+                        <input type="text" name="apellido" placeholder="Apellido" maxlength="50" class="input-control" value="{{ form.apellido.value|default_if_none:'' }}">
                         {% if form.apellido.errors %}
                             <div class="error">{{ form.apellido.errors }}</div>
                         {% endif %}
                     </div>
                     <div>
-                        <input type="text" name="fecha_nacimiento" value="{{ form.fecha_nacimiento.value|default_if_none:'' }}" onkeypress="return (event.charCode >= 47 && event.charCode <= 57)">
+                        <input type="text" name="fecha_nacimiento" placeholder="Fecha de Nacimiento" class="input-control" value="{{ form.fecha_nacimiento.value|default_if_none:'' }}" onkeypress="return (event.charCode >= 47 && event.charCode <= 57)">
                         {% if form.fecha_nacimiento.errors %}
                             <div class="error">{{ form.fecha_nacimiento.errors }}</div>
                         {% endif %}
                     </div>
                     <div>
-                        <input type="text" name="telefono" placeholder="Telefono" maxlength="13" value="{{ form.telefono.value|default_if_none:'' }}" onkeypress="return (event.charCode >= 48 && event.charCode <= 57)">
+                        <input type="text" name="telefono" placeholder="Telefono" maxlength="13" class="input-control" value="{{ form.telefono.value|default_if_none:'' }}" onkeypress="return (event.charCode >= 48 && event.charCode <= 57)">
                         {% if form.telefono.errors %}
                             <div class="error">{{ form.telefono.errors }}</div>
                         {% endif %}
                     </div>
                     <div>
-                        <input type="text" name="mail" placeholder="Mail" maxlength="50" value="{{ form.mail.value|default_if_none:'' }}">
+                        <input type="text" name="mail" placeholder="Mail" maxlength="50" class="input-control" value="{{ form.mail.value|default_if_none:'' }}">
                         {% if form.mail.errors %}
                             <div class="error">{{ form.mail.errors }}</div>
                         {% endif %}
                     </div>
                     <div>
-                        <input type="password" name="contraseña" placeholder="Contraseña", maxlength="50", value="{{ form.contraseña.value|default_if_none:'' }}">
+                        <input type="password" name="contraseña" placeholder="Contraseña" maxlength="50" class="input-control" value="{{ form.contraseña.value|default_if_none:'' }}">
                         {% if form.contraseña.errors %}
                             <div class="error">{{ form.contraseña.errors }}</div>
                         {% endif %}
                     </div>
+                    {% if form.non_field_errors %}
+                    <div class="error">{{ form.non_field_errors }}</div>
+                    {% elif ok == True %}
+                    <div class="window-notice" id="window-notice">  
+                        <div class="content">
+                            <p class="content-text"> Su cuenta ha sido creada exitosamente</p> 
+                            <div class="content-button"><a href="{% url 'iniciar sesion' %}">Aceptar</a></div>
+                        </div>
+                    </div>
+                    {% endif %} 
                     <button type="submit" class="btn">Crear cuenta</button>
+
                 </form>
-                <a href="{% url 'iniciar sesion' %}"> Ya tengo una cuenta</a>
+                <a href="{% url 'iniciar sesion' %}" class="gradient-text">Ya tengo una cuenta</a>
             </div>
         </div>
     </section>

@@ -8,8 +8,8 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Iniciar Sesion</title>
-    <link rel="stylesheet" type="text/css" href="{% static 'style.css' %}">
-    <link rel="stylesheet" type="text/css" href="{% static 'style_login.css' %}">
+    <link rel="stylesheet" type="text/css" href="{% static 'style_header.css' %}">
+    <link rel="stylesheet" type="text/css" href="{% static 'style_forms.css' %}">
 </head>
 <body>
     <header>
@@ -22,24 +22,33 @@
             </div>
         </div>
     </header>
-    <section class="login">
-        <div>
-            <div>
+    <section class="form-main">
+        <div class="form-content">
+            <div class="box">
                 <h3>Iniciar Sesión</h3>
                 <form action="{% url 'iniciar sesion' %}" method="post" novalidate>
-                    {% csrf_token %}   
+                    {% csrf_token %}
+                    <!-- {% if form.non_field_errors %}
+                        <div class="error">{{ form.non_field_errors }}</div>
+                    {% endif %} -->
                     <div>
-                        <input type="text" name="mail" placeholder="Mail" class="input-control">
+                        <input type="text" name="mail" placeholder="Mail" class="input-control" value="{{ form.mail.value|default_if_none:'' }}">
+                        {% if form.mail.errors %}
+                            <div class="error">{{ form.mail.errors }}</div>
+                        {% endif %}
                     </div>
                     <div>
                         <input type="password" name="password" placeholder="Contraseña" class="input-control">
+                        {% if form.contraseña.errors %}
+                            <div class="error">{{ form.contraseña.errors }}</div>
+                        {% endif %}
                         <div>
-                            <p><a href="{% url 'recuperar contraseña'%}" class="#">¿Olvidaste tu contraseña?</a></p>
+                            <p><a href="{% url 'recuperar contraseña'%}" class="gradient-text">¿Olvidaste tu contraseña?</a></p>
                         </div>
                     </div>
                     <button type="submit" class="btn">Acceder</button>
                 </form>
-                <a href="{% url 'crear cuenta' %}" class="register"> Crear cuenta nueva</a>
+                <p>No tenes una cuenta?<a href="{% url 'crear cuenta' %}" class="gradient-text"> Crear cuenta nueva</a></p>
             </div>
         </div>
     </section>
