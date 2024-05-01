@@ -25,7 +25,11 @@
                 <nav class="navbar">
 
                     <ul>
+                        {% if request.user.is_authenticated %}
+                        <li><a href="{% url 'cerrar sesion' %}"> cerrar sesion</a></li>
+                        {% else %}
                         <li><a href="{% url 'iniciar sesion' %}"> Iniciar sesion</a></li>
+                        {% endif %}
                         <li><a href="#">Ver publicaciones</a>
                         <li><a href="#">Contacto</a>
                     </ul>
@@ -33,7 +37,7 @@
             </div>
             <div>
                 {% if request.user.is_authenticated %}
-                <p>Gracias por conectarte, {{ request.user.username }}</p>
+                <p>Gracias por conectarte, {{ request.user.mail }}</p>
                 {% else %}
                 <p>Bienvenido, visitante</p>  
                 {% endif %}

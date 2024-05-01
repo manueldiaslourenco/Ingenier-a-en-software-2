@@ -12,7 +12,7 @@ class formularioIniciarSesion(forms.Form):
             'required': 'Por favor, introduce tu Mail.',
             'invalid': 'Mail invalido, el mail debe respetar el formato mail@direccion.'
         })
-    contraseña= forms.CharField(label='contrseña')
+    password= forms.CharField(label='password')
 
 class formularioRegistro(forms.Form):
     nombre = forms.CharField(label='nombre', max_length=50, error_messages={
