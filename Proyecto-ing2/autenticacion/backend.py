@@ -9,9 +9,9 @@ class UsuarioBackend(ModelBackend):
     def authenticate(self, request, username=None, password=None, **kwargs):
         UserModel = get_user_model()
         try:
-            user = UserModel.objects.get(mail=username)
-            #if check_password(password, user.password):
-            return user
+            usuario = UserModel.objects.get(mail=username)
+            if usuario.check_password(password):
+                return usuario
         except UserModel.DoesNotExist:
             return None
 
@@ -23,11 +23,11 @@ class UsuarioBackend(ModelBackend):
             return None
 
 def autenticar_usuario(username, password):
-    user = authenticate(username=username, password=password)
+    usuario = authenticate(username=username, password=password)
     
-    if user is not None:
+    if usuario is not None:
         # El usuario se autenticó correctamente
-        return user
+        return usuario
     else:
         # La autenticación falló
         return None

@@ -15,16 +15,14 @@ def cuestionario_iniciar_sesion(request):
     if request.method == 'POST':
         form = formularioIniciarSesion(request.POST)
         if form.is_valid():
-            user = autenticar_usuario(username=form.cleaned_data['mail'], password=form.cleaned_data['password'])
+            usuario = autenticar_usuario(username=form.cleaned_data['mail'], password=form.cleaned_data['password'])
         
-            if user is not None:
-            # Aquí puedes manejar el caso de éxito, por ejemplo, iniciar la sesión del usuario
+            if usuario is not None:
                 print("El usuario se autenticó correctamente.")
-                login(request, user)
+                login(request, usuario)
                 return redirect('home')
             else:
                 print("La autenticación falló. Por favor, verifica tu correo y/o contraseña.")
-            # Aquí puedes manejar el caso de fallo, por ejemplo, mostrar un mensaje de error
     return render(request, 'login.html', {'form': form})
 
 def cerrar_sesion(request):
@@ -45,6 +43,7 @@ def cuestionario_crear_cuenta(request):
             contraseña= form.cleaned_data['contraseña']
             fecha_nacimiento= form.cleaned_data['fecha_nacimiento']
             if es_mayor_de_18(fecha_nacimiento):
+                #contraseña= hash_password(contraseña)
                 usuario = Usuario(
                     nombre=nombre,
                     apellido=apellido,

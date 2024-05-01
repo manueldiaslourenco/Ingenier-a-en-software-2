@@ -1,6 +1,5 @@
 from django.db import models
 from django.contrib.auth.models import AbstractBaseUser, PermissionsMixin
-from django.contrib.auth.hashers import make_password
 
 class Usuario(AbstractBaseUser, PermissionsMixin):
     nombre = models.CharField(max_length=50)
@@ -14,6 +13,5 @@ class Usuario(AbstractBaseUser, PermissionsMixin):
     REQUIRED_FIELDS = ['nombre', 'apellido', 'fecha_nacimiento', 'telefono']
 
     def save(self, *args, **kwargs):
-        self.password = make_password(self.password)
         super().save(*args, **kwargs)
 
