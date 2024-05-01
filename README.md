@@ -1,4 +1,4 @@
-# Ingenier-a-en-software-2
+# Ingenieria-en-software-2
 
 Authors:
     - [Simón Mc Govern](https://github.com/SimonMcGovern)
