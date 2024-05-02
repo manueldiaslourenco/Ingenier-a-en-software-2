@@ -1,0 +1,73 @@
+body {
+    background: #202020;
+    color: whitesmoke;
+}
+
+.navbar {
+    background: #404040;
+    padding: 5px 0;
+}
+
+.navbar ul {
+    display: flex;
+    justify-content: space-between;
+}
+
+.navbar ul li {
+    list-style: none;
+}
+
+.navbar ul li a {
+    color: white;
+    text-decoration: none;
+}
+
+.navbar ul li a:hover {
+    color: aquamarine;
+}
+
+.container {
+    max-width: 1200px;
+    margin: auto;
+    padding: 20px 10px;
+}
+
+table {
+    width: 100%;
+    background: #404040;
+    color: whitesmoke;
+}
+
+table caption {
+    font-size: 20px;
+}
+
+table thead th {
+    font-size: 18px;
+}
+
+table tbody td {
+    font-size: 16px;
+}
+
+table th, table td {
+    padding: 8px;
+    text-align: center;
+}
+
+a:link, a:visited {
+    color: lightblue;
+    font-size: 16px;
+}
+
+a:hover, a:active {
+    color: lightcoral;
+    font-size: 16px;
+}
+
+.input {
+    background: wheat;
+    padding: 10px;
+    text-align: center;
+    display: block;
+}

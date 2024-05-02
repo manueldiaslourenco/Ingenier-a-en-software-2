@@ -1,0 +1,31 @@
+{% extends 'layouts/navbar.html' %}
+
+{% block content %}
+
+<table>
+    <caption>Usuarios</caption>
+    <thead>
+        <tr>
+            <th>Mail</th>
+            <th>Nombre</th>
+            <th>Apellido</th>
+            <th>Edad</th>
+        </tr>
+    </thead>
+    <tbody>
+        {% for usuario in usuarios %}
+
+        <tr>
+            <td>
+                <a href="{% url 'detalle_usuario' usuario.id %}"> {{usuario.mail}} </a>
+            </td>
+            <td>{{usuario.nombre}}</td>
+            <td>{{usuario.apellido}}</td>
+            <td>{{usuario.edad}}</td>
+        </tr>
+
+        {% endfor %}
+    </tbody>
+</table>
+
+{% endblock %}
