@@ -36,6 +36,8 @@ table {
     width: 100%;
     background: #404040;
     color: whitesmoke;
+    padding: 10px;
+    margin-bottom: 2px;
 }
 
 table caption {

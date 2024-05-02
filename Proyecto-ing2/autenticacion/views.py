@@ -21,7 +21,7 @@ def cuestionario_iniciar_sesion(request):
                 print("El usuario se autenticó correctamente.")
                 if usuario.is_superuser:
                     login(request, usuario)
-                    return redirect('/admin')
+                    return redirect('admin')
                 #queda hacer empleado
                 elif not usuario.is_blocked: 
                     login(request, usuario)

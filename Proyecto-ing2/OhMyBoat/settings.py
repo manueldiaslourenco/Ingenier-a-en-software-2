@@ -39,7 +39,8 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'usuarios',
     'autenticacion',
-    'inicio'
+    'inicio',
+    'administrador'
 ]
 
 MIDDLEWARE = [
@@ -57,7 +58,8 @@ ROOT_URLCONF = 'OhMyBoat.urls'
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': [os.path.join(BASE_DIR, 'autenticacion/templates'),os.path.join(BASE_DIR,'inicio/templates')],
+        'DIRS': [os.path.join(BASE_DIR, 'autenticacion/templates'),os.path.join(BASE_DIR,'inicio/templates')
+                 ,os.path.join(BASE_DIR,'administrador/templates')],
         'APP_DIRS': True,
         'OPTIONS': {
             'context_processors': [
