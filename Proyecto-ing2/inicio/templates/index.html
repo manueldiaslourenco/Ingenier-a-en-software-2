@@ -30,7 +30,11 @@
                         {% else %}
                         <li><a href="{% url 'iniciar sesion' %}"> Iniciar sesion</a></li>
                         {% endif %}
-                        <li><a href="#">Ver publicaciones</a>
+                        {% if request.user.is_authenticated %}
+                        <li><a href="{% url 'ver_perfil' id=request.user.id %}">Ver perfil</a>
+                        {% else %}
+                        <li><a href="#">Ver perfil</a>
+                        {% endif %}   
                         <li><a href="#">Contacto</a>
                     </ul>
                 </nav>
