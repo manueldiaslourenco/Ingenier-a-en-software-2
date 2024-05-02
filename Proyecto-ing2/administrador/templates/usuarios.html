@@ -17,7 +17,7 @@
 
         <tr>
             <td>
-                <a> {{usuario.mail}} </a>
+                <a href="{% url 'ver_perfil' usuario.id %}"> {{usuario.mail}} </a>
             </td>
             <td>{{usuario.nombre}}</td>
             <td>{{usuario.apellido}}</td>
