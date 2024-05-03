@@ -1,14 +1,29 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+{% extends 'layouts/base.html' %}
+{% load static %}
+
+{% block style %}
+{% endblock %}
+
+{% block title %}
     <title>Perfil</title>
-</head>
-<body>
-    <div>
-        <p><a href="{% url 'home' %}" class="gradient-text">Volver al menu</a></p>
-    </div>
+{% endblock %}
+
+{% block scripts %}
+{% endblock %}
+
+{% block listnav %}
+    {% if not request.user.id == param.id %}
+        <li><a class="normal" href="{% url 'ver perfil' id=request.user.id %}"><i class="fa-solid fa-user"></i></a></li>
+    {% endif %}
+    <li class="modal"><a id="cerrar-sesion" class="normal"  href=""><i class="fa-solid fa-arrow-right-from-bracket"></i></a>
+        <div id="mensaje-cerrar-sesion" class="mensaje" style="display: none;">
+            <p>Estas seguro de cerrar la sesion?</p>
+            <a href="{% url 'cerrar sesion' %}" class="buton2">Seguro</a>
+        </div>
+    </li>
+{% endblock %}
+
+{% block content %}
     <div>
         {% if request.user.id == param.id %}
             <p>bienvenido a tu perfil {{ request.user.mail }}</p>
@@ -16,5 +31,4 @@
             <p>bienvenido al perfil de {{ param.mail }}</p>
         {% endif %}
     </div>
-</body>
-</html>
+{% endblock %}
