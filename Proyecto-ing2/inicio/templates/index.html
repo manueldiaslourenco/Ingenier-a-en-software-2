@@ -1,59 +1,46 @@
+{% extends 'layouts/base.html' %}
 {% load static %}
 
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+{% block style %}
+{% endblock %}
+
+{% block title %}
     <title>inicio</title>
-    <link rel="stylesheet" type="text/css" href="{% static 'style_header.css' %}">
-    <script> window.onpageshow = function(event) {
+{% endblock %}
+
+{% block scripts %}
+<script> window.onpageshow = function(event) {
         if (event.persisted) {
             window.location.reload();
         }
-    };</script>
-</head>
-<body>
+    };
+</script>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+<script>
+    $(document).ready(function(){
+        $("#cerrar-sesion").click(function(event){
+            event.preventDefault();
+            $("#mensaje-cerrar-sesion").toggle();
+        });
+    });
+</script>
+{% endblock %}
 
-    <header>
-
-        <div class="content">
-
-            <div class="menu container">
-                <img src="{% static 'images/Oh_My_Boat_logo_2.jpg' %}" width="80" height="80">
-                <a href="{% url 'home' %}" class="logo">OhMyBoat!</a> 
-                <input type="checkbox" id="menu" />
-                <label for="menu">
-                    <img class="menu-icon" src="{% static '/images/menu.png' %}" width="50" height="50">
-                </label>
-                <nav class="navbar">
-
-                    <ul>
-                        {% if request.user.is_authenticated %}
-                        <li><a href="{% url 'cerrar sesion' %}"> cerrar sesion</a></li>
-                        {% else %}
-                        <li><a href="{% url 'iniciar sesion' %}"> Iniciar sesion</a></li>
-                        {% endif %}
-                        {% if request.user.is_authenticated %}
-                        <li><a href="{% url 'ver perfil' id=request.user.id %}">Ver perfil</a>
-                        {% else %}
-                        <li><a href="#">Ver perfil</a>
-                        {% endif %}   
-                        <li><a href="#">Contacto</a>
-                    </ul>
-                </nav>
+{% block listnav %}
+    {% if request.user.is_authenticated %}
+        <li><a class="normal" href="{% url 'ver perfil' id=request.user.id %}"><i class="fa-solid fa-user"></i></a></li>
+    {% endif %}
+    {% if request.user.is_authenticated %}
+        <li class="modal"><a id="cerrar-sesion" class="normal"  href=""><i class="fa-solid fa-arrow-right-from-bracket"></i></a>
+            <div id="mensaje-cerrar-sesion" class="mensaje" style="display: none;">
+                <p>Estas seguro de cerrar la sesion?</p>
+                <a href="{% url 'cerrar sesion' %}" class="buton2">Seguro</a>
             </div>
-            <div>
-                {% if request.user.is_authenticated %}
-                <p>Gracias por conectarte, {{ request.user.mail }}</p>
-                {% else %}
-                <p>Bienvenido, visitante</p>  
-                {% endif %}
-            </div>
-        </div>
-    </header>
-</body>
+        </li>
+    {% else %}
+        <li><a href="{% url 'iniciar sesion' %}" class="buton">Iniciar Sesion</a></li>
+    {% endif %}
+{% endblock %}
 
-</html>
-
+{% block content %}
+{% endblock %}

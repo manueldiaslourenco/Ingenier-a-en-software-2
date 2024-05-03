@@ -1,28 +1,21 @@
 {% extends 'layouts/base.html' %}
 {% load static %}
 
+{% block style %}
+    <link rel="stylesheet" type="text/css" href="{% static 'style_forms.css' %}">
+{% endblock %}
+
+{% block title %}
+    <title>registrar cuenta</title>
+{% endblock %}
+
+{% block scripts %}
+{% endblock %}
+
+{% block listnav %}
+{% endblock %}
 
 {% block content %}
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" type="text/css" href="{% static 'style_header.css' %}">
-    <link rel="stylesheet" type="text/css" href="{% static 'style_forms.css' %}">
-    <title>Registrarse</title>
-</head>
-<body>
-    <header>
-
-        <div class="content">
-
-            <div class="menu container">
-                <img src="{% static 'images/Oh_My_Boat_logo_2.jpg' %}" width="95" height="95" >
-                <a href="{% url 'home' %}" class="logo">Volver al menu principal</a> 
-            </div>
-        </div>
-    </header>
     <section class="form-main">
         <div class="form-content">
             <div class="box">
@@ -82,7 +75,4 @@
             </div>
         </div>
     </section>
-</body>
-</html>
-
 {% endblock %}
