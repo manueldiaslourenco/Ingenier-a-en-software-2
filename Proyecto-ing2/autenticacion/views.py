@@ -2,16 +2,16 @@ from django.db import IntegrityError
 from django.shortcuts import render
 from django.shortcuts import redirect
 from django.contrib.auth import login, logout
-from .forms import formularioRegistro
-from .forms import formularioIniciarSesion
-from .forms import formularioRecuperarContraseña
+from .forms import formularioIniciarSesion, formularioRecuperarContraseña, formularioRegistro
 from usuarios.models import Usuario
-from .backend import autenticar_usuario
-from .backend import es_mayor_de_18
-
+from .backend import autenticar_usuario, es_mayor_de_18
 
 def cuestionario_iniciar_sesion(request):
+    ok=False
     form = formularioIniciarSesion()
+    usuario_actual = request.user
+    if usuario_actual.is_authenticated:
+        ok= True
     if request.method == 'POST':
         form = formularioIniciarSesion(request.POST)
         if form.is_valid():
@@ -30,7 +30,7 @@ def cuestionario_iniciar_sesion(request):
                     form.add_error('password', 'La cuenta ingresada se encuentra bloqueada.')
             else:
                 form.add_error('password', 'Las credenciales ingresadas no son correspondientes.')
-    return render(request, 'login.html', {'form': form})
+    return render(request, 'login.html', {'form': form, 'ok': ok})
 
 def cerrar_sesion(request):
     logout(request)

@@ -1,7 +1,5 @@
 from django.contrib.auth.backends import ModelBackend
 from django.contrib.auth import get_user_model
-from django.contrib.auth.hashers import check_password
-from django.contrib.auth.hashers import make_password
 from datetime import date, timedelta
 from django.contrib.auth import authenticate
 

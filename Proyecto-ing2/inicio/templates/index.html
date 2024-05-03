@@ -8,6 +8,11 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>inicio</title>
     <link rel="stylesheet" type="text/css" href="{% static 'style_header.css' %}">
+    <script> window.onpageshow = function(event) {
+        if (event.persisted) {
+            window.location.reload();
+        }
+    };</script>
 </head>
 <body>
 
@@ -31,7 +36,7 @@
                         <li><a href="{% url 'iniciar sesion' %}"> Iniciar sesion</a></li>
                         {% endif %}
                         {% if request.user.is_authenticated %}
-                        <li><a href="{% url 'ver_perfil' id=request.user.id %}">Ver perfil</a>
+                        <li><a href="{% url 'ver perfil' id=request.user.id %}">Ver perfil</a>
                         {% else %}
                         <li><a href="#">Ver perfil</a>
                         {% endif %}   

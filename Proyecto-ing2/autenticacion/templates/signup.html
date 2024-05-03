@@ -29,14 +29,6 @@
                 <h3>Crear una cuenta</h3>
                 <form action="{% url 'crear cuenta' %}" method="post" novalidate>
                     {% csrf_token %}
-                    <!-- {% if form.non_field_errors %}
-                        <div class="error">{{ form.non_field_errors }}</div>
-                    {% elif ok == True %}
-                        <div>
-                            <p> Su cuenta ha sido creada exitosamente</p> 
-                            <a href="{% url 'iniciar sesion' %}"> Aceptar</a> 
-                        </div>
-                    {% endif %}               -->
                     <div>
                         <input type="text" name="nombre" placeholder="Nombre" maxlength="50" class="input-control" value="{{ form.nombre.value|default_if_none:'' }}">
                         {% if form.nombre.errors %}

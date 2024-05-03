@@ -10,6 +10,11 @@
     <title>Iniciar Sesion</title>
     <link rel="stylesheet" type="text/css" href="{% static 'style_header.css' %}">
     <link rel="stylesheet" type="text/css" href="{% static 'style_forms.css' %}">
+    <script> window.onpageshow = function(event) {
+        if (event.persisted) {
+            window.location.reload();
+        }
+    };</script>
 </head>
 <body>
     <header>
@@ -28,9 +33,6 @@
                 <h3>Iniciar Sesión</h3>
                 <form action="{% url 'iniciar sesion' %}" method="post" novalidate>
                     {% csrf_token %}
-                    <!-- {% if form.non_field_errors %}
-                        <div class="error">{{ form.non_field_errors }}</div>
-                    {% endif %} -->
                     <div>
                         <input type="text" name="mail" placeholder="Mail" class="input-control" value="{{ form.mail.value|default_if_none:'' }}">
                         {% if form.mail.errors %}
@@ -43,8 +45,18 @@
                             <div class="error">{{ form.password.errors }}</div>
                         {% endif %}
                         <div>
-                            <p><a href="{% url 'recuperar contraseña'%}" class="gradient-text">¿Olvidaste tu contraseña?</a></p>
+                            <p><a href="{% url 'recuperar contraseña' %}" class="gradient-text">¿Olvidaste tu contraseña?</a></p>
                         </div>
+                    </div>
+                    <div>
+                        {% if ok == True %}
+                        <div class="window-notice" id="window-notice">  
+                            <div class="content">
+                                <p class="content-text"> Ya tienes la sesion iniciada</p> 
+                                <div class="content-button"><a href="{% url 'home' %}">Aceptar</a></div>
+                            </div>
+                        </div>
+                        {% endif %} 
                     </div>
                     <button type="submit" class="btn">Acceder</button>
                 </form>
