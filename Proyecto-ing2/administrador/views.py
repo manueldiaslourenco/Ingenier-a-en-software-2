@@ -22,9 +22,20 @@ def usuarios(request):
     if not usuario_actual.is_superuser:
         return redirect('home')
     
-    usuarios = Usuario.objects.all()
+    usuarios = Usuario.objects.filter(is_staff=False)
     for usuario in usuarios:
         usuario.edad = calcular_edad(usuario.fecha_nacimiento)
+    return render(request, 'usuarios.html', {
+        'usuarios' : usuarios
+    })
+
+@login_required(login_url=reverse_lazy('home'))
+def empleados(request):
+    usuario_actual = request.user
+    if not usuario_actual.is_superuser:
+        return redirect('home')
+    
+    usuarios = Usuario.objects.filter(is_staff=True).filter(is_superuser=False)
     return render(request, 'usuarios.html', {
         'usuarios' : usuarios
     })

@@ -3,6 +3,31 @@ body {
     color: whitesmoke;
 }
 
+.header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center; /* Centra verticalmente el contenido */
+    margin-bottom: 20px; /* Añade espacio entre la cabecera y la tabla */
+}
+
+.header h1 {
+    margin: 0; /* Elimina el margen predeterminado del h1 */
+}
+
+.btn-primary {
+    background-color: #007bff; /* Color de fondo azul del botón */
+    border-color: #007bff; /* Color del borde azul del botón */
+    color: #fff; /* Color del texto blanco */
+    padding: 8px 16px; /* Espaciado interno del botón */
+    border-radius: 4px; /* Borde redondeado */
+    text-decoration: none; /* Elimina la subrayado predeterminado */
+}
+
+.btn-primary:hover {
+    background-color: #0056b3; /* Cambia el color de fondo al pasar el ratón */
+    border-color: #0056b3; /* Cambia el color del borde al pasar el ratón */
+}
+
 .navbar {
     background: #404040;
     padding: 5px 0;
