@@ -155,7 +155,7 @@ a{
     position: relative;
     z-index: 1;
     overflow: hidden;
-
+   margin-top: 20px;
 }
 
 .form-content .btn::before{
@@ -240,3 +240,4 @@ a{
     padding: 10px;
     border-radius: 20px;
 }
+

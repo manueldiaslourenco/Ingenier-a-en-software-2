@@ -2,6 +2,7 @@
 body {
     background: #202020;
     color: whitesmoke;
+    font-family: arial;
 }
 
 /* Estilo para el navbar */
@@ -142,4 +143,63 @@ a:hover, a:active {
 td:nth-child(5),
 td:nth-child(6) {
     width: 80px;
+}
+
+/* Estilo para el formulario principal */
+.form-main {
+    background: #202020;
+    display: flex;
+    justify-content: center;
+    align-items: flex-start; /* Alinea el contenido hacia arriba */
+    height: 90vh; /* Reducir la altura para colocar el formulario más arriba */
+    padding-top: 5vh; /* Reducir el espacio superior para colocar el formulario más arriba */
+}
+
+/* Estilo para el contenido del formulario */
+.form-content {
+    width: 100%;
+    max-width: 450px;
+    padding: 40px 20px; /* Aumentar el espacio interno */
+    border-radius: 10px;
+    background: #404040;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.3); /* Agrega sombra al formulario */
+}
+
+/* Estilo para los campos de entrada del formulario */
+.input-control {
+    width: 100%; /* Ocupa todo el ancho del formulario */
+    height: 45px; /* Ajusta la altura de los campos de entrada */
+    font-size: 16px; /* Ajusta el tamaño de fuente si es necesario */
+    margin: auto;
+    display: block;
+    background-color: transparent;
+    border: none;
+    border-bottom: 1px solid var(--border-color);
+    color: whitesmoke;
+}
+
+.form-content h2 {
+    margin-top: 0px;
+    text-align: center; /* Centra el texto */
+}
+
+/* Estilo para el botón "Crear cuenta" */
+.btn-crear_cuenta {
+    background-color: #007bff; /* Color de fondo */
+    border-color: #007bff; /* Color del borde */
+    color: #fff; /* Color del texto */
+    padding: 12px 24px; /* Ajusta el padding del botón */
+    border-radius: 5px; /* Ajusta el radio de borde */
+    text-decoration: none;
+    display: inline-block;
+    transition: background-color 0.3s, border-color 0.3s, color 0.3s; /* Agrega transición suave */
+    margin: 0 auto; /* Añade margen automático a los lados para centrar el botón */
+    display: block; /* Cambia el botón a un elemento de bloque para que el margen automático funcione */
+    margin-top: 20px; /* Agrega un margen superior de 20px */
+}
+
+/* Estilo para el botón "Crear cuenta" al pasar sobre él */
+.btn-crear_cuenta:hover {
+    background-color: #0056b3; /* Cambia el color de fondo al pasar sobre el botón */
+    border-color: #0056b3; /* Cambia el color del borde al pasar sobre el botón */
 }

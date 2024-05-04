@@ -1,0 +1,62 @@
+{% extends 'layouts/navbar.html' %}
+
+{% block content %}
+    <section class="form-main">
+        <div class="form-content">
+            <div class="box">
+                <h2>Crear un usuario</h2>
+                <form action="{% url 'crear usuario' %}" method="post" novalidate>
+                    {% csrf_token %}
+                    <div>
+                        <input type="text" name="nombre" placeholder="Nombre" maxlength="50" class="input-control" value="{{ form.nombre.value|default_if_none:'' }}">
+                        {% if form.nombre.errors %}
+                            <div class="error">{{ form.nombre.errors }}</div>
+                        {% endif %}
+                    </div>
+                    <div>
+                        <input type="text" name="apellido" placeholder="Apellido" maxlength="50" class="input-control" value="{{ form.apellido.value|default_if_none:'' }}">
+                        {% if form.apellido.errors %}
+                            <div class="error">{{ form.apellido.errors }}</div>
+                        {% endif %}
+                    </div>
+                    <div>
+                        <input type="text" name="fecha_nacimiento" placeholder="Fecha de Nacimiento" class="input-control" value="{{ form.fecha_nacimiento.value|default_if_none:'' }}" onkeypress="return (event.charCode >= 47 && event.charCode <= 57)">
+                        {% if form.fecha_nacimiento.errors %}
+                            <div class="error">{{ form.fecha_nacimiento.errors }}</div>
+                        {% endif %}
+                    </div>
+                    <div>
+                        <input type="text" name="telefono" placeholder="Telefono" maxlength="13" class="input-control" value="{{ form.telefono.value|default_if_none:'' }}" onkeypress="return (event.charCode >= 48 && event.charCode <= 57)">
+                        {% if form.telefono.errors %}
+                            <div class="error">{{ form.telefono.errors }}</div>
+                        {% endif %}
+                    </div>
+                    <div>
+                        <input type="text" name="mail" placeholder="Mail" maxlength="50" class="input-control" value="{{ form.mail.value|default_if_none:'' }}">
+                        {% if form.mail.errors %}
+                            <div class="error">{{ form.mail.errors }}</div>
+                        {% endif %}
+                    </div>
+                    <div>
+                        <input type="password" name="contraseña" placeholder="Contraseña" maxlength="50" class="input-control" value="{{ form.contraseña.value|default_if_none:'' }}">
+                        {% if form.contraseña.errors %}
+                            <div class="error">{{ form.contraseña.errors }}</div>
+                        {% endif %}
+                    </div>
+                    {% if form.non_field_errors %}
+                    <div class="error">{{ form.non_field_errors }}</div>
+                    {% elif ok == True %}
+                    <div class="window-notice" id="window-notice">  
+                        <div class="content">
+                            <p class="content-text"> Su cuenta ha sido creada exitosamente</p> 
+                            <div class="content-button"><a href="{% url 'iniciar sesion' %}">Aceptar</a></div>
+                        </div>
+                    </div>
+                    {% endif %} 
+                    <button type="submit" class="btn-crear_cuenta">Crear cuenta</button>
+
+                </form>
+            </div>
+        </div>
+    </section>
+{% endblock %}

@@ -4,7 +4,7 @@
 
 <div class="header">
     <h1>Usuarios</h1>
-    <a class="btn btn-primary">Crear nuevo usuario</a>
+    <a href="{% url 'crear usuario' %}" class="btn btn-primary">Crear nuevo usuario</a>
 </div>
 
 <table>
@@ -29,10 +29,10 @@
                 <td>{{usuario.apellido}}</td>
                 <td>{{usuario.edad}}</td>
                 <td>
-                    <button class="btn-block">Bloquear</button>
+                    <button class="btn-delete">Bloquear</button>
                 </td>
                 <td>
-                    <button class="btn-delete">Eliminar</button>
+                    <button class="btn-block">Eliminar</button>
                 </td>
             </tr>
 

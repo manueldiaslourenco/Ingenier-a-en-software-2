@@ -38,6 +38,7 @@
             </div>
         </li>
     {% else %}
+        <li><a href="{% url 'crear cuenta' %}" class="buton">Crear cuenta</a></li>
         <li><a href="{% url 'iniciar sesion' %}" class="buton">Iniciar Sesion</a></li>
     {% endif %}
 {% endblock %}
