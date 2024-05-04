@@ -1,11 +1,5 @@
 {% extends 'layouts/navbar.html' %}
 
-{% load static %}
-
-{% block styles %}
-<link rel="stylesheet" href="{% static 'styles/main.css' %}">
-{% endblock %}
-
 {% block content %}
 
 <div class="header">
@@ -20,6 +14,8 @@
             <th>Nombre</th>
             <th>Apellido</th>
             <th>Edad</th>
+            <th></th>
+            <th></th>
         </tr>
     </thead>
     <tbody>
@@ -32,6 +28,12 @@
                 <td>{{usuario.nombre}}</td>
                 <td>{{usuario.apellido}}</td>
                 <td>{{usuario.edad}}</td>
+                <td>
+                    <button class="btn-block">Bloquear</button>
+                </td>
+                <td>
+                    <button class="btn-delete">Eliminar</button>
+                </td>
             </tr>
 
         {% endfor %}

@@ -1,62 +1,77 @@
+/* Estilo para el cuerpo del html */
 body {
     background: #202020;
     color: whitesmoke;
 }
 
-.header {
-    display: flex;
-    justify-content: space-between;
-    align-items: center; /* Centra verticalmente el contenido */
-    margin-bottom: 20px; /* Añade espacio entre la cabecera y la tabla */
-}
-
-.header h1 {
-    margin: 0; /* Elimina el margen predeterminado del h1 */
-}
-
-.btn-primary {
-    background-color: #007bff; /* Color de fondo azul del botón */
-    border-color: #007bff; /* Color del borde azul del botón */
-    color: #fff; /* Color del texto blanco */
-    padding: 8px 16px; /* Espaciado interno del botón */
-    border-radius: 4px; /* Borde redondeado */
-    text-decoration: none; /* Elimina la subrayado predeterminado */
-}
-
-.btn-primary:hover {
-    background-color: #0056b3; /* Cambia el color de fondo al pasar el ratón */
-    border-color: #0056b3; /* Cambia el color del borde al pasar el ratón */
-}
-
+/* Estilo para el navbar */
 .navbar {
     background: #404040;
     padding: 5px 0;
 }
 
+/* Estilo para la lista del navbar */
 .navbar ul {
     display: flex;
     justify-content: space-between;
+    margin-top: 0px;
+    margin-bottom: 0px;
 }
 
+/* Estilo para cada elemento de la lista del navbar */
 .navbar ul li {
     list-style: none;
 }
 
+/* Estilo para los links del navbar */
 .navbar ul li a {
     color: white;
+    font-size: 18px;
     text-decoration: none;
 }
 
+/* Estilo para links del navbar al pasar sobre ellos */
 .navbar ul li a:hover {
     color: aquamarine;
 }
 
+/* Estilo para el body del html */
 .container {
     max-width: 1200px;
     margin: auto;
     padding: 20px 10px;
 }
 
+/* Estilo para el header de la tabla (h1 y boton "Crear ...") */
+.header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 20px;
+}
+
+/* Estilo para el texto del head de la tabla */
+.header h1 {
+    margin: 0;
+}
+
+/* Estilo para el boton "Crear ..." */
+.btn-primary {
+    background-color: #007bff;
+    border-color: #007bff;
+    color: #fff;
+    padding: 8px 16px;
+    border-radius: 4px;
+    text-decoration: none;
+}
+
+/* Estilo para el boton "Crear ..." al pasar sobre él */
+.btn-primary:hover {
+    background-color: #0056b3;
+    border-color: #0056b3;
+}
+
+/* Estilo para la tabla */
 table {
     width: 100%;
     background: #404040;
@@ -65,36 +80,66 @@ table {
     margin-bottom: 2px;
 }
 
-table caption {
-    font-size: 20px;
-}
-
+/* Estilo para el texto de los titulos de la tabla */
 table thead th {
     font-size: 18px;
 }
 
+/* Estilo para el texto del cuerpo de la tabla */
 table tbody td {
     font-size: 16px;
 }
 
+/* Estilo para textos de la tabla */
 table th, table td {
     padding: 8px;
     text-align: center;
 }
 
+/* Estilo para mails */
 a:link, a:visited {
     color: lightblue;
     font-size: 16px;
 }
 
+/* Estilo para mails al pasar sobre ellos  */
 a:hover, a:active {
     color: lightcoral;
     font-size: 16px;
 }
 
-.input {
-    background: wheat;
-    padding: 10px;
-    text-align: center;
-    display: block;
+/* Estilo para boton "Bloquear" */
+.btn-block {
+    background-color: rgb(167, 3, 3);
+    color: white;
+    border: none;
+    border-radius: 5px;
+    padding: 5px 10px;
+}
+
+/* Estilo para boton "Bloquear" al pasar sobre él */
+.btn-block:hover {
+    background-color: rgb(112, 0, 0);
+    border-color: rgb(112, 0, 0);
+}
+
+/* Estilo para boton "Eliminar" */
+.btn-delete {
+    background-color: gray;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    padding: 5px 10px;
+}
+
+/* Estilo para boton "Eliminar" al pasar sobre él */
+.btn-delete:hover {
+    background-color: rgb(90, 90, 90);
+    border-color: rgb(90, 90, 90);
+}
+
+/* Estilo para las últimas dos columnas */
+td:nth-child(5),
+td:nth-child(6) {
+    width: 80px;
 }

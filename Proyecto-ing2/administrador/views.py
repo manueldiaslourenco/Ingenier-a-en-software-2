@@ -36,6 +36,6 @@ def empleados(request):
         return redirect('home')
     
     usuarios = Usuario.objects.filter(is_staff=True).filter(is_superuser=False)
-    return render(request, 'usuarios.html', {
+    return render(request, 'empleados.html', {
         'usuarios' : usuarios
     })
