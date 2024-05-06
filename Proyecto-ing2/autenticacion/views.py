@@ -34,7 +34,7 @@ def cuestionario_iniciar_sesion(request):
 
 def cerrar_sesion(request):
     logout(request)
-    return  redirect('home')
+    return  redirect('iniciar sesion')
 
 def cuestionario_crear_cuenta(request):
     ok= False

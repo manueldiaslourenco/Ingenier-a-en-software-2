@@ -9,6 +9,15 @@
 {% endblock %}
 
 {% block scripts %}
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+<script>
+    $(document).ready(function(){
+        $("#cerrar-sesion").click(function(event){
+            event.preventDefault();
+            $("#mensaje-cerrar-sesion").toggle();
+        });
+    });
+</script>
 {% endblock %}
 
 {% block listnav %}
@@ -24,11 +33,21 @@
 {% endblock %}
 
 {% block content %}
-    <div>
-        {% if request.user.id == param.id %}
-            <p>bienvenido a tu perfil {{ request.user.mail }}</p>
-        {% else %}
-            <p>bienvenido al perfil de {{ param.mail }}</p>
-        {% endif %}
+    <div class="perfil-usuario-body">
+        <div class="perfil-usuario-bio">
+            <h3 class="titulo">{{param.nombre}} {{param.apellido}}</h3>
+            <p class="texto">Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod
+                tempor incididunt ut labore et dolore magna aliqua.</p>
+        </div>
+        <div class="perfil-usuario-footer">
+            <ul class="lista-datos">
+                <li><i class="fa-sharp fa-thin fa-envelope"></i> Mail: {{param.mail}}</li>
+                <li><i class="icono fas fa-phone-alt"></i> Telefono: {{param.telefono}}</li>
+                {% if request.user.id == param.id %}
+                <li><i class="icono fas fa-calendar-alt"></i> Fecha nacimiento:  {{ param.fecha_nacimiento|date:"d-m-Y" }}</li>
+                {% endif %}
+                <li><i class="fa-thin fa-star"></i> Reputacion:</li>
+            </ul>
+        </div>
     </div>
 {% endblock %}

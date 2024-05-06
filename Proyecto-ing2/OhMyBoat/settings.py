@@ -59,7 +59,7 @@ TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
         'DIRS': [os.path.join(BASE_DIR, 'autenticacion/templates'),os.path.join(BASE_DIR,'inicio/templates')
-                 ,os.path.join(BASE_DIR,'administrador/templates')],
+                 ,os.path.join(BASE_DIR,'administrador/templates'),os.path.join(BASE_DIR,'usuarios/templates')],
         'APP_DIRS': True,
         'OPTIONS': {
             'context_processors': [
@@ -110,6 +110,7 @@ STATIC_URL = '/static/'
 STATICFILES_DIRS = [
     os.path.join(BASE_DIR, 'inicio/static'),
     os.path.join(BASE_DIR, 'autenticacion/static'),
+    os.path.join(BASE_DIR, 'usuarios/static')
 ]
 
 # Default primary key field type
