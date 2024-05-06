@@ -40,7 +40,9 @@ INSTALLED_APPS = [
     'usuarios',
     'autenticacion',
     'inicio',
-    'administrador'
+    'administrador',
+    'empleados',
+    'embarcaciones'
 ]
 
 MIDDLEWARE = [
