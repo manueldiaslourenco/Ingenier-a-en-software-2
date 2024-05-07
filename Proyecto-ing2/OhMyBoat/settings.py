@@ -40,9 +40,7 @@ INSTALLED_APPS = [
     'usuarios',
     'autenticacion',
     'inicio',
-    'administrador',
-    'empleados',
-    'embarcaciones'
+    'administrador'
 ]
 
 MIDDLEWARE = [
@@ -61,7 +59,7 @@ TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
         'DIRS': [os.path.join(BASE_DIR, 'autenticacion/templates'),os.path.join(BASE_DIR,'inicio/templates')
-                 ,os.path.join(BASE_DIR,'administrador/templates'),os.path.join(BASE_DIR,'usuarios/templates')],
+                 ,os.path.join(BASE_DIR,'administrador/templates')],
         'APP_DIRS': True,
         'OPTIONS': {
             'context_processors': [
@@ -112,7 +110,6 @@ STATIC_URL = '/static/'
 STATICFILES_DIRS = [
     os.path.join(BASE_DIR, 'inicio/static'),
     os.path.join(BASE_DIR, 'autenticacion/static'),
-    os.path.join(BASE_DIR, 'usuarios/static')
 ]
 
 # Default primary key field type
@@ -128,3 +125,11 @@ SESSION_EXPIRE_AT_BROWSER_CLOSE = True
 AUTHENTICATION_BACKENDS = ['autenticacion.backend.UsuarioBackend']
 
 AUTH_USER_MODEL = 'usuarios.Usuario'
+
+#Credenciales del servidor de correo
+
+EMAIL_HOST = 'smtp.googlemail.com'
+EMAIL_PORT = 587
+EMAIL_HOST_USER = 'ohmyboat.mail@gmail.com'
+EMAIL_HOST_PASSWORD = 'lwzt ctcm nozd rkhn' #Clave de la cuenta de correo para poder acceder desde el programa, habria que encriptarla o guardarla en otro lado
+EMAIL_USE_TLS = True
