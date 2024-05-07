@@ -2,9 +2,11 @@ from django.db import IntegrityError
 from django.shortcuts import render
 from django.shortcuts import redirect
 from django.contrib.auth import login, logout
+from django.contrib.auth import get_user_model
+from django.shortcuts import HttpResponse
 from .forms import formularioIniciarSesion, formularioRecuperarContraseña, formularioRegistro
 from usuarios.models import Usuario
-from .backend import autenticar_usuario, es_mayor_de_18
+from .backend import autenticar_usuario, es_mayor_de_18, send_email, generate_key
 
 def cuestionario_iniciar_sesion(request):
     ok=False
@@ -34,7 +36,7 @@ def cuestionario_iniciar_sesion(request):
 
 def cerrar_sesion(request):
     logout(request)
-    return  redirect('iniciar sesion')
+    return  redirect('home')
 
 def cuestionario_crear_cuenta(request):
     ok= False
@@ -69,13 +71,18 @@ def cuestionario_crear_cuenta(request):
 def recuperar_contraseña(request):
     form= formularioRecuperarContraseña()
     if request.method == 'POST':
-        #mail esta en la base de datos redirijo a ingresar la nueva contraseña.
         form= formularioRecuperarContraseña(request.POST)
         if form.is_valid():
-        #no me toquen lo de abajo que estoy haciendo pruebas    
-        #redirect parte 2
-            #usuario = Usuario.objects.get(id=2)
-        #Elimina el usuario
-            #usuario.delete()
-            return redirect('home')
+            try: 
+                UserModel = get_user_model()
+                mail=form.cleaned_data['mail']
+                usuario= UserModel.objects.get(mail=mail)
+                security_token = generate_key()
+                send_email(mail, security_token)
+                return redirect('ingresar nueva contraseña')
+            except UserModel.DoesNotExist:
+                 form.add_error('mail', 'Mail inexistente.')
     return render(request, 'forget_password.html', {'form': form})
+
+def ingresar_nueva_contrasena(request):
+    return HttpResponse("Esta pagina es de prueba")
