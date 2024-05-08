@@ -110,7 +110,7 @@ a:hover, a:active {
 }
 
 /* Estilo para boton "Bloquear" */
-.btn-block {
+.btn-delete {
     background-color: rgb(167, 3, 3);
     color: white;
     border: none;
@@ -119,13 +119,13 @@ a:hover, a:active {
 }
 
 /* Estilo para boton "Bloquear" al pasar sobre él */
-.btn-block:hover {
+.btn-delete:hover {
     background-color: rgb(112, 0, 0);
     border-color: rgb(112, 0, 0);
 }
 
 /* Estilo para boton "Eliminar" */
-.btn-delete {
+.btn-block {
     background-color: gray;
     color: white;
     border: none;
@@ -134,7 +134,7 @@ a:hover, a:active {
 }
 
 /* Estilo para boton "Eliminar" al pasar sobre él */
-.btn-delete:hover {
+.btn-block:hover {
     background-color: rgb(90, 90, 90);
     border-color: rgb(90, 90, 90);
 }
