@@ -59,7 +59,7 @@ TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
         'DIRS': [os.path.join(BASE_DIR, 'autenticacion/templates'),os.path.join(BASE_DIR,'inicio/templates')
-                 ,os.path.join(BASE_DIR,'administrador/templates')],
+                 ,os.path.join(BASE_DIR,'administrador/templates'),os.path.join(BASE_DIR, 'embarcaciones/templates')],
         'APP_DIRS': True,
         'OPTIONS': {
             'context_processors': [
@@ -118,7 +118,8 @@ STATICFILES_DIRS = [
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
 #tiempo para que se expire la sesion
-SESSION_COOKIE_AGE = 600
+#funciona mal a chekear
+#SESSION_COOKIE_AGE = 600
 
 SESSION_EXPIRE_AT_BROWSER_CLOSE = True
 

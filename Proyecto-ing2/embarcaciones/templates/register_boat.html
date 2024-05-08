@@ -1,0 +1,122 @@
+{% extends 'layouts/base.html' %}
+{% load static %}
+
+{% block style %}
+{% endblock %}
+
+{% block title %}
+    <title>cargar embarcacion</title>
+{% endblock %}
+
+{% block scripts %}
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+<script>
+    $(document).ready(function(){
+        $("#checkbox-deudas").change(function(event){
+            $("#deudas").toggle();
+        });
+    });
+</script>
+<script>
+    $(document).ready(function(){
+        $("#cerrar-sesion").click(function(event){
+            event.preventDefault();
+            $("#mensaje-cerrar-sesion").toggle();
+        });
+    });
+</script>
+{% endblock %}
+
+{% block listnav %}
+    {% if request.user.is_authenticated %}
+        <li><a class="normal" href="{% url 'ver perfil' id=request.user.id %}"><i class="fa-solid fa-user"></i></a></li>
+    {% endif %}
+    {% if request.user.is_authenticated %}
+        <li class="modal"><a id="cerrar-sesion" class="normal"  href=""><i class="fa-solid fa-arrow-right-from-bracket"></i></a>
+            <div id="mensaje-cerrar-sesion" class="mensaje" style="display: none;">
+                <p>Estas seguro de cerrar la sesion?</p>
+                <a href="{% url 'cerrar sesion' %}" class="buton2">Confirmar</a>
+            </div>
+        </li>
+    {% else %}
+        <li><a href="{% url 'crear cuenta' %}" class="buton">Crear cuenta</a></li>
+        <li><a href="{% url 'iniciar sesion' %}" class="buton">Iniciar Sesion</a></li>
+    {% endif %}
+{% endblock %}
+
+{% block content %}
+<section class="form-main">
+    <div class="form-content">
+        <div class="box">
+            <h3>Cargar embarcacion</h3>
+            <form action="{% url 'cargar embarcacion' %}" method="post" novalidate>
+                {% csrf_token %}
+                <div>
+                    <input type="text" name="matricula" placeholder="Matricula" maxlength="50" class="input-control" value="{{ form.matricula.value|default_if_none:'' }}">
+                    {% if form.matricula.errors %}
+                        <div class="error">{{ form.matricula.errors }}</div>
+                    {% endif %}
+                </div>
+                <div>
+                    <input type="text" name="modelo" placeholder="Modelo" maxlength="50" class="input-control" value="{{ form.modelo.value|default_if_none:'' }}">
+                    {% if form.modelo.errors %}
+                        <div class="error">{{ form.modelo.errors }}</div>
+                    {% endif %}
+                </div>
+                <div>
+                    <select name="tipo" required>
+                        <option value="">Selecciona un tipo</option>
+                        {% for opcion in tipos %}
+                          <option value="{{ opcion }}">{{ opcion }}</option>
+                        {% endfor %}
+                    </select>
+                    {% if form.tipo.errors %}
+                        <div class="error">{{ form.tipo.errors }}</div>
+                    {% endif %}
+                </div>
+                <div>
+                    <input type="text" name="eslora" placeholder="Medida eslora" class="input-control" value="{{ form.eslora.value|default_if_none:'' }}" onkeypress="return (event.charCode >= 48 && event.charCode <= 57 || event.charCode == 46)">
+                    {% if form.eslora.errors %}
+                        <div class="error">{{ form.eslora.errors }}</div>
+                    {% endif %}
+                </div>
+                <div>
+                    <input type="text" name="manga" placeholder="Medida manga" class="input-control" value="{{ form.manga.value|default_if_none:'' }}" onkeypress="return (event.charCode >= 48 && event.charCode <= 57 || event.charCode == 46)">
+                    {% if form.manga.errors %}
+                        <div class="error">{{ form.manga.errors }}</div>
+                    {% endif %}
+                </div>
+                <div>
+                    <input type="text" name="calado" placeholder="Medida calado" class="input-control" value="{{ form.calado.value|default_if_none:'' }}" onkeypress="return (event.charCode >= 48 && event.charCode <= 57 || event.charCode == 46)">
+                    {% if form.calado.errors %}
+                        <div class="error">{{ form.calado.errors }}</div>
+                    {% endif %}
+                </div>
+                <div>
+                    <p class="input-text"> Tiene motor: </p> 
+                    <input type="checkbox" name="motor" class="input-control" >
+                </div>
+                <div>
+                    <p class="input-text"> Tiene deudas: </p> 
+                    <input id="checkbox-deudas" type="checkbox" name="tiene deudas" class="input-control" >
+                </div>
+                <div>
+                    <input id="deudas" type="number" name="deuda" placeholder="Deudas" class="input-control" value="{{ form.deudas.value|default_if_none:'' }}" style="display: none;">
+                </div>
+                {% if form.non_field_errors %}
+                <div class="error">{{ form.non_field_errors }}</div>
+                {% elif ok == True %}
+                <div class="window-notice" id="window-notice">  
+                    <div class="content">
+                        <p class="content-text"> Se cargo la embarcacion con exito</p> 
+                        <div class="content-button"><a href="{% url 'ver perfil' %}">Aceptar</a></div>
+                    </div>
+                </div>
+                {% endif %} 
+                <button type="submit" class="btn">Cargar </button>
+
+            </form>
+        </div>
+    </div>
+</section>
+{% endblock %}
