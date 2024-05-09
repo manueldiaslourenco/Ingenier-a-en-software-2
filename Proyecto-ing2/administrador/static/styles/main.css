@@ -3,12 +3,21 @@ body {
     background: #202020;
     color: whitesmoke;
     font-family: arial;
+    margin: 0;
+}
+
+.wrapper {
+    background: #404040; /* Color de fondo del navbar */
 }
 
 /* Estilo para el navbar */
 .navbar {
-    background: #404040;
-    padding: 5px 0;
+    max-width: 1400px; /* Establece el ancho máximo del navbar */
+    height: 120px; /* Establece la altura del navbar */
+    background: #404040; /* Color de fondo del navbar */
+    margin: 0 auto; /* Centra el navbar horizontalmente */
+    display: flex;
+    align-items: center; /* Centra verticalmente los elementos del navbar */
 }
 
 /* Estilo para la lista del navbar */
@@ -17,17 +26,21 @@ body {
     justify-content: space-between;
     margin-top: 0px;
     margin-bottom: 0px;
+    padding: 0;
+    width: 100%; /* Ajusta el ancho al 100% del contenedor */
 }
 
 /* Estilo para cada elemento de la lista del navbar */
 .navbar ul li {
     list-style: none;
+    text-align: center;
+    flex-grow: 1; /* Permite que los elementos se expandan automáticamente */
 }
 
 /* Estilo para los links del navbar */
 .navbar ul li a {
     color: white;
-    font-size: 18px;
+    font-size: 20px;
     text-decoration: none;
 }
 
@@ -202,4 +215,59 @@ td:nth-child(6) {
 .btn-crear_cuenta:hover {
     background-color: #0056b3; /* Cambia el color de fondo al pasar sobre el botón */
     border-color: #0056b3; /* Cambia el color del borde al pasar sobre el botón */
+}
+
+.form-content .window-notice {
+    background: rgba(33, 41, 52, .85);
+    left: 0;
+    bottom: 0;
+    right: 0;
+    top: 0;
+    display: flex;
+    position: fixed;
+    z-index: 999;
+}
+
+.form-content .window-notice .content {
+    background: linear-gradient(to right, var(--blue), var(--violet));;
+    border-radius: 2px;
+    box-shadow: 0 1px 3px rgba(33, 41, 52, .75);
+    box-sizing: content-box;
+    display: flex;
+    flex-direction: column;
+    margin: auto;
+    max-width: 600px;
+    min-width: 320px !important;
+    overflow: hidden;
+    position: relative;
+    width: 100%;
+    padding: 2rem;
+    font-size: 1.3rem;
+    align-items: center;
+    justify-content: center;
+}
+
+.form-content .window-notice .content .content-text p{
+    display: block;
+    height: 45px;
+    width: 100%;
+    background-color: transparent;
+    border: none;
+    border-bottom: 1px solid var(--border-color);
+    color: white solid;
+    font-weight: inherit;
+    font-family: inherit;
+    font-size: 24px;
+    align-items: center;
+    justify-content: center;
+}
+
+.form-content .window-notice .content .content-button a{
+    color: var(--text-white);
+    text-decoration: none;
+    box-sizing: border-box;
+    box-shadow: 0 1px 3px rgba(33, 41, 52, .75);
+    background: linear-gradient(to right, var(--green), var(--lead));
+    padding: 10px;
+    border-radius: 20px;
 }

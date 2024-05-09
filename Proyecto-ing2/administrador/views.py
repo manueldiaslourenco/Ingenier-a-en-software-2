@@ -12,14 +12,14 @@ from django.contrib.auth.hashers import make_password
 def index(request):
     chequear_admin(request.user)
     
-    return render(request, 'indexadmin.html')
+    return render(request, 'index_admin.html')
 
 @login_required(login_url=reverse_lazy('home'))
 def empleados(request):
     chequear_admin(request.user)
     
     usuarios = Usuario.objects.filter(is_staff=True).filter(is_superuser=False)
-    return render(request, 'empleados.html', {
+    return render(request, 'employees.html', {
         'usuarios' : usuarios
     })
 
@@ -60,7 +60,7 @@ def usuarios(request):
     usuarios = Usuario.objects.filter(is_staff=False)
     for usuario in usuarios:
         usuario.edad = calcular_edad(usuario.fecha_nacimiento)
-    return render(request, 'usuarios.html', {
+    return render(request, 'users.html', {
         'usuarios' : usuarios
     })
 
@@ -95,7 +95,7 @@ def cuestionario_crear_usuario(request):
                     form.add_error('mail', 'El correo ingresado ya se encuentra registrado.')
             else:
                 form.add_error('fecha_nacimiento', 'Debe ser mayor de edad (+18) para registrarse.')
-    return render(request, 'crear_usuario.html', {'form': form, 'ok': ok})
+    return render(request, 'create_user.html', {'form': form, 'ok': ok})
 
 @login_required(login_url=reverse_lazy('home'))
 def bloquear_usuario(request):

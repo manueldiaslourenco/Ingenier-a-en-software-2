@@ -18,46 +18,53 @@
 
 </head>
 <body>
+    <div class="wrapper"> 
+        <nav class="navbar">
+            <ul>
+                <li>
+                    <a href="{% url 'home' %}"> 
+                        <h3>Home</h3> 
+                    </a>
+                </li>
+                <li>
+                    <a href="{% url 'empleados' %}"> 
+                        <h3>Empleados</h3> 
+                    </a>
+                </li>
+                <li>
+                    <a href="{% url 'usuarios' %}">
+                        <h3>Usuarios</h3>
+                    </a>
+                </li>
+                <li>
+                    <a>
+                        <h3>Embarcaciones</h3>
+                    </a>
+                </li>
+                <li>
+                    <a>
+                        <h3>Vehículos</h3>
+                    </a>
+                </li>
+                <li>
+                    <a>
+                        <h3>Publicaciones</h3>
+                    </a>
+                </li>
+                <li>
+                    <a>
+                        <h3>Ofertas</h3>
+                    </a>
+                </li>
+                <li>
+                    <a>
+                        <h3>Estadísticas</h3>
+                    </a>
+                </li> 
+            </ul>
+        </nav>
+    </div>
     
-    <nav class="navbar container">
-        <ul>
-            <li>
-                <a href="{% url 'empleados' %}"> 
-                    <h3>Empleados</h3> 
-                </a>
-            </li>
-            <li>
-                <a href="{% url 'usuarios' %}">
-                    <h3>Usuarios</h3>
-                </a>
-            </li>
-            <li>
-                <a>
-                    <h3>Embarcaciones</h3>
-                </a>
-            </li>
-            <li>
-                <a>
-                    <h3>Vehículos</h3>
-                </a>
-            </li>
-            <li>
-                <a>
-                    <h3>Publicaciones</h3>
-                </a>
-            </li>
-            <li>
-                <a>
-                    <h3>Ofertas</h3>
-                </a>
-            </li>
-            <li>
-                <a>
-                    <h3>Estadísticas</h3>
-                </a>
-            </li> 
-        </ul>
-    </nav>
     
     <main class="container">
         {% block content %}
