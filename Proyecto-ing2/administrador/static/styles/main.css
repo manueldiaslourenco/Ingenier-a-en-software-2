@@ -1,3 +1,11 @@
+:root{
+    --azul1: #6785b4;
+    --azul2: #26a5b9;
+    --azul3: #a9cecf;
+    --gris: #c4c4be8c;
+    --arena: #c8baa0;
+}
+
 /* Estilo para el cuerpo del html */
 body {
     background: #202020;

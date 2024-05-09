@@ -23,7 +23,8 @@ def cuestionario_iniciar_sesion(request):
                 if usuario.is_superuser:
                     login(request, usuario)
                     return redirect('admin')
-                #queda hacer empleado
+                elif usuario.is_staff:
+                    return redirect('panel empleados')
                 elif not usuario.is_blocked: 
                     login(request, usuario)
                     return redirect('home')

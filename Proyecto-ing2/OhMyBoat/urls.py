@@ -23,5 +23,6 @@ urlpatterns = [
     path('', include('autenticacion.urls')),
     path('', include('usuarios.urls')),
     path('', include('administrador.urls')),
-    path('', include('embarcaciones.urls'))
+    path('', include('embarcaciones.urls')),
+    path('', include('empleados.urls')),
 ]
