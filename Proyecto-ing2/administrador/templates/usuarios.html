@@ -1,5 +1,9 @@
 {% extends 'layouts/navbar.html' %}
 
+{% block title %}
+    <title>Usuarios</title>
+{% endblock %}
+
 {% block content %}
 
 <div class="header">
@@ -29,7 +33,19 @@
                 <td>{{usuario.apellido}}</td>
                 <td>{{usuario.edad}}</td>
                 <td>
-                    <button class="btn-block">Bloquear</button>
+                    {% if usuario.is_blocked %}
+                        <form action="{% url 'desbloquear usuario' %}" method="post">
+                            {% csrf_token %}
+                            <input type="hidden" name="usuario_id" value="{{ usuario.id }}">
+                            <button type="submit" class="btn-block">Desbloquear</button>
+                        </form>
+                    {% else %}
+                        <form action="{% url 'bloquear usuario' %}" method="post">
+                            {% csrf_token %}
+                            <input type="hidden" name="usuario_id" value="{{ usuario.id }}">
+                            <button type="submit" class="btn-block">Bloquear</button>
+                        </form>
+                    {% endif %}                    
                 </td>
                 <td>
                     <button class="btn-delete">Eliminar</button>

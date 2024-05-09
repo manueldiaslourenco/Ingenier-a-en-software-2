@@ -3,21 +3,18 @@ from usuarios.models import Usuario
 from django.db import IntegrityError
 from django.contrib.auth.decorators import login_required
 from django.urls import reverse_lazy
-from .backend import calcular_edad, es_mayor_de_18
+from .backend import calcular_edad, es_mayor_de_18, chequear_admin
 from .forms import formularioRegistro
 
 @login_required(login_url=reverse_lazy('home'))
 def index(request):
-    usuario_actual = request.user
-    if not usuario_actual.is_superuser:
-        return redirect('home')
+    chequear_admin(request.user)
+    
     return render(request, 'indexadmin.html')
 
 @login_required(login_url=reverse_lazy('home'))
 def usuarios(request):
-    usuario_actual = request.user
-    if not usuario_actual.is_superuser:
-        return redirect('home')
+    chequear_admin(request.user)
     
     usuarios = Usuario.objects.filter(is_staff=False)
     for usuario in usuarios:
@@ -28,9 +25,7 @@ def usuarios(request):
 
 @login_required(login_url=reverse_lazy('home'))
 def empleados(request):
-    usuario_actual = request.user
-    if not usuario_actual.is_superuser:
-        return redirect('home')
+    chequear_admin(request.user)
     
     usuarios = Usuario.objects.filter(is_staff=True).filter(is_superuser=False)
     return render(request, 'empleados.html', {
@@ -39,6 +34,8 @@ def empleados(request):
 
 @login_required(login_url=reverse_lazy('home'))
 def cuestionario_crear_cuenta(request):
+    chequear_admin(request.user)
+    
     ok= False
     form= formularioRegistro()
     if request.method == 'POST':
@@ -67,3 +64,25 @@ def cuestionario_crear_cuenta(request):
             else:
                 form.add_error('fecha_nacimiento', 'Debe ser mayor de edad (+18) para registrarse.')
     return render(request, 'crear_usuario.html', {'form': form, 'ok': ok})
+
+@login_required(login_url=reverse_lazy('home'))
+def bloquear_usuario(request):
+    chequear_admin(request.user)
+    
+    if request.method == 'POST':
+        usuario_id = request.POST.get('usuario_id')
+        usuario = Usuario.objects.get(id=usuario_id)
+        usuario.is_blocked = True
+        usuario.save()
+    return redirect('usuarios')
+
+@login_required(login_url=reverse_lazy('home'))
+def desbloquear_usuario(request):
+    chequear_admin(request.user)
+    
+    if request.method == 'POST':
+        usuario_id = request.POST.get('usuario_id')
+        usuario = Usuario.objects.get(id=usuario_id)
+        usuario.is_blocked = False
+        usuario.save()
+    return redirect('usuarios')
