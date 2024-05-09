@@ -29,3 +29,9 @@ class formularioRegistro(forms.Form):
     def clean_contraseña(self):
         password = self.cleaned_data.get('contraseña')
         return make_password(password)
+    
+class formularioRegistroEmpleado(forms.Form):
+    mail= forms.EmailField(label='mail', max_length=50, error_messages={
+            'required': 'Introduzca el Mail.',
+            'invalid': 'Mail invalido, el mail debe respetar el formato mail@direccion.'
+        })

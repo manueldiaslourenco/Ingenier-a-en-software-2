@@ -1,5 +1,9 @@
 from datetime import datetime, date, timedelta
 from django.shortcuts import redirect
+from django.core.mail import EmailMultiAlternatives
+import random, string
+from django.template.loader import get_template
+from django.conf import settings
 
 
 def calcular_edad(fecha_nacimiento):
@@ -14,3 +18,17 @@ def es_mayor_de_18(fecha_nacimiento):
 def chequear_admin(user):
     if not user.is_superuser:
         return redirect('home')
+    
+def generar_contraseña_aleatoria():
+    caracteres = string.ascii_letters + string.digits
+    contraseña = ''.join(random.choice(caracteres) for _ in range(10))
+    return contraseña
+
+def send_email(mail, contraseña):
+    email = EmailMultiAlternatives(
+        'Tu cuenta se ha creado exitosamente!',
+        'La contraseña para tu nueva cuenta es: %s' % contraseña,
+        settings.EMAIL_HOST_USER,
+        [mail],
+    )
+    email.send()

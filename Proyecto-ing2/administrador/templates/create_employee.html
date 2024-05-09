@@ -1,0 +1,36 @@
+{% extends 'layouts/navbar.html' %}
+
+{% block title %}
+    <title>Crear empleado</title>
+{% endblock %}
+
+{% block content %}
+    <section class="form-main">
+        <div class="form-content">
+            <div class="box">
+                <h2>Crear un empleado</h2>
+                <form action="{% url 'crear empleado' %}" method="post" novalidate>
+                    {% csrf_token %}
+                    <div>
+                        <input type="text" name="mail" placeholder="Mail" maxlength="50" class="input-control" value="{{ form.mail.value|default_if_none:'' }}">
+                        {% if form.mail.errors %}
+                            <div class="error">{{ form.mail.errors }}</div>
+                        {% endif %}
+                    </div>
+                    {% if form.non_field_errors %}
+                    <div class="error">{{ form.non_field_errors }}</div>
+                    {% elif ok == True %}
+                    <div class="window-notice" id="window-notice">  
+                        <div class="content">
+                            <p class="content-text"> La cuenta de empleado ha sido creada exitosamente</p> 
+                            <div class="content-button"><a href="{% url 'empleados' %}">Aceptar</a></div>
+                        </div>
+                    </div>
+                    {% endif %} 
+                    <button type="submit" class="btn-crear_cuenta">Crear cuenta</button>
+
+                </form>
+            </div>
+        </div>
+    </section>
+{% endblock %}

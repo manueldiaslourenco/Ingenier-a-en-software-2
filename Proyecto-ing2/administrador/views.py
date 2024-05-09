@@ -3,14 +3,55 @@ from usuarios.models import Usuario
 from django.db import IntegrityError
 from django.contrib.auth.decorators import login_required
 from django.urls import reverse_lazy
-from .backend import calcular_edad, es_mayor_de_18, chequear_admin
-from .forms import formularioRegistro
+from .backend import calcular_edad, es_mayor_de_18, chequear_admin, generar_contraseña_aleatoria, send_email
+from .forms import formularioRegistro, formularioRegistroEmpleado
+from datetime import date
+from django.contrib.auth.hashers import make_password
 
 @login_required(login_url=reverse_lazy('home'))
 def index(request):
     chequear_admin(request.user)
     
     return render(request, 'indexadmin.html')
+
+@login_required(login_url=reverse_lazy('home'))
+def empleados(request):
+    chequear_admin(request.user)
+    
+    usuarios = Usuario.objects.filter(is_staff=True).filter(is_superuser=False)
+    return render(request, 'empleados.html', {
+        'usuarios' : usuarios
+    })
+
+@login_required(login_url=reverse_lazy('home'))
+def cuestionario_crear_empleado(request):
+    chequear_admin(request.user)
+    
+    ok= False
+    form= formularioRegistroEmpleado()
+    if request.method == 'POST':
+        form = formularioRegistroEmpleado(request.POST)
+        if form.is_valid():
+            email = form.cleaned_data['mail']
+            contraseña = generar_contraseña_aleatoria()
+            print (contraseña)
+            usuario = Usuario(
+                nombre="",
+                apellido="",
+                fecha_nacimiento=date.today(),
+                telefono="0000000000",
+                mail=email,
+                password = make_password(contraseña),
+                is_staff = True
+            )
+            try:
+                usuario.save()
+                ok=True
+                send_email(email,contraseña)
+            except IntegrityError:
+                form.add_error('mail', 'El correo ingresado ya se encuentra registrado.')
+    return render(request, 'create_employee.html', {'form': form, 'ok': ok})
+
 
 @login_required(login_url=reverse_lazy('home'))
 def usuarios(request):
@@ -24,16 +65,7 @@ def usuarios(request):
     })
 
 @login_required(login_url=reverse_lazy('home'))
-def empleados(request):
-    chequear_admin(request.user)
-    
-    usuarios = Usuario.objects.filter(is_staff=True).filter(is_superuser=False)
-    return render(request, 'empleados.html', {
-        'usuarios' : usuarios
-    })
-
-@login_required(login_url=reverse_lazy('home'))
-def cuestionario_crear_cuenta(request):
+def cuestionario_crear_usuario(request):
     chequear_admin(request.user)
     
     ok= False
