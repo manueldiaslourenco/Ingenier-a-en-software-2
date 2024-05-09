@@ -2,6 +2,7 @@
 {% load static %}
 
 {% block style %}
+    <link rel="stylesheet" type="text/css" href="{% static 'styles/register_boat_body.css' %}">
 {% endblock %}
 
 {% block title %}
@@ -22,6 +23,20 @@
         $("#cerrar-sesion").click(function(event){
             event.preventDefault();
             $("#mensaje-cerrar-sesion").toggle();
+        });
+    });
+</script>
+<script>
+    $(document).ready(function(){
+        $("#imagen1").change(function(event){
+            $("#imagen2").toggle();
+        });
+    });
+</script>
+<script>
+    $(document).ready(function(){
+        $("#imagen2").change(function(event){
+            $("#imagen3").toggle();
         });
     });
 </script>
@@ -49,16 +64,16 @@
     <div class="form-content">
         <div class="box">
             <h3>Cargar embarcacion</h3>
-            <form action="{% url 'cargar embarcacion' %}" method="post" novalidate>
+            <form action="{% url 'cargar embarcacion' %}" method="post" enctype="multipart/form-data" novalidate>
                 {% csrf_token %}
                 <div>
-                    <input type="text" name="matricula" placeholder="Matricula" maxlength="50" class="input-control" value="{{ form.matricula.value|default_if_none:'' }}">
+                    <input type="text" name="matricula" placeholder="Matricula" maxlength="50" class="input-control" value="{{ form.matricula.value|default_if_none:'' }}" onkeypress="return (event.charCode >= 48 && event.charCode <= 57 || event.charCode >= 65 && event.charCode <= 90 || event.charCode >= 97 && event.charCode <= 122 || event.charCode == 45)">
                     {% if form.matricula.errors %}
                         <div class="error">{{ form.matricula.errors }}</div>
                     {% endif %}
                 </div>
                 <div>
-                    <input type="text" name="modelo" placeholder="Modelo" maxlength="50" class="input-control" value="{{ form.modelo.value|default_if_none:'' }}">
+                    <input type="text" name="modelo" placeholder="Modelo" maxlength="50" class="input-control" value="{{ form.modelo.value|default_if_none:'' }}" onkeypress="return (event.charCode >= 48 && event.charCode <= 57 || event.charCode >= 65 && event.charCode <= 90 || event.charCode >= 97 && event.charCode <= 122 || event.charCode == 45)">
                     {% if form.modelo.errors %}
                         <div class="error">{{ form.modelo.errors }}</div>
                     {% endif %}
@@ -103,13 +118,42 @@
                 <div>
                     <input id="deudas" type="number" name="deuda" placeholder="Deudas" class="input-control" value="{{ form.deudas.value|default_if_none:'' }}" style="display: none;">
                 </div>
+                <div>
+                    <select name="sede" required>
+                        <option value="">Selecciona una sede</option>
+                        {% for unaSede in sedes %}
+                          <option value="{{ unaSede }}">{{ unaSede }}</option>
+                        {% endfor %}
+                    </select>
+                    {% if form.sede.errors %}
+                        <div class="error">{{ form.sede.errors }}</div>
+                    {% endif %}
+                </div>
+                <div>
+                    <input id="imagen1" type="file" name="imagen1" accept="image/*">
+                </div>
+                {% if form.imagen1.errors %}
+                        <div class="error">{{ form.imagen1.errors }}</div>
+                {% endif %}
+                <div>
+                    <input id="imagen2" type="file" name="imagen2" style="display: none;">
+                </div>
+                {% if form.imagen2.errors %}
+                        <div class="error">{{ form.imagen2.errors }}</div>
+                {% endif %}
+                <div>
+                    <input id="imagen3" type="file" name="imagen3" style="display: none;">
+                </div>
+                {% if form.imagen3.errors %}
+                        <div class="error">{{ form.imagen3.errors }}</div>
+                {% endif %}
                 {% if form.non_field_errors %}
                 <div class="error">{{ form.non_field_errors }}</div>
                 {% elif ok == True %}
                 <div class="window-notice" id="window-notice">  
                     <div class="content">
                         <p class="content-text"> Se cargo la embarcacion con exito</p> 
-                        <div class="content-button"><a href="{% url 'ver perfil' %}">Aceptar</a></div>
+                        <div class="content-button"><a href="{% url 'ver perfil' request.user.id %}">Aceptar</a></div>
                     </div>
                 </div>
                 {% endif %} 

@@ -20,7 +20,6 @@ def cuestionario_iniciar_sesion(request):
             usuario = autenticar_usuario(username=form.cleaned_data['mail'], password=form.cleaned_data['password'])
         
             if usuario is not None:
-                print("El usuario se autenticó correctamente.")
                 if usuario.is_superuser:
                     login(request, usuario)
                     return redirect('admin')
@@ -36,7 +35,7 @@ def cuestionario_iniciar_sesion(request):
 
 def cerrar_sesion(request):
     logout(request)
-    return  redirect('home')
+    return  redirect('iniciar sesion')
 
 def cuestionario_crear_cuenta(request):
     ok= False

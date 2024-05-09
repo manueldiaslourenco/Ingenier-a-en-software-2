@@ -1,4 +1,5 @@
 from django import forms
+from .backend import validar_extensiones
 
 class formularioCargaEmbarcacion(forms.Form):
     matricula = forms.CharField(label='matricula', max_length=50, error_messages={
@@ -39,3 +40,11 @@ class formularioCargaEmbarcacion(forms.Form):
             'max_decimal_places': 'El número ingresado tiene demasiados decimales.',
             'max_whole_digits': 'El número ingresado tiene demasiados dígitos.',
         })
+    
+    sede= forms.CharField(label= 'sede', max_length=50)
+
+    imagen1 = forms.ImageField(label='imagen1', required=False, validators=[validar_extensiones])
+
+    imagen2= forms.ImageField(label='imagen2', required=False, validators=[validar_extensiones])
+
+    imagen3= forms.ImageField(label='imagen3', required=False, validators=[validar_extensiones])

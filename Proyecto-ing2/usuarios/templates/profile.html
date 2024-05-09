@@ -41,13 +41,18 @@
         </div>
         <div class="perfil-usuario-footer">
             <ul class="lista-datos">
-                <li><i class="fa-sharp fa-thin fa-envelope"></i> Mail: {{param.mail}}</li>
+                <li><i class="fa-sharp fa-solid fa-envelope"></i> Mail: {{param.mail}}</li>
                 <li><i class="icono fas fa-phone-alt"></i> Telefono: {{param.telefono}}</li>
                 {% if request.user.id == param.id %}
                 <li><i class="icono fas fa-calendar-alt"></i> Fecha nacimiento:  {{ param.fecha_nacimiento|date:"d-m-Y" }}</li>
                 {% endif %}
-                <li><i class="fa-thin fa-star"></i> Reputacion:</li>
+                <li><i class="fa-solid fa-star"></i> Reputacion:</li>
             </ul>
         </div>
+        {% if request.user.id == param.id %}
+            <div>
+                <a href="{% url 'cargar embarcacion' %}">Cargar embarcacion</a>
+            </div>
+        {% endif %}
     </div>
 {% endblock %}
