@@ -271,3 +271,15 @@ td:nth-child(6) {
     padding: 10px;
     border-radius: 20px;
 }
+
+/* Estilo para las opciones del campo de selección */
+select.input-control option {
+    background-color: #404040; /* Color de fondo */
+    color: whitesmoke; /* Color del texto */
+}
+
+/* Estilo para las opciones del campo de selección al pasar sobre ellas */
+select.input-control option:hover {
+    background-color: #0056b3; /* Cambia el color de fondo al pasar sobre las opciones */
+    color: white; /* Cambia el color del texto al pasar sobre las opciones */
+}

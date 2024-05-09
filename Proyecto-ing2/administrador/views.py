@@ -7,6 +7,7 @@ from .backend import calcular_edad, es_mayor_de_18, chequear_admin, generar_cont
 from .forms import formularioRegistro, formularioRegistroEmpleado
 from datetime import date
 from django.contrib.auth.hashers import make_password
+from empleados.models import EmpleConSede, Sede
 
 @login_required(login_url=reverse_lazy('home'))
 def index(request):
@@ -29,12 +30,14 @@ def cuestionario_crear_empleado(request):
     
     ok= False
     form= formularioRegistroEmpleado()
+    #sedes = list(Sede.objects.all().values_list('nombre', flat=True))
+    sedes = Sede.objects.all()
     if request.method == 'POST':
         form = formularioRegistroEmpleado(request.POST)
         if form.is_valid():
             email = form.cleaned_data['mail']
+            sede = form.cleaned_data['sede']
             contraseña = generar_contraseña_aleatoria()
-            print (contraseña)
             usuario = Usuario(
                 nombre="",
                 apellido="",
@@ -45,12 +48,19 @@ def cuestionario_crear_empleado(request):
                 is_staff = True
             )
             try:
+                #usr_emple = Usuario.objects.get(mail = email)
+                #usr_emple.save()
                 usuario.save()
                 ok=True
+                emple_sede = EmpleConSede.objects.create(
+                    sede = sede,
+                    user = usuario
+                )
+                emple_sede.save()
                 send_email(email,contraseña)
             except IntegrityError:
                 form.add_error('mail', 'El correo ingresado ya se encuentra registrado.')
-    return render(request, 'create_employee.html', {'form': form, 'ok': ok})
+    return render(request, 'create_employee.html', {'form': form, 'ok': ok, 'sedes': sedes})
 
 
 @login_required(login_url=reverse_lazy('home'))

@@ -1,5 +1,6 @@
 from django import forms
 from django.contrib.auth.hashers import make_password
+from empleados.models import Sede
 
 class formularioRegistro(forms.Form):
     nombre = forms.CharField(label='nombre', max_length=50, error_messages={
@@ -35,3 +36,4 @@ class formularioRegistroEmpleado(forms.Form):
             'required': 'Introduzca el Mail.',
             'invalid': 'Mail invalido, el mail debe respetar el formato mail@direccion.'
         })
+    sede = forms.ModelChoiceField(queryset=Sede.objects.all(), empty_label='Seleccione la sede')

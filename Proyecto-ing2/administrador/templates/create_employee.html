@@ -17,6 +17,15 @@
                             <div class="error">{{ form.mail.errors }}</div>
                         {% endif %}
                     </div>
+                    <!--Campo de seleccion de sede-->
+                    <div>
+                        <select name="sede" id="id_sede" class="input-control">
+                            <option value="" selected disabled>Seleccione la sede</option>
+                            {% for sede in sedes %}
+                                <option value="{{ sede.id }}">{{ sede.nombre }}</option>
+                            {% endfor %}
+                        </select>
+                    </div>
                     {% if form.non_field_errors %}
                     <div class="error">{{ form.non_field_errors }}</div>
                     {% elif ok == True %}
