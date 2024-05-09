@@ -142,7 +142,7 @@ a:hover, a:active {
 /* Estilo para las últimas dos columnas */
 td:nth-child(5),
 td:nth-child(6) {
-    width: 80px;
+    width: 100px;
 }
 
 /* Estilo para el formulario principal */
