@@ -24,6 +24,7 @@ def cuestionario_iniciar_sesion(request):
                     login(request, usuario)
                     return redirect('admin')
                 elif usuario.is_staff:
+                    login(request,usuario)
                     return redirect('panel empleados')
                 elif not usuario.is_blocked: 
                     login(request, usuario)
