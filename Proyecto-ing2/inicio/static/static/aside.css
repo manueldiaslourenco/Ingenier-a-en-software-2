@@ -1,0 +1,60 @@
+aside {
+    background-color: #f2f2f2;
+    width: 300px;
+    height: 100vh; /* Toma toda la altura de la pantalla */
+    position: fixed; /* Se mantiene fijo en la pantalla mientras se desplaza */
+    top: 0;
+    left: 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 1;
+}
+
+aside ul {
+    list-style: none;
+    padding: 0;
+}
+
+aside li {
+    margin-bottom: 10px;
+}
+
+aside a {
+    display: block;
+    text-align: center;
+    color: #333;
+    text-decoration: none;
+    border-radius: 5px;
+    transition: background-color 0.3s ease;
+}
+
+aside a:hover {
+    background-color: #ddd;
+}
+
+.button {
+    width: 200px;
+    height: 4vh;
+    border: none;
+    background-color: #ffffff;
+    border-radius: 8px;
+    display: flex;
+    justify-content: center;
+    text-decoration: none;
+    align-items: center;
+    cursor: pointer;
+    letter-spacing: 0.03em;
+    font-weight: 600;
+    font-style: normal;
+    font-size: 1rem;
+    color: #26a5b9;
+    transition: all 0.10s;
+    -webkit-box-shadow: 0px 0px 4px 1px rgba(255,255,255,0);
+    -moz-box-shadow: 0px 0px 4px 1px rgba(255,255,255,0);
+    box-shadow: 0px 0px 4px 1px rgba(255,255,255,0);
+}
+
+.button:hover {
+    box-shadow: 0px 0px 4px 1px rgba(93, 93, 93, 0.5);
+}
