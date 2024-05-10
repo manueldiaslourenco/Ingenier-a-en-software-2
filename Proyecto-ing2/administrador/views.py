@@ -3,7 +3,7 @@ from usuarios.models import Usuario
 from django.db import IntegrityError
 from django.contrib.auth.decorators import login_required
 from django.urls import reverse_lazy
-from .backend import calcular_edad, es_mayor_de_18, chequear_admin, generar_contraseña_aleatoria, send_email
+from .backend import calcular_edad, es_mayor_de_18, generar_contraseña_aleatoria, send_email
 from .forms import formularioRegistro, formularioRegistroEmpleado
 from datetime import date
 from django.contrib.auth.hashers import make_password
@@ -11,13 +11,17 @@ from empleados.models import EmpleConSede, Sede
 
 @login_required(login_url=reverse_lazy('home'))
 def index(request):
-    chequear_admin(request.user)
+    user = request.user
+    if not user.is_superuser:
+        return redirect('home')
     
     return render(request, 'index_admin.html')
 
 @login_required(login_url=reverse_lazy('home'))
 def empleados(request):
-    chequear_admin(request.user)
+    user = request.user
+    if not user.is_superuser:
+        return redirect('home')
     
     usuarios = Usuario.objects.filter(is_staff=True).filter(is_superuser=False)
     return render(request, 'employees.html', {
@@ -26,7 +30,9 @@ def empleados(request):
 
 @login_required(login_url=reverse_lazy('home'))
 def cuestionario_crear_empleado(request):
-    chequear_admin(request.user)
+    user = request.user
+    if not user.is_superuser:
+        return redirect('home')
     
     ok= False
     form= formularioRegistroEmpleado()
@@ -65,7 +71,9 @@ def cuestionario_crear_empleado(request):
 
 @login_required(login_url=reverse_lazy('home'))
 def usuarios(request):
-    chequear_admin(request.user)
+    user = request.user
+    if not user.is_superuser:
+        return redirect('home')
     
     usuarios = Usuario.objects.filter(is_staff=False)
     for usuario in usuarios:
@@ -76,7 +84,9 @@ def usuarios(request):
 
 @login_required(login_url=reverse_lazy('home'))
 def cuestionario_crear_usuario(request):
-    chequear_admin(request.user)
+    user = request.user
+    if not user.is_superuser:
+        return redirect('home')
     
     ok= False
     form= formularioRegistro()
@@ -109,7 +119,9 @@ def cuestionario_crear_usuario(request):
 
 @login_required(login_url=reverse_lazy('home'))
 def bloquear_usuario(request):
-    chequear_admin(request.user)
+    user = request.user
+    if not user.is_superuser:
+        return redirect('home')
     
     if request.method == 'POST':
         usuario_id = request.POST.get('usuario_id')
@@ -120,7 +132,9 @@ def bloquear_usuario(request):
 
 @login_required(login_url=reverse_lazy('home'))
 def desbloquear_usuario(request):
-    chequear_admin(request.user)
+    user = request.user
+    if not user.is_superuser:
+        return redirect('home')
     
     if request.method == 'POST':
         usuario_id = request.POST.get('usuario_id')

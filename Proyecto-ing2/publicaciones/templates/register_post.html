@@ -1,0 +1,79 @@
+{% extends 'layouts/base.html' %}
+{% load static %}
+
+{% block style %}
+    <link rel="stylesheet" type="text/css" href="{% static 'styles/register_boat_body.css' %}">
+{% endblock %}
+
+{% block title %}
+    <title>Crear publicacion</title>
+{% endblock %}
+
+{% block scripts %}
+{% endblock %}
+
+{% block listnav %}
+    {% if request.user.is_authenticated %}
+        <li><a class="normal" href="{% url 'ver perfil' id=request.user.id %}"><i class="fa-solid fa-user"></i></a></li>
+    {% endif %}
+    {% if request.user.is_authenticated %}
+        <li class="modal"><a id="cerrar-sesion" class="normal"  href=""><i class="fa-solid fa-arrow-right-from-bracket"></i></a>
+            <div id="mensaje-cerrar-sesion" class="mensaje" style="display: none;">
+                <p>Estas seguro de cerrar la sesion?</p>
+                <a href="{% url 'cerrar sesion' %}" class="buton2">Confirmar</a>
+            </div>
+        </li>
+    {% else %}
+        <li><a href="{% url 'crear cuenta' %}" class="buton">Crear cuenta</a></li>
+        <li><a href="{% url 'iniciar sesion' %}" class="buton">Iniciar Sesion</a></li>
+    {% endif %}
+{% endblock %}
+
+{% block content %}
+<section class="form-main">
+    <div class="form-content">
+        <div class="box">
+            <h3>Cargar publicacion</h3>
+            <form action="{% url 'crear publicacion' %}" method="post" novalidate>
+                {% csrf_token %}
+
+                <div>
+                    <select name="embarcacion" required>
+                        <option value="">Selecciona una embarcación</option>
+                        {% for unaEmbarcacion in embarcaciones %}
+                          <option value="{{ unaEmbarcacion }}">{{ unaEmbarcacion }}</option>
+                        {% endfor %}
+                    </select>
+                    {% if form.embarcacion.errors %}
+                        <div class="error">{{ form.embarcacion.errors }}</div>
+                    {% endif %}
+                </div>
+
+                <div>
+                    <input type="text" name="descripcion" placeholder="Descripcion" maxlength="250" class="input-control" value="{{ form.descripcion.value|default_if_none:'' }}" onkeypress="return (event.charCode >= 32 && event.charCode <= 59 || event.charCode >= 65 && event.charCode <= 90 || event.charCode >= 97 && event.charCode <= 122 || event.charCode == 63)">
+                    {% if form.descripcion.errors %}
+                        <div class="error">{{ form.descripcion.errors }}</div>
+                    {% endif %}
+                </div>
+
+                <div>
+                    <input id="monto" type="number" name="monto" placeholder="Monto" class="input-control" value="{{ form.monto.value|default_if_none:'' }}">
+                </div>
+                
+                {% if form.non_field_errors %}
+                <div class="error">{{ form.non_field_errors }}</div>
+                {% elif ok == True %}
+                <div class="window-notice" id="window-notice">  
+                    <div class="content">
+                        <p class="content-text"> Se cargo la publicacion con exito</p> 
+                        <div class="content-button"><a href="{% url 'home' %}">Aceptar</a></div>
+                    </div>
+                </div>
+                {% endif %} 
+                <button type="submit" class="btn">Cargar </button>
+
+            </form>
+        </div>
+    </div>
+</section>
+{% endblock %}

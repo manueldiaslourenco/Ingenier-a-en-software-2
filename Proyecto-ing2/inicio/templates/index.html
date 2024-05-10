@@ -46,7 +46,30 @@
 {% block content %}
     <aside>
         <ul>
-            <li><a  class="button">Crear Publicación</a></li>
+            <li><a href="{% url 'crear publicacion' %}" class="button">Crear Publicación</a></li>
         </ul>
     </aside>
+
+    <div>
+        <table>
+            <thead>
+                <tr>
+                    <th>Descripcion</th>
+                    <th>Monto</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for post in publicaciones %}
+        
+                    <tr>
+                        <td>
+                            <a href="{% url 'ver perfil' post.autor.id %}"> {{post.descripcion}} </a>
+                        </td>
+                        <td>{{post.monto}}</td>
+                    </tr>
+        
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
 {% endblock %}

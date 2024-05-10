@@ -13,11 +13,7 @@ def calcular_edad(fecha_nacimiento):
 
 def es_mayor_de_18(fecha_nacimiento):
     hace_18_años = date.today() - timedelta(days=365.25*18)
-    return fecha_nacimiento <= hace_18_años
-
-def chequear_admin(user):
-    if not user.is_superuser:
-        return redirect('home')
+    return fecha_nacimiento <= hace_18_años    
     
 def generar_contraseña_aleatoria():
     caracteres = string.ascii_letters + string.digits
