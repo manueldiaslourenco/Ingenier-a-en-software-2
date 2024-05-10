@@ -8,3 +8,4 @@ def index(request):
     chequear_empleado(request.user)
     
     return render(request, 'employees_index.html')
+
