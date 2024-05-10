@@ -28,17 +28,32 @@
 </script>
 <script>
     $(document).ready(function(){
-        $("#imagen1").change(function(event){
+        $("#imagen1").one('change', function(event){
             $("#imagen2").toggle();
         });
     });
 </script>
 <script>
     $(document).ready(function(){
-        $("#imagen2").change(function(event){
+        $("#imagen2").one('change', function(event){
             $("#imagen3").toggle();
         });
     });
+</script>
+<script>
+    function mostrarImagen(input) {
+        if (input.files && input.files[0]) {
+            var reader = new FileReader();
+            
+            reader.onload = function(e) {
+                // Usa el id del campo de entrada para determinar qué elemento img actualizar
+                var idImagen = 'vistaPrevia' + input.id.charAt(input.id.length - 1);
+                document.getElementById(idImagen).src = e.target.result;
+            }
+            
+            reader.readAsDataURL(input.files[0]);
+        }
+    }
 </script>
 {% endblock %}
 
@@ -107,11 +122,11 @@
                         <div class="error">{{ form.calado.errors }}</div>
                     {% endif %}
                 </div>
-                <div>
+                <div class="checkBox">
                     <p class="input-text"> Tiene motor: </p> 
                     <input type="checkbox" name="motor" class="input-control" >
                 </div>
-                <div>
+                <div class="checkBox">
                     <p class="input-text"> Tiene deudas: </p> 
                     <input id="checkbox-deudas" type="checkbox" name="tiene deudas" class="input-control" >
                 </div>
@@ -130,19 +145,19 @@
                     {% endif %}
                 </div>
                 <div>
-                    <input id="imagen1" type="file" name="imagen1" accept="image/*">
+                    <input id="imagen1" type="file" name="imagen1" accept="image/*" onchange="mostrarImagen(this)">
                 </div>
                 {% if form.imagen1.errors %}
                         <div class="error">{{ form.imagen1.errors }}</div>
                 {% endif %}
                 <div>
-                    <input id="imagen2" type="file" name="imagen2" style="display: none;">
+                    <input id="imagen2" type="file" name="imagen2" onchange="mostrarImagen(this)" style="display: none;">
                 </div>
                 {% if form.imagen2.errors %}
                         <div class="error">{{ form.imagen2.errors }}</div>
                 {% endif %}
                 <div>
-                    <input id="imagen3" type="file" name="imagen3" style="display: none;">
+                    <input id="imagen3" type="file" name="imagen3" onchange="mostrarImagen(this)" style="display: none;">
                 </div>
                 {% if form.imagen3.errors %}
                         <div class="error">{{ form.imagen3.errors }}</div>
@@ -160,6 +175,13 @@
                 <button type="submit" class="btn">Cargar </button>
 
             </form>
+        </div>
+    </div>
+    <div class='imagenesDiv'>
+        <div class='p1'><img id="vistaPrevia1"/></div>
+        <div class='p2'>
+          <img id="vistaPrevia2"/>
+          <img id="vistaPrevia3"/>
         </div>
     </div>
 </section>

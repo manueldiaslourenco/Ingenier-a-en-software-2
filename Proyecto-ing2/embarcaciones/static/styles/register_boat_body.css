@@ -4,10 +4,77 @@
 
 }
 
+
+
+.box {
+  display:flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+  input{
+   padding: 10px 10px 3px 4px;
+   width: 300px;
+   border: none;
+   border-bottom: solid 1px #333;
+   margin: 10px;
+}
+
+form{
+ display:flex;
+  flex-direction: column;
+  max-width:340px;
+}
+
+.checkBox{
+  display:flex;
+  justify-content:flex-start;
+  align-items: center;
+  margin:10px;
+}
+
+select{
+   padding: 10px 10px 3px 4px;
+   width: 313px;
+   border: none;
+   border-bottom: solid 1px #333;
+   margin: 10px;
+}
+
+.input-text{
+  flex-basis: 130px;
+}
+
+.btn{
+  max-width:330px;
+  margin:10px;
+}
+
+.imagenesDiv {
+    position: absolute;
+    top: 50%;
+    left: 70%;
+    transform: translate(-50%, -50%);
+    padding: 20px;
+}
+
+.p1 >img {
+  max-width: 400px ;
+}
+
+.p2{
+  display:flex;
+}
+
+
+.p2 > img {
+  max-width: 200px;
+}
+
 .form-content{
-    position: absolute;     
-    top: 50%;     
-    left: 50%;    
+    position: absolute;
+    top: 50%;
+    left: 25%;
     transform: translate(-50%, -50%);
     border: 1px solid black;
     padding: 20px;
