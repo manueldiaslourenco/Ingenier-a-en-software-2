@@ -43,3 +43,16 @@ class formularioRegistro(forms.Form):
     def clean_contraseña(self):
         password = self.cleaned_data.get('contraseña')
         return make_password(password)
+
+class formularioCambiarContraseña(forms.Form):
+    token = forms.CharField(label='token', error_messages={
+    'required': 'Por favor, introduzca el codigo enviado a su dirección de correo electrónico.',
+    })
+    contraseña= forms.CharField(label='contraseña',max_length=50, min_length=6, 
+            error_messages={
+            'required': 'Por favor, introduce una contraseña.',
+            'min_length': 'La contraseña debe tener mínimo 6 caracteres.'})
+    
+    def clean_contraseña(self):
+        password = self.cleaned_data.get('contraseña')
+        return make_password(password)

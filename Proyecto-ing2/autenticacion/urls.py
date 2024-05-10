@@ -6,5 +6,5 @@ urlpatterns = [
     path('cerrar_sesion/',views.cerrar_sesion, name='cerrar sesion'),
     path('recuperar_contraseña/',views.recuperar_contraseña, name= 'recuperar contraseña'),
     path('crear_cuenta/',views.cuestionario_crear_cuenta, name='crear cuenta'),
-    path('cambiar_contraseña/', views.ingresar_nueva_contrasena, name='ingresar nueva contraseña'),
+    path('cambiar_contraseña/', views.ingresar_nueva_contraseña, name='ingresar nueva contraseña'),
 ]

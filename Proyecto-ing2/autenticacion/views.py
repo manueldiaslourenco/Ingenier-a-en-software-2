@@ -4,7 +4,7 @@ from django.shortcuts import redirect
 from django.contrib.auth import login, logout
 from django.contrib.auth import get_user_model
 from django.shortcuts import HttpResponse
-from .forms import formularioIniciarSesion, formularioRecuperarContraseña, formularioRegistro
+from .forms import formularioIniciarSesion, formularioRecuperarContraseña, formularioRegistro, formularioCambiarContraseña
 from usuarios.models import Usuario
 from .backend import autenticar_usuario, es_mayor_de_18, send_email, generate_key
 
@@ -80,10 +80,33 @@ def recuperar_contraseña(request):
                 usuario= UserModel.objects.get(mail=mail)
                 security_token = generate_key()
                 send_email(mail, security_token)
+                session_id = request.COOKIES.get('sessionid')
+                request.session['token'] = security_token
+                request.session['sessionid'] = session_id
+                request.session['mail'] = mail
                 return redirect('ingresar nueva contraseña')
             except UserModel.DoesNotExist:
                  form.add_error('mail', 'Mail inexistente.')
     return render(request, 'forget_password.html', {'form': form})
 
-def ingresar_nueva_contrasena(request):
-    return HttpResponse("Esta pagina es de prueba")
+def ingresar_nueva_contraseña(request):
+    ok = False
+    form = formularioCambiarContraseña()
+    if request.method == 'POST':
+        form = formularioCambiarContraseña(request.POST)
+        check_session = request.session.pop('sessionid', None)
+        check_token = request.session.pop('token', None)
+        mail = request.session.pop('mail', None)
+        if form.is_valid():
+            session = request.COOKIES.get('sessionid')
+            token = form.cleaned_data['token'] 
+            new_pass = form.cleaned_data['contraseña']
+            if token == check_token and session == check_session:
+                    UserModel = get_user_model()
+                    user = UserModel.objects.get(mail=mail)
+                    user.password = new_pass
+                    user.save()
+                    ok = True
+            else:
+                form.add_error('token', 'El codigo de recuperacion ingresado es incorrecto.')
+    return render(request, 'change_password.html', {'form': form, 'ok': ok})
