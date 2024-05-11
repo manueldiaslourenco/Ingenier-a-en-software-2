@@ -2,11 +2,10 @@
 {% load static %}
 
 {% block style %}
-    <link rel="stylesheet" type="text/css" href="{% static 'styles/register_boat_body.css' %}">
 {% endblock %}
 
 {% block title %}
-    <title>cargar embarcacion</title>
+    <title>Ver detalle embarcacion</title>
 {% endblock %}
 
 {% block scripts %}
@@ -55,7 +54,7 @@
     {% endfor %}
     </div>
     <div>
-        <a href="#">editar</a>
+        <a href="{% url 'editar embarcacion' id_embarcacion %}">editar</a>
     </div>
     <div>
         <div><a id="eliminar-embarcacion" href="">Eliminar embarcacion</a></div>

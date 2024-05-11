@@ -19,14 +19,14 @@ class formularioCargaEmbarcacion(forms.Form):
         })
 
     manga= forms.DecimalField(label='manga',max_digits=10, decimal_places=2, error_messages={
-            'required': 'Por favor, introduce la eslora de la embarcación.',
+            'required': 'Por favor, introduce la manga de la embarcación.',
             'max_digits': 'El número ingresado es demasiado grande.',
             'max_decimal_places': 'El número ingresado tiene demasiados decimales.',
             'max_whole_digits': 'El número ingresado tiene demasiados dígitos.',
         })
 
     calado= forms.DecimalField(label='calado',max_digits=10, decimal_places=2, error_messages={
-            'required': 'Por favor, introduce la eslora de la embarcación.',
+            'required': 'Por favor, introduce el calado de la embarcación.',
             'max_digits': 'El número  ingresado es demasiado grande.',
             'max_decimal_places': 'El número ingresado tiene demasiados decimales.',
             'max_whole_digits': 'El número ingresado tiene demasiados dígitos.',
@@ -42,6 +42,46 @@ class formularioCargaEmbarcacion(forms.Form):
         })
     
     sede= forms.CharField(label= 'sede', max_length=50)
+
+    imagen1 = forms.ImageField(label='imagen1', required=False, validators=[validar_extensiones])
+
+    imagen2= forms.ImageField(label='imagen2', required=False, validators=[validar_extensiones])
+
+    imagen3= forms.ImageField(label='imagen3', required=False, validators=[validar_extensiones])
+
+
+class formularioEditarEmbarcacion(forms.Form):
+    eslora= forms.DecimalField(label='eslora',max_digits=10, decimal_places=2, required=False, error_messages={
+            'required': 'Por favor, introduce la eslora de la embarcación.',
+            'max_digits': 'El número ingresado es demasiado grande.',
+            'max_decimal_places': 'El número ingresado tiene demasiados decimales.',
+            'max_whole_digits': 'El número ingresado tiene demasiados dígitos.',
+        })
+
+    manga= forms.DecimalField(label='manga',max_digits=10, decimal_places=2, required=False, error_messages={
+            'required': 'Por favor, introduce la manga de la embarcación.',
+            'max_digits': 'El número ingresado es demasiado grande.',
+            'max_decimal_places': 'El número ingresado tiene demasiados decimales.',
+            'max_whole_digits': 'El número ingresado tiene demasiados dígitos.',
+        })
+
+    calado= forms.DecimalField(label='calado',max_digits=10, decimal_places=2, required=False, error_messages={
+            'required': 'Por favor, introduce la calado de la embarcación.',
+            'max_digits': 'El número  ingresado es demasiado grande.',
+            'max_decimal_places': 'El número ingresado tiene demasiados decimales.',
+            'max_whole_digits': 'El número ingresado tiene demasiados dígitos.',
+        })
+
+    motor= forms.BooleanField(label= 'motor', initial=False, required=False)
+
+    deuda = forms.DecimalField(label='deuda',max_digits=10, decimal_places=2, initial=0, required=False, error_messages={
+            'required': 'Por favor, introduce la deuda de la embarcación.',
+            'max_digits': 'El número  ingresado es demasiado grande.',
+            'max_decimal_places': 'El número ingresado tiene demasiados decimales.',
+            'max_whole_digits': 'El número ingresado tiene demasiados dígitos.',
+        })
+    
+    sede= forms.CharField(label= 'sede', max_length=50, required=False)
 
     imagen1 = forms.ImageField(label='imagen1', required=False, validators=[validar_extensiones])
 

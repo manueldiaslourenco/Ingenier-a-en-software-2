@@ -1,9 +1,12 @@
-from django.shortcuts import render
+import os
+from django.conf import settings
+from django.core.files.storage import FileSystemStorage
+from django.shortcuts import render, redirect
 from django.contrib.auth.decorators import login_required
 from django.urls import reverse_lazy
-from django.shortcuts import redirect
-from .forms import formularioCargaEmbarcacion
+from .forms import formularioCargaEmbarcacion, formularioEditarEmbarcacion
 from .models import TipoEmbarcacion, Embarcacion, ImagenEmbarcacion
+from publicaciones.models import Publicacion
 from empleados.models import Sede
 from .backend import cargar_embarcacion_back, eliminar_logicamente_embarcacion, eliminar_imagenes_y_objeto_tabla
 
@@ -70,9 +73,65 @@ def eliminar_embarcacion(request, id_embarcacion):
         if embarcacion.dueño.id == request.user.id or request.user.is_superuser:
             eliminar_logicamente_embarcacion(embarcacion)
             eliminar_imagenes_y_objeto_tabla(id_embarcacion)
+            publicaciones= Publicacion.objects.filter(embarcacion= embarcacion.id)
+            for publi in publicaciones:
+                publi.delete()
             #mostrar cartel lindo de eliminacion correcta
             return redirect('ver perfil', id= request.user.id)
         else:
             return render(request, '404_not_found.html')
     except Embarcacion.DoesNotExist:
         return render(request, '404_not_found.html')
+    
+@login_required(login_url=reverse_lazy('home'))
+def editar_embarcacion(request, id_embarcacion):
+    form = formularioEditarEmbarcacion()
+    fs = FileSystemStorage()
+    sedes = list(Sede.objects.all().values_list('nombre', flat=True))
+    try:
+        embarcacion= Embarcacion.objects.exclude(matricula__startswith='*').get(id= id_embarcacion)
+        if embarcacion.dueño.id == request.user.id:
+            imagenes_a_cargar= ImagenEmbarcacion.objects.filter(embarcacion= embarcacion.id)
+            if request.method == 'POST':
+                form = formularioEditarEmbarcacion(request.POST, request.FILES)
+                if form.is_valid():
+                    embarcacion.m_eslora = form.cleaned_data.get('eslora')
+                    embarcacion.m_manga = form.cleaned_data.get('manga')
+                    embarcacion.m_calado = form.cleaned_data.get('calado')
+                    embarcacion.motor = form.cleaned_data.get('motor')
+                    if form.cleaned_data.get('deuda') != None:
+                        embarcacion.deuda = form.cleaned_data.get('deuda')
+                    else:
+                        embarcacion.deuda = 0
+                    if form.cleaned_data.get('sede') != None:
+                        embarcacion.sede.nombre = form.cleaned_data.get('sede')
+                    
+                    # Guarda los cambios en la base de datos
+                    embarcacion.save()
+                    imagenes_actuales = ImagenEmbarcacion.objects.filter(embarcacion=embarcacion)
+
+                    for i in range(1, 4):
+                        imagen_field = form.cleaned_data.get(f'imagen{i}')
+                        if imagen_field:
+                            try:
+                                imagen = imagenes_actuales.get(nombre_especifico=f"{embarcacion.id}{chr(96 + i)}.png")
+                                # Borra el archivo de imagen antiguo del sistema de archivos
+                                if os.path.isfile(os.path.join(settings.MEDIA_ROOT, imagen.nombre_especifico)):
+                                    os.remove(os.path.join(settings.MEDIA_ROOT, imagen.nombre_especifico))
+                                # Guarda la nueva imagen con el mismo nombre de archivo
+                                fs.save(imagen.nombre_especifico, imagen_field)
+                            except ImagenEmbarcacion.DoesNotExist:
+                                # Crea una nueva imagen si no existía una imagen antigua
+                                imagen_id = f"{embarcacion.id}{chr(96 + len(imagenes_actuales) + 1)}.png"
+                                fs.save(imagen_id, imagen_field)
+                                ImagenEmbarcacion.objects.create(
+                                nombre_especifico=imagen_id,
+                                embarcacion=embarcacion,
+                                )
+                    return redirect('ver detalle embarcacion', id_embarcacion= embarcacion.id)
+        else:
+            return render(request, '404_not_found.html')
+    except Embarcacion.DoesNotExist:
+        return render(request, '404_not_found.html')
+    
+    return render(request, 'edit_boat.html', {'form': form,'embarcacion': embarcacion, 'imagenes': imagenes_a_cargar, 'sedes': sedes})

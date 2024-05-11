@@ -30,7 +30,7 @@
         $("#indice2").click(function(event){
             event.preventDefault();
             $(".caja").hide();
-            $("#caja2").show();
+            //$("#caja2").show();
         });
         $("#indice3").click(function(event){
             event.preventDefault();
@@ -40,7 +40,7 @@
         $("#indice4").click(function(event){
             event.preventDefault();
             $(".caja").hide();
-            $("#caja4").show();
+            //$("#caja4").show();
         });
     });
 </script>
@@ -107,9 +107,20 @@
                     </div>
                 </div>
                 <div id="caja3" class="caja" style="display: none;">
-                    <div>
-                        <h3>No existen publicaciones activas</h3>
-                    </div>
+                    {% if publicaciones %}
+                        <div>
+                            <h3>Publicaciones:</h3>
+                        </div>
+                        {% for publicacion in publicaciones %}
+                            <div>
+
+                            </div>
+                        {% endfor %}
+                    {% else %}
+                        <div>
+                            <h3>No existen publicaciones activas</h3>
+                        </div>
+                    {% endif %}
                 </div>
                 <div id="caja4" class="caja" style="display: none;">
                     <div>

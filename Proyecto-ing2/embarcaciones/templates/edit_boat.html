@@ -1,0 +1,192 @@
+{% extends 'layouts/base.html' %}
+{% load static %}
+
+{% block style %}
+    <link rel="stylesheet" type="text/css" href="{% static 'styles/register_boat_body.css' %}">
+{% endblock %}
+
+{% block title %}
+    <title>Editar embarcacion</title>
+{% endblock %}
+
+{% block scripts %}
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+<script>
+    $(document).ready(function(){
+        $("#cerrar-sesion").click(function(event){
+            event.preventDefault();
+            $("#mensaje-cerrar-sesion").toggle();
+        });
+    });
+</script>
+<script>
+    $(document).ready(function(){
+        $("#checkbox-deudas").change(function(event){
+            $("#deudas").toggle();
+        });
+    });
+</script>
+<script>
+    $(document).ready(function(){
+    if ($("#vistaPrevia2").attr('src')) {
+        $("#imagen2").show();
+    }
+    else {
+        $("#imagen1").one('change', function(event){
+            $("#imagen2").toggle();
+        });
+    }
+    });
+</script>
+<script>
+    $(document).ready(function(){
+    if ($("#vistaPrevia3").attr('src')) {
+        $("#imagen3").show();
+    }
+    else {
+        $("#imagen2").one('change', function(event){
+            $("#imagen3").toggle();
+        });
+    }
+    });
+</script>
+<script>
+    function mostrarImagen(input) {
+        if (input.files && input.files[0]) {
+            var reader = new FileReader();
+            
+            reader.onload = function(e) {
+                // Usa el id del campo de entrada para determinar qué elemento img actualizar
+                var idImagen = 'vistaPrevia' + input.id.charAt(input.id.length - 1);
+                document.getElementById(idImagen).src = e.target.result;
+            }
+            
+            reader.readAsDataURL(input.files[0]);
+        }
+    }
+</script>
+{% endblock %}
+
+{% block listnav %}
+    {% if request.user.is_authenticated %}
+        <li><a class="normal" href="{% url 'ver perfil' id=request.user.id %}"><i class="fa-solid fa-user"></i></a></li>
+    {% endif %}
+    {% if request.user.is_authenticated %}
+        <li class="modal"><a id="cerrar-sesion" class="normal"  href=""><i class="fa-solid fa-arrow-right-from-bracket"></i></a>
+            <div id="mensaje-cerrar-sesion" class="mensaje" style="display: none;">
+                <p>Estas seguro de cerrar la sesion?</p>
+                <a href="{% url 'cerrar sesion' %}" class="buton2">Confirmar</a>
+            </div>
+        </li>
+    {% else %}
+        <li><a href="{% url 'crear cuenta' %}" class="buton">Crear cuenta</a></li>
+        <li><a href="{% url 'iniciar sesion' %}" class="buton">Iniciar Sesion</a></li>
+    {% endif %}
+{% endblock %}
+
+{% block content %}
+<section class="form-main">
+    <div class="form-content">
+        <div class="box">
+            <h3>Editar embarcacion</h3>
+            <form action="{% url 'editar embarcacion' embarcacion.id %}" method="post" enctype="multipart/form-data" novalidate>
+                {% csrf_token %}
+                <div>
+                    <input type="text" name="matricula"  class="input-control" value="{{ embarcacion.matricula }}" readonly>
+                </div>
+                <div>
+                    <input type="text" name="modelo"  class="input-control" value="{{ embarcacion.modelo }}" readonly>
+                </div>
+                <div>
+                    <input type="text" name="tipo"  class="input-control" value="{{ embarcacion.tipo.clase }}" readonly>
+                </div>
+                <div>
+                    <input type="text" name="eslora" placeholder="Medida eslora" class="input-control" value="{{ form.calado.value|default_if_none:embarcacion.m_eslora }}" onkeypress="return (event.charCode >= 48 && event.charCode <= 57 || event.charCode == 46)">
+                    {% if form.eslora.errors %}
+                        <div class="error">{{ form.eslora.errors }}</div>
+                    {% endif %}
+                </div>
+                <div>
+                    <input type="text" name="manga" placeholder="Medida manga" class="input-control" value="{{ form.calado.value|default_if_none:embarcacion.m_manga }}" onkeypress="return (event.charCode >= 48 && event.charCode <= 57 || event.charCode == 46)">
+                    {% if form.manga.errors %}
+                        <div class="error">{{ form.manga.errors }}</div>
+                    {% endif %}
+                </div>
+                <div>
+                    <input type="text" name="calado" placeholder="Medida calado" class="input-control" value="{{ form.calado.value|default_if_none:embarcacion.m_calado }}" onkeypress="return (event.charCode >= 48 && event.charCode <= 57 || event.charCode == 46)">
+                    {% if form.calado.errors %}
+                        <div class="error">{{ form.calado.errors }}</div>
+                    {% endif %}
+                </div>
+                <div class="checkBox">
+                    <p class="input-text"> Tiene motor: </p> 
+                    {% if embarcacion.motor %}
+                        <input type="checkbox" name="motor" class="input-control" checked>
+                    {% else %}
+                        <input type="checkbox" name="motor" class="input-control" >
+                    {% endif %}
+                </div>
+                <div class="checkBox">
+                    <p class="input-text"> Tiene deudas: </p> 
+                    {% if embarcacion.deuda != 0 %}
+                        <input id="checkbox-deudas" type="checkbox" name="tiene deudas" class="input-control" checked>
+                    {% else %}
+                        <input id="checkbox-deudas" type="checkbox" name="tiene deudas" class="input-control" >
+                    {% endif %}
+                </div>
+                <div>
+                    {% if embarcacion.deuda != 0 %}
+                        <input id="deudas" type="number" name="deuda" placeholder="Deudas" class="input-control" value="{{ form.deudas.value|default_if_none:embarcacion.deuda }}" style="display: inline-block">
+                    {% else %}
+                        <input id="deudas" type="number" name="deuda" placeholder="Deudas" class="input-control" value="{{ form.deudas.value|default_if_none:'' }}" style="display: none;">
+                    {% endif %}
+                </div>
+                <div>
+                    <select name="sede" required>
+                        <option value="embarcacion.sede.nombre">{{ embarcacion.sede.nombre }}</option>
+                        {% for unaSede in sedes %}
+                          <option value="{{ unaSede }}">{{ unaSede }}</option>
+                        {% endfor %}
+                    </select>
+                    {% if form.sede.errors %}
+                        <div class="error">{{ form.sede.errors }}</div>
+                    {% endif %}
+                </div>
+                <div>
+                    <input id="imagen1" type="file" name="imagen1" accept="image/*" onchange="mostrarImagen(this)">
+                </div>
+                {% if form.imagen1.errors %}
+                        <div class="error">{{ form.imagen1.errors }}</div>
+                {% endif %}
+                <div>
+                    <input id="imagen2" type="file" name="imagen2" onchange="mostrarImagen(this)" style="display: none;">
+                </div>
+                {% if form.imagen2.errors %}
+                        <div class="error">{{ form.imagen2.errors }}</div>
+                {% endif %}
+                <div>
+                    <input id="imagen3" type="file" name="imagen3" onchange="mostrarImagen(this)" style="display: none;">
+                </div>
+                {% if form.imagen3.errors %}
+                        <div class="error">{{ form.imagen3.errors }}</div>
+                {% endif %}
+                {% if form.non_field_errors %}
+                <div class="error">{{ form.non_field_errors }}</div>
+                {% endif %}
+                <button type="submit" class="btn">Guardar Cambios</button>
+
+            </form>
+        </div>
+    </div>
+    <div class='imagenesDiv'>
+        <div class='p1'>
+            <img id="vistaPrevia1" {% if imagenes|length >= 1 %}src="{% static 'imagenes_embarcaciones/'|add:imagenes.0.nombre_especifico %}"{% endif %}>
+        </div>
+        <div class='p2'>
+            <img id="vistaPrevia2" {% if imagenes|length >= 2 %}src="{% static 'imagenes_embarcaciones/'|add:imagenes.1.nombre_especifico %}"{% endif %}>
+            <img id="vistaPrevia3" {% if imagenes|length >= 3 %}src="{% static 'imagenes_embarcaciones/'|add:imagenes.2.nombre_especifico %}"{% endif %}>
+        </div>
+    </div>
+</section>
+
+{% endblock %}
