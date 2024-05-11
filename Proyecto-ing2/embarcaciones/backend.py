@@ -1,6 +1,9 @@
+import os
+from django.conf import settings
 from django.core.files.storage import FileSystemStorage
 from django.core.exceptions import ValidationError
 from django.db import IntegrityError
+from django.utils import timezone
 from .models import Embarcacion, ImagenEmbarcacion, TipoEmbarcacion
 from usuarios.models import Usuario
 from empleados.models import Sede
@@ -9,13 +12,9 @@ from empleados.models import Sede
 def guardar_imagenes(imagenes, embarcacion):
     fs = FileSystemStorage()
     for i, imagen in enumerate(imagenes, start=1):
-    # Crear el identificador único de la imagen
         imagen_id = f"{embarcacion.id}{chr(96 + i)}.png"
-    
-    # Guardar la imagen en el sistema de archivos
         fs.save(imagen_id, imagen)
-    
-    # Crear el objeto ImagenEmbarcacion y guardarlo en la base de datos
+
         ImagenEmbarcacion.objects.create(
             nombre_especifico=imagen_id,
             embarcacion=embarcacion,
@@ -23,14 +22,8 @@ def guardar_imagenes(imagenes, embarcacion):
 
 def cargar_embarcacion_back(lista, imagenes, form):
     sede = Sede.objects.get(nombre= lista[0])
-
-    # Obtén el usuario que será el dueño de la embarcación
     usuario = Usuario.objects.get(mail= lista[1])
-
-    # Obtén el tipo de embarcación
     tipo = TipoEmbarcacion.objects.get(clase= lista[2])
-
-    # Crea una nueva embarcación
     try:
         embarcacion = Embarcacion.objects.create(
             matricula= lista[3],
@@ -51,3 +44,19 @@ def cargar_embarcacion_back(lista, imagenes, form):
 def validar_extensiones(value):
     if not value.name.endswith(('.jpg', '.png')):
         raise ValidationError('Por favor, sube una imagen .jpg o .png')
+    
+def eliminar_logicamente_embarcacion(objeto):
+    timestamp = timezone.now().strftime('%Y%m%d%H%M%S')
+    objeto.matricula = '*' + objeto.matricula + timestamp
+    objeto.save()
+
+def eliminar_imagenes_y_objeto_tabla(id_embarcacion):
+    imagenes = ImagenEmbarcacion.objects.filter(embarcacion_id=id_embarcacion)
+
+    for imagen in imagenes:
+        #ruta al archivo
+        file_path = os.path.join(settings.MEDIA_ROOT, imagen.nombre_especifico)
+
+        if os.path.isfile(file_path):
+            os.remove(file_path)
+        imagen.delete()

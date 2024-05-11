@@ -1,0 +1,86 @@
+@import url('https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap');
+.row {
+    max-width: 75rem;
+    margin-right: auto;
+    margin-left: auto;
+}
+
+.row:not(.expanded) .row {
+    max-width: none;
+}
+
+@media print, screen and (min-width: 64em) {
+    .row .row {
+        margin-right: -.9375rem;
+        margin-left: -.9375rem;
+    }
+}
+
+.content {
+    font-family: Poppins, sans-serif;
+    color: #fff;
+    background-color: none;
+    z-index: 2;
+    position: absolute;
+    top: 50%;
+    -webkit-transform: translateY(-50%);
+    -ms-transform: translateY(-50%);
+    transform: translateY(-50%);
+}
+
+.btn{
+    cursor: pointer;
+    display: inline-block;
+    margin-right: .625rem;
+    font-size: 1em;
+    font-weight: 400;
+    padding: 10px 15px;
+    text-transform: uppercase;
+    font-family: Poppins, sans-serif;
+    color: #fff;
+    border-radius: .375rem;
+    -webkit-border-radius: .375rem;
+    -o-border-radius: .375rem;
+    -moz-border-radius: .375rem;
+    -ms-border-radius: .375rem;
+    background: #26a5b9;
+    text-align: center;
+}
+
+.btn.btn-grey{
+    border: 1px solid #c4c4be;
+    background: 0 0;
+}
+
+.btn.btn-info{
+    border: 1px solid #26a5b9;
+    background: 0 0;
+}
+
+.btn.btn-info:hover {
+    background-color: #26a5b9;
+}
+
+.btn.btn-grey:hover {
+    background-color: #c4c4be;
+}
+
+a {
+    line-height: inherit;
+    text-decoration: none;
+    cursor: pointer;
+}
+
+body {
+    font-style: normal;
+    font-weight: 400;
+    -ms-text-size-adjust: 100%;
+    text-size-adjust: 100%;
+    font-size: 15px;
+    color: #ddd;
+    background: #a9cecf;
+    outline: 0;
+    text-rendering: optimizeLegibility;
+    -webkit-font-smoothing: antialiased;
+    overflow-x: hidden;
+}

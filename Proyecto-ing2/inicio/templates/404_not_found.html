@@ -1,0 +1,93 @@
+{% load static %}
+<!DOCTYPE html>
+
+<html lang="en">
+<head>
+  
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=0">
+
+<link rel="stylesheet" href="{% static 'static/404.css' %}">
+<style>
+    h1,
+    h2 {
+      margin-top: 0;
+      font-family: Oswald;
+      text-transform: uppercase;
+    }
+
+    body,
+    html {
+      z-index: 5;
+      width: 100%;
+      height: 100%;
+      margin: 0;
+      padding: 0;
+      background-color: #000;
+      overflow: hidden;
+    }
+
+    .content {
+      font-family: Poppins, sans-serif;
+      color: #fff;
+      background-color: none;
+      z-index: 2;
+      position: absolute;
+      top: 50%;
+      -webkit-transform: translateY(-50%);
+      -ms-transform: translateY(-50%);
+      transform: translateY(-50%);
+    }
+
+    h1 {
+      font-size: 160px;
+      margin-bottom: 0
+    }
+
+    h2 {
+      max-width: 700px;
+      font-size: 30px;
+      width: 100%;
+    }
+
+    p {
+      text-align: left;
+    }
+
+    #page_not_found_helper {
+      margin-bottom: 32px;
+    }
+
+    .notfound-background {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background-color: #a9cecf;
+      background-size: cover;
+      opacity: .5;
+    }
+  </style>
+
+<title id="404">404 - Página no encontrada</title>
+</head>
+
+<body>
+<div class="notfound-background"></div>
+<div class="row">
+<div class="row content">
+<div class="col-lg-12"></div>
+<div class="col-lg-8">
+<h1>404</h1>
+<h2 id="page_not_found_subtitle">Página no encontrada</h2>
+<p id="page_not_found_description">La página que estás buscando no existe.</p>
+<p id="page_not_found_helper">Verifica la URL que ingresaste o elige una opción debajo.</p>
+<a id="page_not_found_back_button_text" href="" class="btn btn-grey">Volver</a>
+<a id="page_not_found_go_to_home_button_text" href="{% url 'home' %}" class="btn btn-info">Ir a la página de inicio</a>
+</div>
+</div>
+</div>
+
+</body></html>

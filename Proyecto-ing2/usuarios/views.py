@@ -1,9 +1,9 @@
 from django.shortcuts import render
 from django.shortcuts import redirect
-from django.shortcuts import HttpResponse
 from django.contrib.auth import get_user_model
 from django.contrib.auth.decorators import login_required
 from django.urls import reverse_lazy
+from embarcaciones.models import Embarcacion
 
 @login_required(login_url=reverse_lazy('home'))
 def ver_perfil(request, id):
@@ -15,10 +15,16 @@ def ver_perfil(request, id):
             return redirect('admin')
         elif usuario.is_staff and usuario_actual.is_staff:
             return redirect('panel empleados')
+        elif usuario.is_staff:
+            return render(request, '404_not_found.html')
         elif usuario.is_superuser:
-            return HttpResponse("Este elemento no existe.")
+            return render(request, '404_not_found.html')
         else:
-            return render(request, 'profile.html', {'param': usuario})
+            try:
+                embarcaciones = Embarcacion.objects.exclude(matricula__startswith='*').filter(dueño= id)
+            except Embarcacion.DoesNotExist:
+                embarcaciones= []
+            return render(request, 'profile.html', {'param': usuario, 'embarcaciones': embarcaciones})
         
     except UserModel.DoesNotExist:
-        return HttpResponse("Este elemento no existe.")
+        return render(request, '404_not_found.html')

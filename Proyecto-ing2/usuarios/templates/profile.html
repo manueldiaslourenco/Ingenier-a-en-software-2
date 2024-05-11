@@ -2,6 +2,7 @@
 {% load static %}
 
 {% block style %}
+    <link rel="stylesheet" type="text/css" href="{% static 'styles/profile_body.css' %}">
 {% endblock %}
 
 {% block title %}
@@ -15,6 +16,31 @@
         $("#cerrar-sesion").click(function(event){
             event.preventDefault();
             $("#mensaje-cerrar-sesion").toggle();
+        });
+    });
+</script>
+<script>
+    $(document).ready(function(){
+        $("#indice1").click(function(event){
+            event.preventDefault();
+            $(".caja").hide(); // Oculta todas las cajas
+            $("#caja1").show(); // Muestra la caja correspondiente
+        });
+        //no borrar imp para el futuro
+        $("#indice2").click(function(event){
+            event.preventDefault();
+            $(".caja").hide();
+            $("#caja2").show();
+        });
+        $("#indice3").click(function(event){
+            event.preventDefault();
+            $(".caja").hide();
+            $("#caja3").show();
+        });
+        $("#indice4").click(function(event){
+            event.preventDefault();
+            $(".caja").hide();
+            $("#caja4").show();
         });
     });
 </script>
@@ -52,6 +78,44 @@
         {% if request.user.id == param.id %}
             <div>
                 <a href="{% url 'cargar embarcacion' %}">Cargar embarcacion</a>
+            </div>
+            <div class="container">
+                <a href="#" id="indice1"><i class="fa-solid fa-sailboat"></i> Embarcaciones</a>
+                <a href="#" id="indice2"><i class="fa-solid fa-truck-pickup"></i> Vehiculos</a>
+                <a href="#" id="indice3"><i class="fa-solid fa-arrow-up-from-bracket"></i> Publicaciones</a>
+                <a href="#" id="indice4"><i class="fa-solid fa-arrow-right-arrow-left"></i> Trueques</a>
+            
+                <div id="caja1" class="caja" style="display: none;">
+                    {% if embarcaciones %}
+                        <div>
+                            <h3>Embarcaciones:</h3>
+                        </div>
+                        {% for embarcacion in embarcaciones %}
+                            <div>
+                                <a href="{% url 'ver detalle embarcacion' embarcacion.id %}">Matricula: {{embarcacion.matricula}}, Tipo: {{embarcacion.tipo.clase}}, modelo: {{embarcacion.modelo}}, sede: {{embarcacion.sede.nombre}}, deuda: {{embarcacion.deuda}} </a>
+                            </div>
+                        {% endfor %}
+                    {% else %}
+                        <div>
+                            <h3>No existen embarcaciones cargadas</h3>
+                        </div>
+                    {% endif %}
+                </div>
+                <div id="caja2" class="caja" style="display: none;">
+                    <div>
+                        <h3>No existen vehiculos cargados</h3>
+                    </div>
+                </div>
+                <div id="caja3" class="caja" style="display: none;">
+                    <div>
+                        <h3>No existen publicaciones activas</h3>
+                    </div>
+                </div>
+                <div id="caja4" class="caja" style="display: none;">
+                    <div>
+                        <h3>No existen trueques cargados</h3>
+                    </div>
+                </div>
             </div>
         {% endif %}
     </div>

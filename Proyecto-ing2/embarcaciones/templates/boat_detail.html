@@ -1,0 +1,69 @@
+{% extends 'layouts/base.html' %}
+{% load static %}
+
+{% block style %}
+    <link rel="stylesheet" type="text/css" href="{% static 'styles/register_boat_body.css' %}">
+{% endblock %}
+
+{% block title %}
+    <title>cargar embarcacion</title>
+{% endblock %}
+
+{% block scripts %}
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+<script>
+    $(document).ready(function(){
+        $("#cerrar-sesion").click(function(event){
+            event.preventDefault();
+            $("#mensaje-cerrar-sesion").toggle();
+        });
+    });
+</script>
+<script>
+    $(document).ready(function(){
+        $("#eliminar-embarcacion").click(function(event){
+            event.preventDefault();
+            $("#mensaje-eliminar-embarcacion").toggle();
+        });
+    });
+</script>
+{% endblock %}
+
+{% block listnav %}
+    {% if request.user.is_authenticated %}
+        <li><a class="normal" href="{% url 'ver perfil' id=request.user.id %}"><i class="fa-solid fa-user"></i></a></li>
+    {% endif %}
+    {% if request.user.is_authenticated %}
+        <li class="modal"><a id="cerrar-sesion" class="normal"  href=""><i class="fa-solid fa-arrow-right-from-bracket"></i></a>
+            <div id="mensaje-cerrar-sesion" class="mensaje" style="display: none;">
+                <p>Estas seguro de cerrar la sesion?</p>
+                <a href="{% url 'cerrar sesion' %}" class="buton2">Confirmar</a>
+            </div>
+        </li>
+    {% else %}
+        <li><a href="{% url 'crear cuenta' %}" class="buton">Crear cuenta</a></li>
+        <li><a href="{% url 'iniciar sesion' %}" class="buton">Iniciar Sesion</a></li>
+    {% endif %}
+{% endblock %}
+
+{% block content %}
+    <div>
+    {% for imagen in imagenes %}
+        {% with 'imagenes_embarcaciones/'|add:imagen.nombre_especifico as ruta_imagen %}
+        <img src="{% static ruta_imagen %}">
+        {% endwith %}
+    {% endfor %}
+    </div>
+    <div>
+        <a href="#">editar</a>
+    </div>
+    <div>
+        <div><a id="eliminar-embarcacion" href="">Eliminar embarcacion</a></div>
+        <div id="mensaje-eliminar-embarcacion" style="display: none;">
+        <p>Estas seguro de eliminar la embarcación?</p>
+        <a href="{% url 'eliminar embarcacion' id_embarcacion %}">Confirmar</a>
+        </div>
+    </div>
+
+
+{% endblock %}
