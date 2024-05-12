@@ -3,7 +3,6 @@ from django.shortcuts import render
 from django.shortcuts import redirect
 from django.contrib.auth import login, logout
 from django.contrib.auth import get_user_model
-from django.shortcuts import HttpResponse
 from .forms import formularioIniciarSesion, formularioRecuperarContraseña, formularioRegistro, formularioCambiarContraseña
 from usuarios.models import Usuario
 from .backend import autenticar_usuario, es_mayor_de_18, send_email, generate_key

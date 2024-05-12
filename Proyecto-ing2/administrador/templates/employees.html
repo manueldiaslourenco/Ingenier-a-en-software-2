@@ -11,27 +11,29 @@
     <a href="{% url 'crear empleado' %}" class="btn btn-primary">Crear nuevo empleado</a>
 </div>
 
-<table>
-    <thead>
-        <tr>
-            <th>Mail</th>
-            <th>Nombre</th>
-            <th>Apellido</th>
-        </tr>
-    </thead>
-    <tbody>
-
-        {% for usuario in usuarios %}
-
+{% if empleados %}
+    <table>
+        <thead>
             <tr>
-                <td>{{usuario.mail}}</td>
-                <td>{{usuario.nombre}}</td>
-                <td>{{usuario.apellido}}</td>
+                <th>Mail</th>
+                <th>Sede</th>
             </tr>
+        </thead>
+        <tbody>
 
-        {% endfor %}
+            {% for empleado in empleados %}
 
-    </tbody>
-</table>
+                <tr>
+                    <td>{{empleado.mail}}</td>
+                    <td>{{empleado.sede}}</td>
+                </tr>
+
+            {% endfor %}
+
+        </tbody>
+    </table>
+{% else %}
+    <h3>No existen empleados en la plataforma.</h3>
+{% endif %}
 
 {% endblock %}

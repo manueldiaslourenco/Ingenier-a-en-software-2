@@ -23,7 +23,6 @@ def cuestionario_cargar_publicacion(request):
             lista.append(form.cleaned_data['embarcacion'])
             lista.append(form.cleaned_data['monto'])
             lista.append(form.cleaned_data['descripcion'])
-            cargar_publicacion_back(lista, form)
-            ok= True
+            ok = cargar_publicacion_back(lista, form)
 
     return render(request, 'register_post.html', {'form': form, 'ok': ok, 'embarcaciones':  matriculas_embarcaciones})

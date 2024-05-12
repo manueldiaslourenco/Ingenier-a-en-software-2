@@ -50,26 +50,13 @@
         </ul>
     </aside>
 
-    <div>
-        <table>
-            <thead>
-                <tr>
-                    <th>Descripcion</th>
-                    <th>Monto</th>
-                </tr>
-            </thead>
-            <tbody>
-                {% for post in publicaciones %}
-        
-                    <tr>
-                        <td>
-                            <a href="{% url 'ver perfil' post.autor.id %}"> {{post.descripcion}} </a>
-                        </td>
-                        <td>{{post.monto}}</td>
-                    </tr>
-        
-                {% endfor %}
-            </tbody>
-        </table>
+    <div class="publicacion-container">
+        {% for post in publicaciones %}
+            <div class="publicacion">
+                <a href="{% url 'ver perfil' post.autor.id %}" >{{ post.embarcacion.modelo }}</a>
+                <p>{{ post.descripcion }}</p>
+                <p>{{ post.monto }}</p>
+            </div>
+        {% endfor %}
     </div>
 {% endblock %}

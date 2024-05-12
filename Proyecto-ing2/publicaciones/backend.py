@@ -29,5 +29,7 @@ def cargar_publicacion_back(lista, form):
             autor=usuario
         )
         publicacion.save()
+        return True
     except IntegrityError:
         form.add_error('embarcacion', 'La embarcacion ingresada ya cuenta con una publicación.')
+        return False

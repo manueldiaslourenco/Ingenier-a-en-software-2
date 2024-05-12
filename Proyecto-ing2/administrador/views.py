@@ -23,9 +23,13 @@ def empleados(request):
     if not user.is_superuser:
         return redirect('home')
     
-    usuarios = Usuario.objects.filter(is_staff=True).filter(is_superuser=False)
+    empleados = Usuario.objects.filter(is_staff=True, is_superuser=False)
+    for empleado in empleados:
+        emple_sede = EmpleConSede.objects.get(user_id=empleado.id)
+        sede = Sede.objects.get(id=emple_sede.sede_id)
+        empleado.sede = sede.nombre
     return render(request, 'employees.html', {
-        'usuarios' : usuarios
+        'empleados' : empleados
     })
 
 @login_required(login_url=reverse_lazy('home'))
@@ -128,7 +132,7 @@ def bloquear_usuario(request):
         usuario = Usuario.objects.get(id=usuario_id)
         usuario.is_blocked = True
         usuario.save()
-    return redirect('usuarios')
+    return redirect('lista usuarios')
 
 @login_required(login_url=reverse_lazy('home'))
 def desbloquear_usuario(request):
@@ -141,4 +145,4 @@ def desbloquear_usuario(request):
         usuario = Usuario.objects.get(id=usuario_id)
         usuario.is_blocked = False
         usuario.save()
-    return redirect('usuarios')
+    return redirect('lista usuarios')

@@ -38,8 +38,10 @@ def cargar_embarcacion_back(lista, imagenes, form):
             dueño=usuario,
         )
         guardar_imagenes(imagenes, embarcacion)
+        return True
     except IntegrityError:
         form.add_error('matricula', 'La matricula ingresada ya se encuentra registrada.')
+        return False
 
 def validar_extensiones(value):
     if not value.name.endswith(('.jpg', '.png')):

@@ -47,8 +47,7 @@ def cuestionario_cargar_embarcacion(request):
                     lista.append(form.cleaned_data['deuda'])
                 else:
                     lista.append(0)
-                cargar_embarcacion_back(lista, imagenes, form)
-                ok= True
+                ok = cargar_embarcacion_back(lista, imagenes, form)
             else:
                 form.add_error('imagen1', 'Se debe ingresar una imagen como minimo.')
 

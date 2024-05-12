@@ -10,50 +10,52 @@
     <h1>Usuarios</h1>
     <a href="{% url 'crear usuario' %}" class="btn btn-primary">Crear nuevo usuario</a>
 </div>
-
-<table>
-    <thead>
-        <tr>
-            <th>Mail</th>
-            <th>Nombre</th>
-            <th>Apellido</th>
-            <th>Edad</th>
-            <th></th>
-            <th></th>
-        </tr>
-    </thead>
-    <tbody>
-        {% for usuario in usuarios %}
-
+{% if usuarios %}
+    <table>
+        <thead>
             <tr>
-                <td>
-                    <a href="{% url 'ver perfil' usuario.id %}"> {{usuario.mail}} </a>
-                </td>
-                <td>{{usuario.nombre}}</td>
-                <td>{{usuario.apellido}}</td>
-                <td>{{usuario.edad}}</td>
-                <td>
-                    {% if usuario.is_blocked %}
-                        <form action="{% url 'desbloquear usuario' %}" method="post">
-                            {% csrf_token %}
-                            <input type="hidden" name="usuario_id" value="{{ usuario.id }}">
-                            <button type="submit" class="btn-block">Desbloquear</button>
-                        </form>
-                    {% else %}
-                        <form action="{% url 'bloquear usuario' %}" method="post">
-                            {% csrf_token %}
-                            <input type="hidden" name="usuario_id" value="{{ usuario.id }}">
-                            <button type="submit" class="btn-block">Bloquear</button>
-                        </form>
-                    {% endif %}                    
-                </td>
-                <td>
-                    <button class="btn-delete">Eliminar</button>
-                </td>
+                <th>Mail</th>
+                <th>Nombre</th>
+                <th>Apellido</th>
+                <th>Edad</th>
+                <th></th>
+                <th></th>
             </tr>
+        </thead>
+        <tbody>
+            {% for usuario in usuarios %}
 
-        {% endfor %}
-    </tbody>
-</table>
+                <tr>
+                    <td>
+                        <a href="{% url 'ver perfil' usuario.id %}"> {{usuario.mail}} </a>
+                    </td>
+                    <td>{{usuario.nombre}}</td>
+                    <td>{{usuario.apellido}}</td>
+                    <td>{{usuario.edad}}</td>
+                    <td>
+                        {% if usuario.is_blocked %}
+                            <form action="{% url 'desbloquear usuario' %}" method="post">
+                                {% csrf_token %}
+                                <input type="hidden" name="usuario_id" value="{{ usuario.id }}">
+                                <button type="submit" class="btn-block">Desbloquear</button>
+                            </form>
+                        {% else %}
+                            <form action="{% url 'bloquear usuario' %}" method="post">
+                                {% csrf_token %}
+                                <input type="hidden" name="usuario_id" value="{{ usuario.id }}">
+                                <button type="submit" class="btn-block">Bloquear</button>
+                            </form>
+                        {% endif %}                    
+                    </td>
+                    <td>
+                        <button class="btn-delete">Eliminar</button>
+                    </td>
+                </tr>
 
+            {% endfor %}
+        </tbody>
+    </table>
+{% else %}
+    <h3>No existen usuarios en la plataforma.</h3>
+{% endif %}
 {% endblock %}
