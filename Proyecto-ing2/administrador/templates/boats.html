@@ -1,0 +1,40 @@
+{% extends 'layouts/navbar.html' %}
+
+{% block title %}
+    <title>Embarcaciones</title>
+{% endblock %}
+
+{% block content %}
+
+{% if embarcaciones %}
+    <table>
+        <thead>
+            <tr>
+                <th>Matricula</th>
+                <th>Tipo</th>
+                <th>Sede</th>
+                <th>Deuda</th>
+                <th>Dueño</th>
+            </tr>
+        </thead>
+        <tbody>
+
+            {% for embarcacion in embarcaciones %}
+
+                <tr>
+                    <td>
+                        <a href="{% url 'ver detalle embarcacion' embarcacion.id %}"> {{embarcacion.matricula}} </a>
+                    </td>
+                    <td>{{embarcacion.tipo.clase}}</td>
+                    <td>{{embarcacion.sede.nombre}}</td>
+                    <td>{{embarcacion.deuda}}</td>
+                    <td>{{embarcacion.dueño}}</td>
+                </tr>
+
+            {% endfor %}
+        </tbody>
+    </table>
+{% else %}
+    <h3>No existen embarcaciones en la plataforma.</h3>
+{% endif %}
+{% endblock %}

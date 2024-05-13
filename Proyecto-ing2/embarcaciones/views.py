@@ -54,12 +54,12 @@ def cuestionario_cargar_embarcacion(request):
     return render(request, 'register_boat.html', {'form': form, 'ok': ok, 'tipos': tipos, 'sedes': sedes})
 
 @login_required(login_url=reverse_lazy('home'))
-def ver_detalle_embarcacion(request, id_embarcacion):
+def ver_detalle_embarcacion(request, id_embarcacion, ok):
     try:
         unaEmbarcacion = Embarcacion.objects.exclude(matricula__startswith='*').get(id= id_embarcacion)
         if unaEmbarcacion.dueño.id == request.user.id or request.user.is_superuser:
             imagenes= ImagenEmbarcacion.objects.filter(embarcacion= unaEmbarcacion.id)
-            return render(request, 'boat_detail.html', {'imagenes': imagenes, 'embarcacion':  unaEmbarcacion})
+            return render(request, 'boat_detail.html', {'imagenes': imagenes, 'embarcacion':  unaEmbarcacion, 'ok':ok})
         else:
             return render(request, '404_not_found.html')
     except Embarcacion.DoesNotExist:

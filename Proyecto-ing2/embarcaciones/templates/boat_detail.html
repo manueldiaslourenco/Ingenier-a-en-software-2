@@ -71,7 +71,7 @@
             <div>
                 {% with id_embarcacion=embarcacion.id %}
                     {% if not request.user.is_superuser %}
-                        <a href="{% url 'editar embarcacion' id_embarcacion %}">editar</a>
+                        <a href="{% url 'editar embarcacion' id_embarcacion %}">Editar embarcacion</a>
                     {% endif %}
                 {% endwith %}
             </div>
@@ -80,11 +80,19 @@
                     <a id="eliminar-embarcacion" href="">Eliminar embarcacion</a>
                 </div>
                 <div id="mensaje-eliminar-embarcacion" style="display: none;">
-                    <p>Estas seguro de eliminar la embarcación?</p>
+                    <p>¿Estas seguro de eliminar la embarcación?</p>
                     {% with id_embarcacion=embarcacion.id %}
-                        <a href="{% url 'eliminar embarcacion' id_embarcacion %}">Confirmar</a>
+                        <a href="{% url 'ver detalle embarcacion' embarcacion.id 1 %}">Confirmar</a>
                     {% endwith %}
                 </div>
+                {% if ok == 1 %}
+                    <div class="window-eliminar" id="window-eliminar">  
+                        <div class="eliminar-content">
+                            <p class="eliminar-content-text">La embarcacion se elimino correctamente</p> 
+                            <div class="eliminar-content-button"><a href="{% url 'eliminar embarcacion' embarcacion.id %}">Aceptar</a></div>
+                        </div>
+                    </div>
+                {% endif %} 
             </div>
         </div>
     </div>

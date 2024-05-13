@@ -8,14 +8,13 @@ from .backend import cargar_publicacion_back
 @login_required(login_url=reverse_lazy('iniciar sesion'))
 def cuestionario_cargar_publicacion(request):
     usuario_actual = request.user
-    embarcaciones_usuario = Embarcacion.objects.filter(dueño=usuario_actual)
-    tiene_embarcaciones = embarcaciones_usuario.exists()
+    embarcaciones = Embarcacion.objects.exclude(matricula__startswith='*').filter(dueño=usuario_actual)
+    tiene_embarcaciones = embarcaciones.exists()
     
     if tiene_embarcaciones:
         ok=False
         form = formularioCrearPublicacion()
         usuario_actual = request.user
-        embarcaciones = Embarcacion.objects.filter(dueño=usuario_actual)
         matriculas_embarcaciones = list(embarcaciones.values_list('matricula', flat=True))
         
         if request.method == 'POST':

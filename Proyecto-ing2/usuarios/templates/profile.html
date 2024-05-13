@@ -92,7 +92,7 @@
                         </div>
                         {% for embarcacion in embarcaciones %}
                             <div>
-                                <a href="{% url 'ver detalle embarcacion' embarcacion.id %}">Matricula: {{embarcacion.matricula}}, Tipo: {{embarcacion.tipo.clase}}, modelo: {{embarcacion.modelo}}, sede: {{embarcacion.sede.nombre}}, deuda: {{embarcacion.deuda}} </a>
+                                <a href="{% url 'ver detalle embarcacion' embarcacion.id 0 %}">Matricula: {{embarcacion.matricula}}, Tipo: {{embarcacion.tipo.clase}}, modelo: {{embarcacion.modelo}}, sede: {{embarcacion.sede.nombre}}, deuda: {{embarcacion.deuda}} </a>
                             </div>
                         {% endfor %}
                     {% else %}

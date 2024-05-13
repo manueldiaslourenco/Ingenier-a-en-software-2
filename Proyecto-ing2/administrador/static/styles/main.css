@@ -93,6 +93,11 @@ body {
     border-color: #0056b3;
 }
 
+/* Estilo para el boton "Crear ..." al pasar sobre él */
+.btn-primary:visited {
+    color: #fff;
+}
+
 /* Estilo para la tabla */
 table {
     width: 100%;

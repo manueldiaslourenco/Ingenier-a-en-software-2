@@ -8,6 +8,7 @@ from .forms import formularioRegistro, formularioRegistroEmpleado
 from datetime import date
 from django.contrib.auth.hashers import make_password
 from empleados.models import EmpleConSede, Sede
+from embarcaciones.models import Embarcacion
 
 @login_required(login_url=reverse_lazy('home'))
 def index(request):
@@ -146,3 +147,12 @@ def desbloquear_usuario(request):
         usuario.is_blocked = False
         usuario.save()
     return redirect('lista usuarios')
+
+login_required(login_url=reverse_lazy('home'))
+def embarcaciones(request):
+    user = request.user
+    if not user.is_superuser:
+        return redirect('home')
+    
+    embarcaciones = Embarcacion.objects.all()
+    return render(request, 'boats.html', {'embarcaciones' : embarcaciones})
