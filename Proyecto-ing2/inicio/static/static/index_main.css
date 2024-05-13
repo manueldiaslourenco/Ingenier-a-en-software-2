@@ -2,7 +2,6 @@
     --green: hsl(162, 45%, 56%);
     --lead: hsl(162, 2%, 56%);
     --blue: hsl(202, 89%, 71%);
-    --violet: hsl(272, 92%, 32%);
     --text-white: hsl(0, 0%, 100%);
     --text-light-gray: hsl(0, 0%, 90%);
     --body-bg-color:hsl(200, 51%, 32%);
@@ -10,6 +9,10 @@
     --border-color: hsla(0, 0%, 100%, 0.25);
     --blur: blur(10px);
     --button-hover-color: hsla(0, 0%, 0%, 0.3);
+}
+
+body{
+    background-color: #c8baa0;
 }
 
 .publicacion-container {
@@ -56,8 +59,8 @@
     z-index: 999;
 }
 
-.window-mensaje .mensaje-content {
-    background: linear-gradient(to right, var(--blue), var(--violet));;
+.window-mensaje .mensaje-content {/*no entiendo donde cambia el background*/
+    background: linear-gradient(to right, #a3a397, #6785b4);;
     border-radius: 2px;
     box-shadow: 0 1px 3px rgba(33, 41, 52, .75);
     box-sizing: content-box;
@@ -82,7 +85,7 @@
     background-color: transparent;
     border: none;
     border-bottom: 1px solid var(--border-color);
-    color: white solid;
+    color: #fff; /*hay q cambiar la letra a blanco*/
     font-weight: inherit;
     font-family: inherit;
     font-size: 24px;
@@ -95,7 +98,7 @@
     text-decoration: none;
     box-sizing: border-box;
     box-shadow: 0 1px 3px rgba(33, 41, 52, .75);
-    background: linear-gradient(to right, var(--green), var(--lead));
+    background: linear-gradient(to right, #a3a397, #6785b4);
     padding: 10px;
     border-radius: 20px;
 }
