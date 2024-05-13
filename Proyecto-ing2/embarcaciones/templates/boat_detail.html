@@ -2,6 +2,7 @@
 {% load static %}
 
 {% block style %}
+    <link rel="stylesheet" type="text/css" href="{% static 'styles/boat_detail_body.css' %}">
 {% endblock %}
 
 {% block title %}
@@ -46,23 +47,47 @@
 {% endblock %}
 
 {% block content %}
+<section>
     <div>
-    {% for imagen in imagenes %}
-        {% with 'imagenes_embarcaciones/'|add:imagen.nombre_especifico as ruta_imagen %}
-        <img src="{% static ruta_imagen %}">
-        {% endwith %}
-    {% endfor %}
-    </div>
-    <div>
-        <a href="{% url 'editar embarcacion' id_embarcacion %}">editar</a>
-    </div>
-    <div>
-        <div><a id="eliminar-embarcacion" href="">Eliminar embarcacion</a></div>
-        <div id="mensaje-eliminar-embarcacion" style="display: none;">
-        <p>Estas seguro de eliminar la embarcación?</p>
-        <a href="{% url 'eliminar embarcacion' id_embarcacion %}">Confirmar</a>
+        <div class="box">
+            <div class='imagenesDiv'>
+            {% for imagen in imagenes %}
+                {% with 'imagenes_embarcaciones/'|add:imagen.nombre_especifico as ruta_imagen %}
+                <div class='p1'>
+                    <img src="{% static ruta_imagen %}">
+                </div>
+                {% endwith %}
+            {% endfor %}
+            </div>
+            <div>
+                <p>{{embarcacion.matricula}}</p>
+            </div>
+            <div>
+                <p>{{embarcacion.tipo.clase}}</p>
+            </div>
+            <div>
+                <p>{{embarcacion.modelo}}</p>
+            </div>
+            <div>
+                {% with id_embarcacion=embarcacion.id %}
+                    {% if not request.user.is_superuser %}
+                        <a href="{% url 'editar embarcacion' id_embarcacion %}">editar</a>
+                    {% endif %}
+                {% endwith %}
+            </div>
+            <div>
+                <div>
+                    <a id="eliminar-embarcacion" href="">Eliminar embarcacion</a>
+                </div>
+                <div id="mensaje-eliminar-embarcacion" style="display: none;">
+                    <p>Estas seguro de eliminar la embarcación?</p>
+                    {% with id_embarcacion=embarcacion.id %}
+                        <a href="{% url 'eliminar embarcacion' id_embarcacion %}">Confirmar</a>
+                    {% endwith %}
+                </div>
+            </div>
         </div>
     </div>
-
+</section>
 
 {% endblock %}

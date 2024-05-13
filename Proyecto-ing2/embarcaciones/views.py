@@ -59,11 +59,11 @@ def ver_detalle_embarcacion(request, id_embarcacion):
         unaEmbarcacion = Embarcacion.objects.exclude(matricula__startswith='*').get(id= id_embarcacion)
         if unaEmbarcacion.dueño.id == request.user.id or request.user.is_superuser:
             imagenes= ImagenEmbarcacion.objects.filter(embarcacion= unaEmbarcacion.id)
+            return render(request, 'boat_detail.html', {'imagenes': imagenes, 'embarcacion':  unaEmbarcacion})
         else:
             return render(request, '404_not_found.html')
     except Embarcacion.DoesNotExist:
         return render(request, '404_not_found.html')
-    return render(request, 'boat_detail.html', {'imagenes': imagenes, 'id_embarcacion':  id_embarcacion})
 
 @login_required(login_url=reverse_lazy('home'))
 def eliminar_embarcacion(request, id_embarcacion):

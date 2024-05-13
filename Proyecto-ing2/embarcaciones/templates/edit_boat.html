@@ -27,30 +27,6 @@
     });
 </script>
 <script>
-    $(document).ready(function(){
-    if ($("#vistaPrevia2").attr('src')) {
-        $("#imagen2").show();
-    }
-    else {
-        $("#imagen1").one('change', function(event){
-            $("#imagen2").toggle();
-        });
-    }
-    });
-</script>
-<script>
-    $(document).ready(function(){
-    if ($("#vistaPrevia3").attr('src')) {
-        $("#imagen3").show();
-    }
-    else {
-        $("#imagen2").one('change', function(event){
-            $("#imagen3").toggle();
-        });
-    }
-    });
-</script>
-<script>
     function mostrarImagen(input) {
         if (input.files && input.files[0]) {
             var reader = new FileReader();
@@ -159,13 +135,13 @@
                         <div class="error">{{ form.imagen1.errors }}</div>
                 {% endif %}
                 <div>
-                    <input id="imagen2" type="file" name="imagen2" onchange="mostrarImagen(this)" style="display: none;">
+                    <input id="imagen2" type="file" name="imagen2" onchange="mostrarImagen(this)">
                 </div>
                 {% if form.imagen2.errors %}
                         <div class="error">{{ form.imagen2.errors }}</div>
                 {% endif %}
                 <div>
-                    <input id="imagen3" type="file" name="imagen3" onchange="mostrarImagen(this)" style="display: none;">
+                    <input id="imagen3" type="file" name="imagen3" onchange="mostrarImagen(this)">
                 </div>
                 {% if form.imagen3.errors %}
                         <div class="error">{{ form.imagen3.errors }}</div>
