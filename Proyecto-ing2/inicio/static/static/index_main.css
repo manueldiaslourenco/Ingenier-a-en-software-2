@@ -1,0 +1,101 @@
+:root{
+    --green: hsl(162, 45%, 56%);
+    --lead: hsl(162, 2%, 56%);
+    --blue: hsl(202, 89%, 71%);
+    --violet: hsl(272, 92%, 32%);
+    --text-white: hsl(0, 0%, 100%);
+    --text-light-gray: hsl(0, 0%, 90%);
+    --body-bg-color:hsl(200, 51%, 32%);
+    --glass-bg-color: hsla(0, 0%, 100%, 0.05);
+    --border-color: hsla(0, 0%, 100%, 0.25);
+    --blur: blur(10px);
+    --button-hover-color: hsla(0, 0%, 0%, 0.3);
+}
+
+.publicacion-container {
+    margin-left: 300px;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: left;
+}
+
+.publicacion {
+    min-width: 200px;
+    width: 22%;
+    margin: 20px;
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+}
+
+.publicacion img {
+    width: 100%;
+    height: auto;
+    border-radius: 5px;
+}
+
+.publicacion p {
+    margin: 5px 0;
+}
+
+.publicacion img {
+    width: 100%; /* Ajusta el ancho al 100% del contenedor */
+    height: 200px; /* Establece una altura fija para todas las imágenes */
+    object-fit: cover; /* Recorta la imagen para que se ajuste al tamaño especificado sin distorsión */
+    border-radius: 5px; /* Opcional: agrega bordes redondeados */
+}
+
+.window-mensaje {
+    background: rgba(33, 41, 52, .85);
+    left: 0;
+    bottom: 0;
+    right: 0;
+    top: 0;
+    display: flex;
+    position: fixed;
+    z-index: 999;
+}
+
+.window-mensaje .mensaje-content {
+    background: linear-gradient(to right, var(--blue), var(--violet));;
+    border-radius: 2px;
+    box-shadow: 0 1px 3px rgba(33, 41, 52, .75);
+    box-sizing: content-box;
+    display: flex;
+    flex-direction: column;
+    margin: auto;
+    max-width: 600px;
+    min-width: 320px !important;
+    overflow: hidden;
+    position: relative;
+    width: 100%;
+    padding: 2rem;
+    font-size: 1.3rem;
+    align-items: center;
+    justify-content: center;
+}
+
+.window-mensaje .mensaje-content .mensaje-content-text p{
+    display: block;
+    height: 45px;
+    width: 100%;
+    background-color: transparent;
+    border: none;
+    border-bottom: 1px solid var(--border-color);
+    color: white solid;
+    font-weight: inherit;
+    font-family: inherit;
+    font-size: 24px;
+    align-items: center;
+    justify-content: center;
+}
+
+.window-mensaje .mensaje-content .mensaje-content-button a{
+    color: var(--text-white);
+    text-decoration: none;
+    box-sizing: border-box;
+    box-shadow: 0 1px 3px rgba(33, 41, 52, .75);
+    background: linear-gradient(to right, var(--green), var(--lead));
+    padding: 10px;
+    border-radius: 20px;
+}

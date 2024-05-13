@@ -2,6 +2,7 @@
 {% load static %}
 
 {% block style %}
+    <link rel="stylesheet" type="text/css" href="{% static 'styles/index_main.css' %}">
 {% endblock %}
 
 {% block title %}
@@ -50,13 +51,26 @@
         </ul>
     </aside>
 
-    <div class="publicacion-container">
-        {% for post in publicaciones %}
-            <div class="publicacion">
-                <a href="{% url 'ver perfil' post.autor.id %}" >{{ post.embarcacion.modelo }}</a>
-                <p>{{ post.descripcion }}</p>
-                <p>{{ post.monto }}</p>
+    {% if mensaje %}
+        <div class="window-mensaje">  
+            <div class="mensaje-content">
+                <p class="mensaje-content-text">{{ mensaje }}</p> 
+                <div class="mensaje-content-button"><a href="{% url 'home' %}">Aceptar</a></div>
             </div>
-        {% endfor %}
-    </div>
+        </div>
+    {% else %}
+        <div class="publicacion-container">
+            {% for post in publicaciones %}
+                <div class="publicacion">
+                    {% with 'imagenes_embarcaciones/'|add:post.imagen as ruta_imagen %}
+                        <a href="{% url 'ver perfil' post.autor.id %}" >
+                            <img src="{% static ruta_imagen %}">
+                        </a>
+                    {% endwith %}
+                    <p>{{ post.embarcacion.modelo }}</p> 
+                    <p>{{ post.monto }}</p>
+                </div>
+            {% endfor %}
+        </div>
+    {% endif %}
 {% endblock %}
