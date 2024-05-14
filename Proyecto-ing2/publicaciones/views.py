@@ -2,7 +2,8 @@ from django.shortcuts import render
 from django.contrib.auth.decorators import login_required
 from django.urls import reverse_lazy
 from .forms import formularioCrearPublicacion
-from embarcaciones.models import Embarcacion
+from embarcaciones.models import Embarcacion, ImagenEmbarcacion
+from .models import Publicacion
 from .backend import cargar_publicacion_back
 
 @login_required(login_url=reverse_lazy('iniciar sesion'))
@@ -33,3 +34,15 @@ def cuestionario_cargar_publicacion(request):
     else:
         mensaje = "Para crear una publicación, primero debes cargar una embarcación desde tu perfil."
         return render(request, 'index.html', {'mensaje': mensaje})
+    
+@login_required(login_url=reverse_lazy('home'))
+def ver_detalle_publicacion(request, id_publicacion):
+    try:
+        unaPublicacion = Publicacion.objects.get(id=id_publicacion)
+        if unaPublicacion.autor.id == request.user.id or request.user.is_superuser:
+            imagenes= ImagenEmbarcacion.objects.filter(embarcacion= unaPublicacion.embarcacion.id)
+            return render(request, 'post_detail.html', {'imagenes': imagenes, 'publicacion':  unaPublicacion})
+        else:
+            return render(request, '404_not_found.html')
+    except Embarcacion.DoesNotExist:
+        return render(request, '404_not_found.html')

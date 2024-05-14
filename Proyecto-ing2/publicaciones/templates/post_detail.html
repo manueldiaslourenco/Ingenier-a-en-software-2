@@ -2,26 +2,28 @@
 {% load static %}
 
 {% block style %}
-    <link rel="stylesheet" type="text/css" href="{% static 'styles/index_main.css' %}">
+    <link rel="stylesheet" type="text/css" href="{% static 'styles/boat_detail_body.css' %}">
 {% endblock %}
 
 {% block title %}
-    <title>inicio</title>
+    <title>Ver detalle embarcacion</title>
 {% endblock %}
 
 {% block scripts %}
-<script> window.onpageshow = function(event) {
-        if (event.persisted) {
-            window.location.reload();
-        }
-    };
-</script>
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
 <script>
     $(document).ready(function(){
         $("#cerrar-sesion").click(function(event){
             event.preventDefault();
             $("#mensaje-cerrar-sesion").toggle();
+        });
+    });
+</script>
+<script>
+    $(document).ready(function(){
+        $("#eliminar-embarcacion").click(function(event){
+            event.preventDefault();
+            $("#mensaje-eliminar-embarcacion").toggle();
         });
     });
 </script>
@@ -45,34 +47,26 @@
 {% endblock %}
 
 {% block content %}
-    <aside>
-        <ul>
-            <li>
-                <a href="{% url 'crear publicacion' %}" class="button">Crear Publicación</a>
-            </li>
-        </ul>
-    </aside>
-
-    {% if mensaje %}
-        <div class="window-mensaje">  
-            <div class="mensaje-content">
-                <p class="mensaje-content-text">{{ mensaje }}</p> 
-                <div class="mensaje-content-button"><a href="{% url 'home' %}">Aceptar</a></div>
+<section>
+    <div>
+        <div class="box">
+            <div class='imagenesDiv'>
+            {% for imagen in imagenes %}
+                {% with 'imagenes_embarcaciones/'|add:imagen.nombre_especifico as ruta_imagen %}
+                <div class='p1'>
+                    <img src="{% static ruta_imagen %}">
+                </div>
+                {% endwith %}
+            {% endfor %}
+            </div>
+            <div>
+                <p>{{publicacion.embarcacion.tipo.clase}} {{publicacion.embarcacion.modelo}}</p>
+            </div>
+            <div>
+                <p>{{publicacion.monto}}</p>
             </div>
         </div>
-    {% else %}
-        <div class="publicacion-container">
-            {% for post in publicaciones %}
-                <div class="publicacion">
-                    {% with 'imagenes_embarcaciones/'|add:post.imagen as ruta_imagen %}
-                        <a href="{% url 'ver detalle publicacion' post.id %}" >
-                            <img src="{% static ruta_imagen %}">
-                        </a>
-                    {% endwith %}
-                    <p>{{ post.embarcacion.modelo }}</p> 
-                    <p>{{ post.monto }}</p>
-                </div>
-            {% endfor %}
-        </div>
-    {% endif %}
+    </div>
+</section>
+
 {% endblock %}
