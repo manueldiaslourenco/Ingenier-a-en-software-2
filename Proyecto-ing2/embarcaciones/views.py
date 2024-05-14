@@ -127,7 +127,7 @@ def editar_embarcacion(request, id_embarcacion):
                                 nombre_especifico=imagen_id,
                                 embarcacion=embarcacion,
                                 )
-                    return redirect('ver detalle embarcacion', id_embarcacion= embarcacion.id)
+                    return redirect('ver detalle embarcacion', id_embarcacion= embarcacion.id, ok=0)
         else:
             return render(request, '404_not_found.html')
     except Embarcacion.DoesNotExist:

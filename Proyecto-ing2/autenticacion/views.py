@@ -77,13 +77,16 @@ def recuperar_contraseña(request):
                 UserModel = get_user_model()
                 mail=form.cleaned_data['mail']
                 usuario= UserModel.objects.get(mail=mail)
-                security_token = generate_key()
-                send_email(mail, security_token)
-                session_id = request.COOKIES.get('sessionid')
-                request.session['token'] = security_token
-                request.session['sessionid'] = session_id
-                request.session['mail'] = mail
-                return redirect('ingresar nueva contraseña')
+                if usuario.is_blocked:
+                    form.add_error('mail', 'La cuenta ingresada se encuentra bloqueada.')
+                else:
+                    security_token = generate_key()
+                    send_email(mail, security_token)
+                    session_id = request.COOKIES.get('sessionid')
+                    request.session['token'] = security_token
+                    request.session['sessionid'] = session_id
+                    request.session['mail'] = mail
+                    return redirect('ingresar nueva contraseña')
             except UserModel.DoesNotExist:
                  form.add_error('mail', 'Mail inexistente.')
     return render(request, 'forget_password.html', {'form': form})

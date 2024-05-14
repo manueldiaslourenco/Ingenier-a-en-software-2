@@ -9,7 +9,9 @@ class formularioCargaEmbarcacion(forms.Form):
             'required': 'Por favor, introduce un modelo.',
         })
     
-    tipo = forms.CharField(label='tipo' , max_length=50)
+    tipo = forms.CharField(label='tipo' , max_length=50, error_messages={
+            'required': 'Por favor, selecciona un tipo.',
+        })
 
     eslora= forms.DecimalField(label='eslora',max_digits=10, decimal_places=2, error_messages={
             'required': 'Por favor, introduce la eslora de la embarcación.',
@@ -41,7 +43,9 @@ class formularioCargaEmbarcacion(forms.Form):
             'max_whole_digits': 'El número ingresado tiene demasiados dígitos.',
         })
     
-    sede= forms.CharField(label= 'sede', max_length=50)
+    sede= forms.CharField(label= 'sede', max_length=50, error_messages={
+            'required': 'Por favor, seleciona una sede.',
+        })
 
     imagen1 = forms.ImageField(label='imagen1', required=False, validators=[validar_extensiones])
 

@@ -23,7 +23,7 @@
 
                 <tr>
                     <td>
-                        <a href="{% url 'ver detalle embarcacion' embarcacion.id %}"> {{embarcacion.matricula}} </a>
+                        <a href="{% url 'ver detalle embarcacion' embarcacion.id 0 %}"> {{embarcacion.matricula}} </a>
                     </td>
                     <td>{{embarcacion.tipo.clase}}</td>
                     <td>{{embarcacion.sede.nombre}}</td>
