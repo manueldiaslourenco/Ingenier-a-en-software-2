@@ -2,7 +2,7 @@
     --green: hsl(162, 45%, 56%);
     --lead: hsl(162, 2%, 56%);
     --blue: hsl(202, 89%, 71%);
-    --violet: hsl(272, 92%, 32%);
+    --violet: hsl(272, 59%, 55%);
     --text-white: hsl(0, 0%, 100%);
     --text-light-gray: hsl(0, 0%, 90%);
     --body-bg-color:hsl(200, 51%, 32%);
@@ -19,8 +19,7 @@
 }
 
 body{
-    background-color: var(--body-bg-color);
-    color: var(--text-light-gray);
+    color: #fff;
     font-family: arial;
     font-weight: 300;
     font-size: 16px;
@@ -42,21 +41,6 @@ body::before{
     opacity: 0.5;
 }
 
-body::before{
-    background-color: var(--blue);
-    left: 0;
-    bottom: 0;
-    transform: translate(-50%);
-    position: fixed;
-}
-
-body::after{
-    background-color: var(--violet);
-    right: 0;
-    top: 0;
-    transform: translate(50%);
-}
-
 a{
     text-decoration: none;
     font-weight: 500;
@@ -64,18 +48,18 @@ a{
 }
 
 .gradient-text{
-    background: linear-gradient(to right, var(--green), var(--lead));
+    background: hsl(162, 93%, 72%);
     -webkit-background-clip: text;
     background-clip: text;
     color: transparent;
 }
 
-.form-main{
-    min-height: 100vh;
-    padding: 60px 15px;
+.form-main {
     display: flex;
-    align-items: center;
     justify-content: center;
+    align-items: flex-start; /* Alinea el contenido hacia arriba */
+    height: 90vh; /* Reducir la altura para colocar el formulario más arriba */
+    padding-top: 15vh; /* Reducir el espacio superior para colocar el formulario más arriba */
 }
 
 .form-content{
@@ -83,10 +67,12 @@ a{
     max-width: 450px;
     position: relative;
     z-index: 1;
+    border-radius: 20px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.3); /* Agrega sombra al formulario */
 }
 
-
 .form-content .box{
+    background: #2398aa;
     border-color: var(--glass-bg-color);
     border: 1px solid var(--border-color);
     padding: 40px 50px;
@@ -97,7 +83,6 @@ a{
     font-size: 28px;
     text-align: center;
     line-height: 1.2;
-    color: var(--text-white);
     font-weight: 500;
 }
 
@@ -150,7 +135,7 @@ a{
     cursor: pointer;
     border-radius: 25px;
     user-select: none;
-    background: linear-gradient(to right, var(--green), var(--lead));
+    background: var(--green);
     border: none;
     color: var(--text-white);
     position: relative;
@@ -199,7 +184,6 @@ a{
 }
 
 .form-content .window-notice .content {
-    background: linear-gradient(to right, var(--blue), var(--violet));;
     border-radius: 2px;
     box-shadow: 0 1px 3px rgba(33, 41, 52, .75);
     box-sizing: content-box;
@@ -237,7 +221,6 @@ a{
     text-decoration: none;
     box-sizing: border-box;
     box-shadow: 0 1px 3px rgba(33, 41, 52, .75);
-    background: linear-gradient(to right, var(--green), var(--lead));
     padding: 10px;
     border-radius: 20px;
 }

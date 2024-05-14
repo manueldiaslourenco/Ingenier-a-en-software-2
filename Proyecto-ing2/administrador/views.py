@@ -154,5 +154,5 @@ def embarcaciones(request):
     if not user.is_superuser:
         return redirect('home')
     
-    embarcaciones = Embarcacion.objects.all()
+    embarcaciones = Embarcacion.objects.exclude(matricula__startswith='*')
     return render(request, 'boats.html', {'embarcaciones' : embarcaciones})

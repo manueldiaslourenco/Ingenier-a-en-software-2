@@ -8,8 +8,8 @@
 
 /* Estilo para el cuerpo del html */
 body {
-    background: #c8baa0;
-    color: whitesmoke;
+    background: #e8d8ba;
+    color: rgb(255, 255, 255);
     font-family: arial;
     margin: 0;
 }
@@ -74,13 +74,14 @@ body {
 
 /* Estilo para el texto del head de la tabla */
 .header h1 {
+    color: #4b463d;
     margin: 0;
 }
 
 /* Estilo para el boton "Crear ..." */
 .btn-primary {
-    background-color: #7a9ea0;
-    border-color: #7a9ea0;
+    background-color: #26a5b9;
+    border-color: #26a5b9;
     color: #fff;
     padding: 8px 16px;
     border-radius: 4px;
@@ -89,8 +90,8 @@ body {
 
 /* Estilo para el boton "Crear ..." al pasar sobre él */
 .btn-primary:hover {
-    background-color: #26a5b9;
-    border-color: #26a5b9;
+    background-color: #7a9ea0;
+    border-color: #7a9ea0;
 }
 
 /* Estilo para el boton "Crear ..." al pasar sobre él */

@@ -70,10 +70,149 @@ select{
 }
 
 .form-content{
-    position: absolute;
-    top: 50%;
-    left: 25%;
-    transform: translate(-50%, -50%);
-    border: 1px solid black;
-    padding: 20px;
+  position: absolute;
+  top: 50%;
+  left: 25%;
+  transform: translate(-50%, -50%);
+  border: 1px solid black;
+  padding: 20px;
+  background-color: whitesmoke;
+}
+
+/* Estilo para el formulario principal */
+.form-main {
+  background: #c8baa0;
+  display: flex;
+  justify-content: center;
+  align-items: flex-start; /* Alinea el contenido hacia arriba */
+  height: 90vh; /* Reducir la altura para colocar el formulario más arriba */
+  padding-top: 5vh; /* Reducir el espacio superior para colocar el formulario más arriba */
+}
+
+/* Estilo para el contenido del formulario */
+.form-content {
+  width: 100%;
+  max-width: 450px;
+  padding: 40px 20px; /* Aumentar el espacio interno */
+  border-radius: 10px;
+  background: #ab9e89;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.3); /* Agrega sombra al formulario */
+}
+
+/* Estilo para los campos de entrada del formulario */
+.input-control {
+  width: 100%; /* Ocupa todo el ancho del formulario */
+  height: 45px; /* Ajusta la altura de los campos de entrada */
+  font-size: 16px; /* Ajusta el tamaño de fuente si es necesario */
+  margin: auto;
+  display: block;
+  background-color: transparent;
+  border: none;
+  border-bottom: 1px solid var(--border-color);
+}
+
+/*Estilo para los placeholders*/
+.input-control::placeholder{
+  color: #fff;
+}
+
+.form-content h2 {
+  margin-top: 0px;
+  text-align: center; /* Centra el texto */
+}
+
+/* Estilo para el botón "Crear cuenta" */
+.btn-crear_cuenta {
+  background-color: #7a9ea0; /* Color de fondo */
+  border-color: #7a9ea0; /* Color del borde */
+  color: #fff; /* Color del texto */
+  padding: 12px 24px; /* Ajusta el padding del botón */
+  border-radius: 5px; /* Ajusta el radio de borde */
+  text-decoration: none;
+  display: inline-block;
+  transition: background-color 0.3s, border-color 0.3s, color 0.3s; /* Agrega transición suave */
+  margin: 0 auto; /* Añade margen automático a los lados para centrar el botón */
+  display: block; /* Cambia el botón a un elemento de bloque para que el margen automático funcione */
+  margin-top: 20px; /* Agrega un margen superior de 20px */
+}
+
+/* Estilo para el botón "Crear cuenta" al pasar sobre él */
+.btn-crear_cuenta:hover {
+  background-color: #26a5b9; /* Cambia el color de fondo al pasar sobre el botón */
+  border-color: #26a5b9; /* Cambia el color del borde al pasar sobre el botón */
+}
+
+.form-content .window-notice {
+  background: rgba(33, 41, 52, .85);
+  left: 0;
+  bottom: 0;
+  right: 0;
+  top: 0;
+  display: flex;
+  position: fixed;
+  z-index: 999;
+}
+
+.form-content .window-notice .content {
+  background: linear-gradient(to right,#a3a397, var(--azul1));;
+  border-radius: 2px; 
+  box-shadow: 0 1px 3px rgba(33, 41, 52, .75);
+  box-sizing: content-box;
+  display: flex;
+  flex-direction: column;
+  margin: auto;
+  max-width: 600px;
+  min-width: 320px !important;
+  overflow: hidden;
+  position: relative;
+  width: 100%;
+  padding: 2rem;
+  font-size: 1.3rem;
+  align-items: center;
+  justify-content: center;
+}
+
+.form-content .window-notice .content .content-text p{
+  display: block;
+  height: 45px;
+  width: 100%;
+  background-color: transparent;
+  border: none;
+  border-bottom: 1px solid var(--border-color);
+  color: white solid;
+  font-weight: inherit;
+  font-family: inherit;
+  font-size: 24px;    
+  align-items: center;
+  justify-content: center;
+}
+
+.form-content .window-notice .content .content-button a{
+  color: var(--text-white);
+  text-decoration: none;
+  box-sizing: border-box;
+  box-shadow: 0 1px 3px rgba(33, 41, 52, .75);
+  background: #7a9ea0;
+  padding: 10px;
+  border-radius: 20px;
+}
+
+select.input-control  {
+  color: whitesmoke; /* Color del texto */
+}
+
+/* Estilo para las opciones del campo de selección */
+select.input-control option {
+  background-color: #404040; /* Color de fondo */
+  color: whitesmoke; /* Color del texto */
+}
+
+select.input-control option::placeholder{
+  color: whitesmoke;
+}
+
+/* Estilo para las opciones del campo de selección al pasar sobre ellas */
+select.input-control option:hover {
+  background-color: #0056b3; /* Cambia el color de fondo al pasar sobre las opciones */
+  color: white; /* Cambia el color del texto al pasar sobre las opciones */
 }
