@@ -96,9 +96,9 @@ def ingresar_nueva_contraseña(request):
     form = formularioCambiarContraseña()
     if request.method == 'POST':
         form = formularioCambiarContraseña(request.POST)
-        check_session = request.session.pop('sessionid', None)
-        check_token = request.session.pop('token', None)
-        mail = request.session.pop('mail', None)
+        check_session = request.session['sessionid']
+        check_token = request.session['token']
+        mail = request.session['mail']
         if form.is_valid():
             session = request.COOKIES.get('sessionid')
             token = form.cleaned_data['token'] 
