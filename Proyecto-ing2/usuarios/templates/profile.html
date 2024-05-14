@@ -78,10 +78,14 @@
             <div>
                 <a href="{% url 'cargar embarcacion' %}">Cargar embarcacion</a>
             </div>
+        {% endif %}
             <div class="container">
+                {% if request.user.id == param.id %}
                 <a href="#" id="indice1"><i class="fa-solid fa-sailboat"></i> Embarcaciones</a>
                 <a href="#" id="indice2"><i class="fa-solid fa-truck-pickup"></i> Vehiculos</a>
+                {% endif %}
                 <a href="#" id="indice3"><i class="fa-solid fa-arrow-up-from-bracket"></i> Publicaciones</a>
+                {% if request.user.id == param.id %}
                 <a href="#" id="indice4"><i class="fa-solid fa-arrow-right-arrow-left"></i> Trueques</a>
             
                 <div id="caja1" class="caja" style="display: none;">
@@ -105,6 +109,7 @@
                         <h3>No existen vehiculos cargados</h3>
                     </div>
                 </div>
+                {% endif %}
                 <div id="caja3" class="caja" style="display: none;">
                     {% if publicaciones %}
                         <div>
@@ -121,12 +126,13 @@
                         </div>
                     {% endif %}
                 </div>
+                {% if request.user.id == param.id %}
                 <div id="caja4" class="caja" style="display: none;">
                     <div>
                         <h3>No existen trueques cargados</h3>
                     </div>
                 </div>
+                {% endif %}
             </div>
-        {% endif %}
     </div>
 {% endblock %}
