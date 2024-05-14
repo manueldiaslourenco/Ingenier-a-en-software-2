@@ -9,6 +9,6 @@ def redirigir_inicio(request):
 def inicio(request):
     publicaciones = Publicacion.objects.all()
     for publicacion in publicaciones:
-        post_image = ImagenEmbarcacion.objects.get(embarcacion=publicacion.embarcacion.id)
-        publicacion.imagen = post_image.nombre_especifico
+        post_image = ImagenEmbarcacion.objects.filter(embarcacion=publicacion.embarcacion.id)
+        publicacion.imagen = post_image[0].nombre_especifico
     return render(request, 'index.html', {'publicaciones' : publicaciones})
