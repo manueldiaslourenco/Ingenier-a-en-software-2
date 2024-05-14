@@ -126,7 +126,8 @@ DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
 #tiempo para que se expire la sesion
 #funciona mal a chekear
-#SESSION_COOKIE_AGE = 600
+SESSION_COOKIE_AGE = 600  # La sesión expira después de 600 segundos
+SESSION_SAVE_EVERY_REQUEST = True  # La sesión se guarda en cada solicitud, restableciendo el temporizador
 
 SESSION_EXPIRE_AT_BROWSER_CLOSE = True
 
