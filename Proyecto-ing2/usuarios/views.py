@@ -4,6 +4,7 @@ from django.contrib.auth import get_user_model
 from django.contrib.auth.decorators import login_required
 from django.urls import reverse_lazy
 from embarcaciones.models import Embarcacion
+from publicaciones.models import Publicacion
 
 @login_required(login_url=reverse_lazy('home'))
 def ver_perfil(request, id):
@@ -24,7 +25,11 @@ def ver_perfil(request, id):
                 embarcaciones = Embarcacion.objects.exclude(matricula__startswith='*').filter(dueño= id)
             except Embarcacion.DoesNotExist:
                 embarcaciones= []
-            return render(request, 'profile.html', {'param': usuario, 'embarcaciones': embarcaciones})
+            try:
+                publicaciones= Publicacion.objects.filter(autor= id)
+            except Publicacion.DoesNotExist:
+                publicaciones= []
+            return render(request, 'profile.html', {'param': usuario, 'embarcaciones': embarcaciones, 'publicaciones': publicaciones})
         
     except UserModel.DoesNotExist:
         return render(request, '404_not_found.html')
