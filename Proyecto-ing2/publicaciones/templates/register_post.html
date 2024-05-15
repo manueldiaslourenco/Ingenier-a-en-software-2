@@ -2,7 +2,7 @@
 {% load static %}
 
 {% block style %}
-    <link rel="stylesheet" type="text/css" href="{% static 'styles/register_boat_body.css' %}">
+    <link rel="stylesheet" type="text/css" href="{% static 'styles/register_post.css' %}">
 {% endblock %}
 
 {% block title %}
@@ -42,12 +42,12 @@
 <section class="form-main">
     <div class="form-content">
         <div class="box">
-            <h3>Cargar publicacion</h3>
+            <h2>Cargar publicacion</h2>
             <form action="{% url 'crear publicacion' %}" method="post" novalidate>
                 {% csrf_token %}
 
                 <div>
-                    <select name="embarcacion" required>
+                    <select name="embarcacion" class="input-control" required>
                         <option value="">Selecciona una embarcación</option>
                         {% for unaEmbarcacion in embarcaciones %}
                           <option value="{{ unaEmbarcacion }}">{{ unaEmbarcacion }}</option>
@@ -70,19 +70,20 @@
                 </div>
                 
                 {% if form.non_field_errors %}
-                <div class="error">{{ form.non_field_errors }}</div>
-                {% elif ok == True %}
-                <div class="window-notice" id="window-notice">  
-                    <div class="content">
-                        <p class="content-text"> Se cargo la publicacion con exito</p> 
-                        <div class="content-button"><a href="{% url 'home' %}">Aceptar</a></div>
-                    </div>
-                </div>
+                    <div class="error">{{ form.non_field_errors }}</div>
                 {% endif %} 
                 <button type="submit" class="btn">Cargar </button>
 
             </form>
         </div>
     </div>
+    {% if ok == True %}
+        <div class="window-notice" id="window-notice">  
+            <div class="content">
+                <p class="content-text"> Se cargo la publicacion con exito</p> 
+                <div class="content-button"><a href="{% url 'home' %}">Aceptar</a></div>
+            </div>
+        </div>
+    {% endif %} 
 </section>
 {% endblock %}

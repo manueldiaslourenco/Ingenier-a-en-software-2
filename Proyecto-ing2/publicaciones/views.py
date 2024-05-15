@@ -35,14 +35,10 @@ def cuestionario_cargar_publicacion(request):
         mensaje = "Para crear una publicación, primero debes cargar una embarcación desde tu perfil."
         return render(request, 'index.html', {'mensaje': mensaje})
     
-@login_required(login_url=reverse_lazy('home'))
 def ver_detalle_publicacion(request, id_publicacion):
     try:
         unaPublicacion = Publicacion.objects.get(id=id_publicacion)
-        if unaPublicacion.autor.id == request.user.id or request.user.is_superuser:
-            imagenes= ImagenEmbarcacion.objects.filter(embarcacion= unaPublicacion.embarcacion.id)
-            return render(request, 'post_detail.html', {'imagenes': imagenes, 'publicacion':  unaPublicacion})
-        else:
-            return render(request, '404_not_found.html')
+        imagenes= ImagenEmbarcacion.objects.filter(embarcacion= unaPublicacion.embarcacion.id)
+        return render(request, 'post_detail.html', {'imagenes': imagenes, 'publicacion':  unaPublicacion})
     except Embarcacion.DoesNotExist:
         return render(request, '404_not_found.html')

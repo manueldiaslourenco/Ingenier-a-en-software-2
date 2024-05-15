@@ -47,26 +47,30 @@
 {% endblock %}
 
 {% block content %}
-<section>
+<section>       
     <div>
         <div class="box">
-            <div class='imagenesDiv'>
-            {% for imagen in imagenes %}
-                {% with 'imagenes_embarcaciones/'|add:imagen.nombre_especifico as ruta_imagen %}
-                <div class='p1'>
-                    <img src="{% static ruta_imagen %}">
+            <div class="info-container">
+                <div>
+                    <p>{{publicacion.embarcacion.tipo.clase}} {{publicacion.embarcacion.modelo}}</p>
                 </div>
-                {% endwith %}
-            {% endfor %}
+                <div>
+                    <p>{{publicacion.monto}}</p>
+                </div>
             </div>
-            <div>
-                <p>{{publicacion.embarcacion.tipo.clase}} {{publicacion.embarcacion.modelo}}</p>
-            </div>
-            <div>
-                <p>{{publicacion.monto}}</p>
+            <div class='imagenesDiv'>
+                {% for imagen in imagenes %}
+                    {% with 'imagenes_embarcaciones/'|add:imagen.nombre_especifico as ruta_imagen %}
+                    <div class='image-container'>
+                        <div class="p1">
+                            <img src="{% static ruta_imagen %}" style="width:100%">
+                        </div>
+                    </div>
+                    {% endwith %}
+                {% endfor %}
             </div>
         </div>
-    </div>
+    </div> 
 </section>
 
 {% endblock %}

@@ -7,7 +7,10 @@
 
 header {
     background-color: #26a5b9;
-    position: relative;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
     z-index: 2;
 }
 

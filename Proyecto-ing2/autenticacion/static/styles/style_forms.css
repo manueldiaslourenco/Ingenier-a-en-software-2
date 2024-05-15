@@ -1,4 +1,10 @@
 :root{
+    --azul1: #6785b4;
+    --azul2: #26a5b9;
+    --azul3: #a9cecf;
+    --gris: #c4c4be8c;
+    --arena: #c8baa0;
+
     --green: hsl(162, 45%, 56%);
     --lead: hsl(162, 2%, 56%);
     --blue: hsl(202, 89%, 71%);
@@ -59,7 +65,7 @@ a{
     justify-content: center;
     align-items: flex-start; /* Alinea el contenido hacia arriba */
     height: 90vh; /* Reducir la altura para colocar el formulario más arriba */
-    padding-top: 15vh; /* Reducir el espacio superior para colocar el formulario más arriba */
+    padding-top: 10vh; /* Reducir el espacio superior para colocar el formulario más arriba */
 }
 
 .form-content{
@@ -141,7 +147,7 @@ a{
     position: relative;
     z-index: 1;
     overflow: hidden;
-   margin-top: 20px;
+    margin-top: 20px;
 }
 
 .form-content .btn::before{
@@ -184,6 +190,7 @@ a{
 }
 
 .form-content .window-notice .content {
+    background: linear-gradient(to right,#a3a397, var(--azul1));;
     border-radius: 2px;
     box-shadow: 0 1px 3px rgba(33, 41, 52, .75);
     box-sizing: content-box;
@@ -221,6 +228,7 @@ a{
     text-decoration: none;
     box-sizing: border-box;
     box-shadow: 0 1px 3px rgba(33, 41, 52, .75);
+    background: #7a9ea0;
     padding: 10px;
     border-radius: 20px;
 }

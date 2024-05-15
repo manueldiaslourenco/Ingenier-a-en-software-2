@@ -6,7 +6,7 @@
 {% endblock %}
 
 {% block title %}
-    <title>cargar embarcacion</title>
+    <title>Cargar embarcacion</title>
 {% endblock %}
 
 {% block scripts %}
@@ -78,7 +78,7 @@
 <section class="form-main">
     <div class="form-content">
         <div class="box">
-            <h3>Cargar embarcacion</h3>
+            <h2>Cargar embarcacion</h2>
             <form action="{% url 'cargar embarcacion' %}" method="post" enctype="multipart/form-data" novalidate>
                 {% csrf_token %}
                 <div>
@@ -94,7 +94,7 @@
                     {% endif %}
                 </div>
                 <div>
-                    <select name="tipo" required>
+                    <select name="tipo" required class="input-control">
                         <option value="">Selecciona un tipo</option>
                         {% for opcion in tipos %}
                           <option value="{{ opcion }}">{{ opcion }}</option>
@@ -124,17 +124,17 @@
                 </div>
                 <div class="checkBox">
                     <p class="input-text"> Tiene motor: </p> 
-                    <input type="checkbox" name="motor" class="input-control" >
+                    <input type="checkbox" name="motor" class="input-control check" >
                 </div>
                 <div class="checkBox">
                     <p class="input-text"> Tiene deudas: </p> 
-                    <input id="checkbox-deudas" type="checkbox" name="tiene deudas" class="input-control" >
+                    <input id="checkbox-deudas" type="checkbox" name="tiene deudas" class="input-control check" >
                 </div>
                 <div>
                     <input id="deudas" type="number" name="deuda" placeholder="Deudas" class="input-control" value="{{ form.deudas.value|default_if_none:'' }}" style="display: none;">
                 </div>
                 <div>
-                    <select name="sede" required>
+                    <select name="sede" required class="input-control">
                         <option value="">Selecciona una sede</option>
                         {% for unaSede in sedes %}
                           <option value="{{ unaSede }}">{{ unaSede }}</option>
@@ -160,22 +160,25 @@
                     <input id="imagen3" type="file" name="imagen3" onchange="mostrarImagen(this)" style="display: none;">
                 </div>
                 {% if form.imagen3.errors %}
-                        <div class="error">{{ form.imagen3.errors }}</div>
+                    <div class="error">{{ form.imagen3.errors }}</div>
                 {% endif %}
                 {% if form.non_field_errors %}
-                <div class="error">{{ form.non_field_errors }}</div>
-                {% elif ok == True %}
-                <div class="window-notice" id="window-notice">  
-                    <div class="content">
-                        <p class="content-text"> Se cargo la embarcacion con exito</p> 
-                        <div class="content-button"><a href="{% url 'ver perfil' request.user.id %}">Aceptar</a></div>
-                    </div>
-                </div>
+                    <div class="error">{{ form.non_field_errors }}</div>
                 {% endif %} 
-                <button type="submit" class="btn">Cargar </button>
+                <button type="submit" class="btn">Cargar</button>
 
             </form>
         </div>
+    </div>
+    <div>
+    {% if ok == True %}
+        <div class="window-cargo" id="window-notice">  
+            <div class="cargo-content">
+                <p class="cargo-content-text" style="margin-bottom: 20px;">Se cargo la embarcacion con exito</p> 
+                <div class="cargo-content-button"><a href="{% url 'ver perfil' request.user.id %}">Aceptar</a></div>
+            </div>
+        </div>
+    {% endif %} 
     </div>
     <div class='imagenesDiv'>
         <div class='p1'><img id="vistaPrevia1"/></div>

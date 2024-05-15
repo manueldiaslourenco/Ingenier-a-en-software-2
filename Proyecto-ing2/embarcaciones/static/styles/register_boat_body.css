@@ -1,28 +1,36 @@
-.form-main{
-    position: relative;
-    height: 100vh;
+:root{
+  --azul1: #6785b4;
+  --azul2: #26a5b9;
+  --azul3: #a9cecf;
+  --gris: #c4c4be8c;
+  --arena: #c8baa0;
 
+  --green: hsl(162, 45%, 56%);
+  --lead: hsl(162, 2%, 56%);
+  --blue: hsl(202, 89%, 71%);
+  --violet: hsl(272, 59%, 55%);
+  --text-white: hsl(0, 0%, 100%);
+  --text-light-gray: hsl(0, 0%, 90%);
+  --body-bg-color:hsl(200, 51%, 32%);
+  --glass-bg-color: hsla(0, 0%, 100%, 0.05);
+  --border-color: hsla(0, 0%, 100%, 0.25);
+  --blur: blur(10px);
+  --button-hover-color: hsla(0, 0%, 0%, 0.3);
 }
 
-.box {
-  display:flex;
-  flex-direction: column;
-  align-items: center;
+* {
+  color: #fff;
 }
 
-  input{
-   padding: 10px 10px 3px 4px;
-   width: 300px;
-   border: none;
-   border-bottom: solid 1px #333;
-   margin: 10px;
+input{
+  padding: 10px 10px 3px 4px;
+  width: 300px;
+  border: none;
+  border-bottom: solid 1px #333;
+  margin: 10px;
 }
 
-form{
- display:flex;
-  flex-direction: column;
-  max-width:340px;
-}
+
 
 .checkBox{
   display:flex;
@@ -31,12 +39,16 @@ form{
   margin:10px;
 }
 
+.check{
+  height: 25px !important;
+}
+
 select{
-   padding: 10px 10px 3px 4px;
-   width: 313px;
-   border: none;
-   border-bottom: solid 1px #333;
-   margin: 10px;
+  padding: 10px 10px 3px 4px;
+  width: 313px;
+  border: none;
+  border-bottom: solid 1px #333;
+  margin: 10px;
 }
 
 .input-text{
@@ -44,16 +56,17 @@ select{
 }
 
 .btn{
+  color: #000;
   max-width:330px;
   margin:10px;
 }
 
 .imagenesDiv {
-    position: absolute;
-    top: 50%;
-    left: 70%;
-    transform: translate(-50%, -50%);
-    padding: 20px;
+  position: absolute;
+  top: 50%;
+  left: 70%;
+  transform: translate(-50%, -50%);
+  padding: 20px;
 }
 
 .p1 >img {
@@ -69,28 +82,34 @@ select{
   max-width: 200px;
 }
 
-.form-content{
-  position: absolute;
-  top: 50%;
-  left: 25%;
-  transform: translate(-50%, -50%);
-  border: 1px solid black;
-  padding: 20px;
-  background-color: whitesmoke;
+form{
+  display:flex;
+  flex-direction: column;
+  max-width:340px;
+}
+
+.box {
+  display:flex;
+  flex-direction: column;
+  align-items: center;
 }
 
 /* Estilo para el formulario principal */
 .form-main {
-  background: #c8baa0;
+  position: relative;
   display: flex;
   justify-content: center;
   align-items: flex-start; /* Alinea el contenido hacia arriba */
-  height: 90vh; /* Reducir la altura para colocar el formulario más arriba */
-  padding-top: 5vh; /* Reducir el espacio superior para colocar el formulario más arriba */
+  height: 80vh; /* Reducir la altura para colocar el formulario más arriba */
 }
 
 /* Estilo para el contenido del formulario */
 .form-content {
+  position: absolute;
+  top: 50%;
+  left: 25%;
+  transform: translate(-50%, -20%);
+  border: 1px solid black;
   width: 100%;
   max-width: 450px;
   padding: 40px 20px; /* Aumentar el espacio interno */
@@ -121,28 +140,42 @@ select{
   text-align: center; /* Centra el texto */
 }
 
-/* Estilo para el botón "Crear cuenta" */
-.btn-crear_cuenta {
-  background-color: #7a9ea0; /* Color de fondo */
-  border-color: #7a9ea0; /* Color del borde */
-  color: #fff; /* Color del texto */
-  padding: 12px 24px; /* Ajusta el padding del botón */
-  border-radius: 5px; /* Ajusta el radio de borde */
-  text-decoration: none;
-  display: inline-block;
-  transition: background-color 0.3s, border-color 0.3s, color 0.3s; /* Agrega transición suave */
-  margin: 0 auto; /* Añade margen automático a los lados para centrar el botón */
-  display: block; /* Cambia el botón a un elemento de bloque para que el margen automático funcione */
-  margin-top: 20px; /* Agrega un margen superior de 20px */
+/* Estilo para el botón "Cargar" */
+.form-content .btn{
+  height: 40px;
+  width: 100%;
+  font-size: 16px;
+  font-weight: 500;
+  text-transform: capitalize;
+  font-family: inherit;
+  cursor: pointer;
+  border-radius: 25px;
+  user-select: none;
+  background: var(--green);
+  border: none;
+  color: var(--text-white);
+  position: relative;
+  z-index: 1;
+  overflow: hidden;
+  margin-top: 20px;
+}
+
+.form-content .btn:hover::before{
+  background-color: var(--button-hover-color);
 }
 
 /* Estilo para el botón "Crear cuenta" al pasar sobre él */
-.btn-crear_cuenta:hover {
-  background-color: #26a5b9; /* Cambia el color de fondo al pasar sobre el botón */
-  border-color: #26a5b9; /* Cambia el color del borde al pasar sobre el botón */
-}
+.form-content .btn::before{
+  content: "";
+  position: absolute;
+  left: 0;
+  top: 0;
+  height: 100%;
+  width: 100%;
+  transition: background-color 0.5s ease;
+} 
 
-.form-content .window-notice {
+.window-cargo {
   background: rgba(33, 41, 52, .85);
   left: 0;
   bottom: 0;
@@ -153,7 +186,7 @@ select{
   z-index: 999;
 }
 
-.form-content .window-notice .content {
+.window-cargo .cargo-content {
   background: linear-gradient(to right,#a3a397, var(--azul1));;
   border-radius: 2px; 
   box-shadow: 0 1px 3px rgba(33, 41, 52, .75);
@@ -172,33 +205,35 @@ select{
   justify-content: center;
 }
 
-.form-content .window-notice .content .content-text p{
+.window-cargo .cargo-content .cargo-content-text p {
   display: block;
   height: 45px;
   width: 100%;
   background-color: transparent;
   border: none;
   border-bottom: 1px solid var(--border-color);
-  color: white solid;
+  color: #fff;
   font-weight: inherit;
   font-family: inherit;
   font-size: 24px;    
   align-items: center;
   justify-content: center;
+  margin-bottom: 10px;
 }
 
-.form-content .window-notice .content .content-button a{
-  color: var(--text-white);
+.window-cargo .cargo-content .cargo-content-button a{
+  color: #fff;
   text-decoration: none;
   box-sizing: border-box;
   box-shadow: 0 1px 3px rgba(33, 41, 52, .75);
   background: #7a9ea0;
   padding: 10px;
   border-radius: 20px;
+  margin-top: 20px;
 }
 
 select.input-control  {
-  color: whitesmoke; /* Color del texto */
+  color: #fff; /* Color del texto */
 }
 
 /* Estilo para las opciones del campo de selección */

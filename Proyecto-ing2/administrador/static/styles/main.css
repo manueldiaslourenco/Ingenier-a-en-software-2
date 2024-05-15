@@ -175,7 +175,6 @@ td:nth-child(6) {
 
 /* Estilo para el formulario principal */
 .form-main {
-    background: #c8baa0;
     display: flex;
     justify-content: center;
     align-items: flex-start; /* Alinea el contenido hacia arriba */
@@ -195,6 +194,7 @@ td:nth-child(6) {
 
 /* Estilo para los campos de entrada del formulario */
 .input-control {
+    color: #fff;
     width: 100%; /* Ocupa todo el ancho del formulario */
     height: 45px; /* Ajusta la altura de los campos de entrada */
     font-size: 16px; /* Ajusta el tamaño de fuente si es necesario */

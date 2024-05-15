@@ -114,7 +114,8 @@ STATIC_URL = '/static/'
 STATICFILES_DIRS = [
     os.path.join(BASE_DIR, 'inicio/static'),
     os.path.join(BASE_DIR, 'autenticacion/static'),
-    os.path.join(BASE_DIR, 'embarcaciones/static')
+    os.path.join(BASE_DIR, 'embarcaciones/static'),
+    os.path.join(BASE_DIR, 'publicaciones/static'),
 ]
 
 MEDIA_ROOT = os.path.join(BASE_DIR, 'embarcaciones/static/imagenes_embarcaciones')
