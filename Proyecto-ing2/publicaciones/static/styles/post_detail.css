@@ -1,95 +1,218 @@
-body {
-    font-family: Arial;
-    margin: 0;
+:root{
+  --sand: #c8baa0;
+  --gray-sand: #c4c4be;
+  --aqua-light: #a9cecf;
+  --aquamarine: #26a5b9;
+  --cyan: #6785b4;  
+}
+
+/* .imagenesDiv {
+  position: absolute;
+  top: 50%;
+  left: 70%;
+  transform: translate(-50%, -50%);
+  padding: 20px;
+}
+
+.p1 >img {
+  max-width: 400px ;
+} */
+
+.box .window-eliminar {
+  background: rgba(33, 41, 52, .85);
+  left: 0;
+  bottom: 0;
+  right: 0;
+  top: 0;
+  display: flex;
+  position: fixed;
+  z-index: 999;
+  color: white;
+}
+
+.box .window-eliminar .eliminar-content {
+  background: linear-gradient(to right, var(--blue), var(--violet));;
+  border-radius: 2px;
+  box-shadow: 0 1px 3px rgba(33, 41, 52, .75);
+  box-sizing: content-box;
+  display: flex;
+  flex-direction: column;
+  margin: auto;
+  max-width: 600px;
+  min-width: 320px !important;
+  overflow: hidden;
+  position: relative;
+  width: 100%;
+  padding: 2rem;
+  font-size: 1.3rem;
+  align-items: center;
+  justify-content: center;
+}
+
+.box .window-eliminar .eliminar-content .eliminar-content-text p{
+  display: block;
+  height: 45px;
+  width: 100%;
+  background-color: transparent;
+  border: none;
+  border-bottom: 1px solid var(--border-color);
+  color: white solid;
+  font-weight: inherit;
+  font-family: inherit;
+  font-size: 24px;
+  align-items: center;
+  justify-content: center;
+}
+
+.box .window-eliminar .eliminar-content .eliminar-content-button a{
+  color: var(--text-white);
+  text-decoration: none;
+  box-sizing: border-box;
+  box-shadow: 0 1px 3px rgba(33, 41, 52, .75);
+  background: linear-gradient(to right, var(--green), var(--lead));
+  padding: 10px;
+  border-radius: 20px;
+}
+
+/* .box {
+  display: flex;
+  overflow: hidden;
+  font-size: 18px;
+  padding: 30px;
+  width: 100%;
+  align-items: flex-start;
+}
+
+.box .imagenesDiv {
+  position: relative;
+  display: inline-flex;
+  scroll-snap-type: x mandatory;
+  overflow-x: auto;
+}
+
+.box .imagenesDiv .image-container{
+  position:inherit;
+  display: inline-flex;
+  align-items: left;
+  min-width: 800px;
+}  */
+
+body{
+  overflow: hidden;
+}
+.box {
+  display: inline-block;
+  overflow-x: auto;
+  width: 100%;
+  position: relative;
+  align-items: center;
+  justify-content: center;
+  font-family: Arial, Helvetica, sans-serif;
+  font: bold;
+  font-size: 20px;
+  border: 1px solid black;
+}
+
+.imagenesDiv {
+  width: 100%;
+  padding: 10px 20px;
+  align-items: center;
+}
+
+.imagenesDiv .image-container {
+  display: inline-flex;
+  margin-right: 0px;
+  object-fit: contain;
+}
+
+.imagenesDiv .image-container:last-child {
+  margin-right: 0; 
+}
+
+.imagenesDiv .image-container .p1{
+  display: inline-block;
+  width: max-content; 
+  align-items: left;
+}
+
+.imagenesDiv .image-container .p1 img{
+  margin-left: 50px;
+}
+
+.box .info-container {
+  position:relative;
+  display:inline-block;
+  width: 100%;
+  background: var(--sand);
+  border: 1px solid var(--sand);
+  font: bold;
+}
+
+.info-container p{
+  margin-right: 50px;
+  align-items: center;
+}
+
+.info-container .btn{
+  margin-right: 50px;
+  align-self: right;
+}
+
+.p1 {
+  flex: 0 0 auto;
+  scroll-snap-align: start;
+  width: 70%;
+}
+
+.p1 img {
+  width: 50%;
+  max-height: 575px;
+  height: absolute;
+}
+
+.btn{
+  height: 100px;
+  width: 100%;
+  font-size: 24px;
+  font-weight: 500;
+  text-transform: capitalize;
+  font-family: Arial, Helvetica, sans-serif;
+  cursor: pointer;
+  border-radius: 70px;
+  user-select: none;
+  background-color: var(--aquamarine);
+  border-color: var(--aquamarine);
+  border-radius: 4px;
+  text-decoration: none;
+  align-items: center;
+  justify-content: center;
+  color: white;
+  position: relative;
+  margin: 0px;
+}
+
+br{
+  margin: 0px;
+}
+
+.btn::before{
+  content: "";
+  position: absolute;
+  left: 0;
+  top: 0;
+  height: 100%;
+  width: 100%;
+  transition: background-color 0.5s ease;
+}
+
+.btn:hover::before{
+  background-color: var(--button-hover-color);
+}
+
+@media(max-width: 575px){
+  section::after,
+  section::before{
+      height: 250px;
+      width: 250px;
   }
-  
-  * {
-    box-sizing: border-box;
-  }
-  
-  img {
-    vertical-align: middle;
-  }
-  
-  /* Position the image container (needed to position the left and right arrows) */
-  .container {
-    position: relative;
-  }
-  
-  /* Hide the images by default */
-  .mySlides {
-    display: none;
-  }
-  
-  /* Add a pointer when hovering over the thumbnail images */
-  .cursor {
-    cursor: pointer;
-  }
-  
-  /* Next & previous buttons */
-  .prev,
-  .next {
-    cursor: pointer;
-    position: absolute;
-    top: 40%;
-    width: auto;
-    padding: 16px;
-    margin-top: -50px;
-    color: white;
-    font-weight: bold;
-    font-size: 20px;
-    border-radius: 0 3px 3px 0;
-    user-select: none;
-    -webkit-user-select: none;
-  }
-  
-  /* Position the "next button" to the right */
-  .next {
-    right: 0;
-    border-radius: 3px 0 0 3px;
-  }
-  
-  /* On hover, add a black background color with a little bit see-through */
-  .prev:hover,
-  .next:hover {
-    background-color: rgba(0, 0, 0, 0.8);
-  }
-  
-  /* Number text (1/3 etc) */
-  .numbertext {
-    color: #f2f2f2;
-    font-size: 12px;
-    padding: 8px 12px;
-    position: absolute;
-    top: 0;
-  }
-  
-  /* Container for image text */
-  .caption-container {
-    text-align: center;
-    background-color: #222;
-    padding: 2px 16px;
-    color: white;
-  }
-  
-  .row:after {
-    content: "";
-    display: table;
-    clear: both;
-  }
-  
-  /* Six columns side by side */
-  .column {
-    float: left;
-    width: 16.66%;
-  }
-  
-  /* Add a transparency effect for thumnbail images */
-  .demo {
-    opacity: 0.6;
-  }
-  
-  .active,
-  .demo:hover {
-    opacity: 1;
-  }
+}
