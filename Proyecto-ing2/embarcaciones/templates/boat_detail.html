@@ -50,41 +50,55 @@
 <section>
     <div>
         <div class="box">
+            <div class="info-container">
+                <div>
+                    <p> Matricula: {{embarcacion.matricula}}</p>
+                </div>
+                <div>
+                    <p> Tipo de embarcacion: {{embarcacion.tipo.clase}}</p>
+                </div>
+                <div>
+                    <p> Modelo: {{embarcacion.modelo}}</p>
+                </div>
+                <div>
+                    <p> Eslora: {{embarcacion.m_eslora}}</p>
+                </div>
+                <div>
+                    <p> Manga: {{embarcacion.m_manga}}</p>
+                </div>
+                <div>
+                    <p> Calado: {{embarcacion.m_calado}}</p>
+                </div>
+                <div class="btn-container">
+                    {% with id_embarcacion=embarcacion.id %}
+                        {% if not request.user.is_superuser %}
+                            <a class="btn" href="{% url 'editar embarcacion' id_embarcacion %}">Editar embarcacion</a>
+                        {% endif %}
+                    {% endwith %}
+                </div>
+                <br>
+                <div>
+                    <div class="btn-container">
+                        <a class="btn" id="eliminar-embarcacion" href="">Eliminar embarcacion</a>
+                    </div>
+                    <div class="confirm"id="mensaje-eliminar-embarcacion" style="display: none;">
+                        <p>¿Estas seguro de eliminar la embarcación?</p>
+                        {% with id_embarcacion=embarcacion.id %}
+                            <a class="btn" href="{% url 'ver detalle embarcacion' embarcacion.id 1 %}">Confirmar</a>
+                        {% endwith %}
+                    </div>
+                </div>
+            </div>
             <div class='imagenesDiv'>
             {% for imagen in imagenes %}
                 {% with 'imagenes_embarcaciones/'|add:imagen.nombre_especifico as ruta_imagen %}
-                <div class='p1'>
-                    <img src="{% static ruta_imagen %}">
+                <div class="image-container">
+                    <div class='p1'>
+                        <img src="{% static ruta_imagen %}">
                 </div>
                 {% endwith %}
             {% endfor %}
             </div>
-            <div>
-                <p>{{embarcacion.matricula}}</p>
-            </div>
-            <div>
-                <p>{{embarcacion.tipo.clase}}</p>
-            </div>
-            <div>
-                <p>{{embarcacion.modelo}}</p>
-            </div>
-            <div>
-                {% with id_embarcacion=embarcacion.id %}
-                    {% if not request.user.is_superuser %}
-                        <a href="{% url 'editar embarcacion' id_embarcacion %}">Editar embarcacion</a>
-                    {% endif %}
-                {% endwith %}
-            </div>
-            <div>
-                <div>
-                    <a id="eliminar-embarcacion" href="">Eliminar embarcacion</a>
-                </div>
-                <div id="mensaje-eliminar-embarcacion" style="display: none;">
-                    <p>¿Estas seguro de eliminar la embarcación?</p>
-                    {% with id_embarcacion=embarcacion.id %}
-                        <a href="{% url 'ver detalle embarcacion' embarcacion.id 1 %}">Confirmar</a>
-                    {% endwith %}
-                </div>
                 {% if ok == 1 %}
                     <div class="window-eliminar" id="window-eliminar">  
                         <div class="eliminar-content">
