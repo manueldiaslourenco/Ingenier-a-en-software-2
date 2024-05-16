@@ -52,11 +52,25 @@
         <div class="box">
             <div class="info-container">
                 <div>
-                    <p>{{publicacion.embarcacion.tipo.clase}} {{publicacion.embarcacion.modelo}}</p>
+                    <p>Dueño: {{publicacion.autor.mail}}</p>
                 </div>
                 <div>
-                    <p>{{publicacion.monto}}</p>
+                    <p>Tipo: {{publicacion.embarcacion.tipo.clase}}</p>
                 </div>
+                <div>
+                    <p>Modelo: {{publicacion.embarcacion.modelo}}</p>
+                </div>
+                <div>
+                    <p>Descripcion: {{publicacion.descripcion}}</p>
+                </div>
+                <div>
+                    <p>Monto: {{publicacion.monto}}</p>
+                </div>
+                {% if request.user.is_superuser %}
+                <div>
+                    <a href="#">Eliminar</a>
+                </div>
+                {% endif %}
             </div>
             <div class='imagenesDiv'>
                 {% for imagen in imagenes %}

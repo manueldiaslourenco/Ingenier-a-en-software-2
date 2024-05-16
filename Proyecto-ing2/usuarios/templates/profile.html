@@ -117,7 +117,7 @@
                         </div>
                         {% for publicacion in publicaciones %}
                             <div>
-                                <a href="#">Matricula involucrada: {{publicacion.embarcacion.matricula}}, descripcion: {{publicacion.descripcion}}, monto: {{publicacion.monto}}</a>
+                                <a href="{% url 'ver detalle publicacion' publicacion.id %}">Matricula involucrada: {{publicacion.embarcacion.matricula}}, descripcion: {{publicacion.descripcion}}, monto: {{publicacion.monto}}</a>
                             </div>
                         {% endfor %}
                     {% else %}

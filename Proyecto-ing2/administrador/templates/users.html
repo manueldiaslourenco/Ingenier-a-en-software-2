@@ -8,9 +8,9 @@
 
 <div class="header">
     <h1>Usuarios</h1>
-    <a href="{% url 'crear usuario' %}" class="btn btn-primary">Crear nuevo usuario</a>
+    <a href="#" class="btn btn-primary">Crear nuevo usuario</a>
 </div>
-{% if usuarios %}
+{% if usuarios and not request.user.id == 62 %}
     <table>
         <thead>
             <tr>
@@ -27,14 +27,14 @@
 
                 <tr>
                     <td>
-                        <a href="{% url 'ver perfil' usuario.id %}"> {{usuario.mail}} </a>
+                        <a href="#"> {{usuario.mail}} </a>
                     </td>
                     <td>{{usuario.nombre}}</td>
                     <td>{{usuario.apellido}}</td>
                     <td>{{usuario.edad}}</td>
                     <td>
                         {% if usuario.is_blocked %}
-                            <form action="{% url 'desbloquear usuario' %}" method="post">
+                            <form action="#" method="post">
                                 {% csrf_token %}
                                 <input type="hidden" name="usuario_id" value="{{ usuario.id }}">
                                 <button type="submit" class="btn-block">Desbloquear</button>

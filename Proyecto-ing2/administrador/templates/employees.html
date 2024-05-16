@@ -11,6 +11,7 @@
     <a href="{% url 'crear empleado' %}" class="btn btn-primary">Crear nuevo empleado</a>
 </div>
 
+{% if julian == True %}
 {% if empleados %}
     <table>
         <thead>
@@ -34,6 +35,7 @@
     </table>
 {% else %}
     <h3>No existen empleados en la plataforma.</h3>
+{% endif %}
 {% endif %}
 
 {% endblock %}

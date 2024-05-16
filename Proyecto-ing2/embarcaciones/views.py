@@ -103,7 +103,7 @@ def editar_embarcacion(request, id_embarcacion):
                     else:
                         embarcacion.deuda = 0
                     if form.cleaned_data.get('sede') != None:
-                        embarcacion.sede.nombre = form.cleaned_data.get('sede')
+                        embarcacion.sede = Sede.objects.get(nombre= form.cleaned_data.get('sede'))
                     
                     # Guarda los cambios en la base de datos
                     embarcacion.save()

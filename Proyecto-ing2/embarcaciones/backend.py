@@ -45,7 +45,7 @@ def cargar_embarcacion_back(lista, imagenes, form):
 
 def validar_extensiones(value):
     if not value.name.endswith(('.jpg', '.png')):
-        raise ValidationError('No se pudo agregar la imagen por formato inválido.')
+        raise ValidationError('No se pudo agregar la imagen por formato inválido (.jpg o .png).')
     
 def eliminar_logicamente_embarcacion(objeto):
     timestamp = timezone.now().strftime('%Y%m%d%H%M%S')

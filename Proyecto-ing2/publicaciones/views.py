@@ -10,6 +10,9 @@ from .backend import cargar_publicacion_back
 def cuestionario_cargar_publicacion(request):
     usuario_actual = request.user
     embarcaciones = Embarcacion.objects.exclude(matricula__startswith='*').filter(dueño=usuario_actual)
+    embarcaciones_con_publicacion = Publicacion.objects.values_list('embarcacion_id', flat=True)
+    embarcaciones = embarcaciones.exclude(id__in=embarcaciones_con_publicacion)
+
     tiene_embarcaciones = embarcaciones.exists()
     
     if tiene_embarcaciones:
