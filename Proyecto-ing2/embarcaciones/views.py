@@ -84,6 +84,7 @@ def eliminar_embarcacion(request, id_embarcacion):
     
 @login_required(login_url=reverse_lazy('home'))
 def editar_embarcacion(request, id_embarcacion):
+    ok= False
     form = formularioEditarEmbarcacion()
     fs = FileSystemStorage()
     sedes = list(Sede.objects.all().values_list('nombre', flat=True))
@@ -102,8 +103,10 @@ def editar_embarcacion(request, id_embarcacion):
                         embarcacion.deuda = form.cleaned_data.get('deuda')
                     else:
                         embarcacion.deuda = 0
-                    if form.cleaned_data.get('sede') != None:
+                    try:
                         embarcacion.sede = Sede.objects.get(nombre= form.cleaned_data.get('sede'))
+                    except Sede.DoesNotExist:
+                        pass
                     
                     # Guarda los cambios en la base de datos
                     embarcacion.save()
@@ -127,10 +130,10 @@ def editar_embarcacion(request, id_embarcacion):
                                 nombre_especifico=imagen_id,
                                 embarcacion=embarcacion,
                                 )
-                    return redirect('ver detalle embarcacion', id_embarcacion= embarcacion.id, ok=0)
+                    ok= True
         else:
             return render(request, '404_not_found.html')
     except Embarcacion.DoesNotExist:
         return render(request, '404_not_found.html')
     
-    return render(request, 'edit_boat.html', {'form': form,'embarcacion': embarcacion, 'imagenes': imagenes_a_cargar, 'sedes': sedes})
+    return render(request, 'edit_boat.html', {'form': form,'embarcacion': embarcacion, 'imagenes': imagenes_a_cargar, 'sedes': sedes, 'ok':ok})

@@ -119,7 +119,7 @@
                 </div>
                 <div>
                     <select name="sede" required>
-                        <option value="embarcacion.sede.nombre">{{ embarcacion.sede.nombre }}</option>
+                        <option value="">{{ embarcacion.sede.nombre }}</option>
                         {% for unaSede in sedes %}
                           <option value="{{ unaSede }}">{{ unaSede }}</option>
                         {% endfor %}
@@ -148,6 +148,13 @@
                 {% endif %}
                 {% if form.non_field_errors %}
                 <div class="error">{{ form.non_field_errors }}</div>
+                {% elif ok == True %}
+                    <div class="window-cargo" id="window-notice">  
+                        <div class="cargo-content">
+                            <p class="cargo-content-text"> La embarcacion se actualizo correctamente </p> 
+                            <div class="cargo-content-button"><a href="{% url 'ver detalle embarcacion' embarcacion.id 0 %}">Aceptar</a></div>
+                        </div>
+                    </div>
                 {% endif %}
                 <button type="submit" class="btn">Guardar Cambios</button>
 
