@@ -88,13 +88,13 @@
                     {% endif %}
                 </div>
                 <div>
-                    <input type="text" name="marca" placeholder="Marca" maxlength="50" class="input-control" value="{{ form.marca.value|default_if_none:'' }}" onkeypress="return (event.charCode >= 48 && event.charCode <= 57 || event.charCode >= 65 && event.charCode <= 90 || event.charCode >= 97 && event.charCode <= 122 || event.charCode == 45)">
+                    <input type="text" name="marca" placeholder="Marca" maxlength="50" class="input-control" value="{{ form.marca.value|default_if_none:'' }}" onkeypress="return (event.charCode >= 32 && event.charCode <= 59 || event.charCode >= 65 && event.charCode <= 90 || event.charCode >= 97 && event.charCode <= 122)">
                     {% if form.marca.errors %}
                         <div class="error">{{ form.marca.errors }}</div>
                     {% endif %}
                 </div>
                 <div>
-                    <input type="text" name="modelo" placeholder="Modelo" maxlength="50" class="input-control" value="{{ form.modelo.value|default_if_none:'' }}" onkeypress="return (event.charCode >= 48 && event.charCode <= 57 || event.charCode >= 65 && event.charCode <= 90 || event.charCode >= 97 && event.charCode <= 122 || event.charCode == 45)">
+                    <input type="text" name="modelo" placeholder="Modelo" maxlength="50" class="input-control" value="{{ form.modelo.value|default_if_none:'' }}" onkeypress="return (event.charCode >= 32 && event.charCode <= 59 || event.charCode >= 65 && event.charCode <= 90 || event.charCode >= 97 && event.charCode <= 122)">
                     {% if form.modelo.errors %}
                         <div class="error">{{ form.modelo.errors }}</div>
                     {% endif %}
@@ -111,13 +111,13 @@
                     {% endif %}
                 </div>
                 <div>
-                    <input type="text" name="año_fabricacion" placeholder="Año de fabricacion" class="input-control" value="{{ form.año_fabricacion.value|default_if_none:'' }}" onkeypress="return (event.charCode >= 48 && event.charCode <= 57 || event.charCode == 46)">
+                    <input type="text" name="año_fabricacion" placeholder="Año de fabricacion" class="input-control" value="{{ form.año_fabricacion.value|default_if_none:'' }}" onkeypress="return (event.charCode >= 48 && event.charCode <= 57)">
                     {% if form.año_fabricacion.errors %}
                         <div class="error">{{ form.año_fabricacion.errors }}</div>
                     {% endif %}
                 </div>
                 <div>
-                    <input type="text" name="kilometraje" placeholder="Kilometraje" class="input-control" value="{{ form.kilometraje.value|default_if_none:'' }}" onkeypress="return (event.charCode >= 48 && event.charCode <= 57 || event.charCode == 46)">
+                    <input type="text" name="kilometraje" placeholder="Kilometraje" class="input-control" value="{{ form.kilometraje.value|default_if_none:'' }}" onkeypress="return (event.charCode >= 48 && event.charCode <= 57)">
                     {% if form.kilometraje.errors %}
                         <div class="error">{{ form.kilometraje.errors }}</div>
                     {% endif %}

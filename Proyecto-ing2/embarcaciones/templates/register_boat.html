@@ -88,7 +88,7 @@
                     {% endif %}
                 </div>
                 <div>
-                    <input type="text" name="modelo" placeholder="Modelo" maxlength="50" class="input-control" value="{{ form.modelo.value|default_if_none:'' }}" onkeypress="return (event.charCode >= 48 && event.charCode <= 57 || event.charCode >= 65 && event.charCode <= 90 || event.charCode >= 97 && event.charCode <= 122 || event.charCode == 45)">
+                    <input type="text" name="modelo" placeholder="Modelo" maxlength="50" class="input-control" value="{{ form.modelo.value|default_if_none:'' }}" onkeypress="return (event.charCode >= 32 && event.charCode <= 59 || event.charCode >= 65 && event.charCode <= 90 || event.charCode >= 97 && event.charCode <= 122)"">
                     {% if form.modelo.errors %}
                         <div class="error">{{ form.modelo.errors }}</div>
                     {% endif %}
