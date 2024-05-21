@@ -6,7 +6,7 @@
 {% endblock %}
 
 {% block title %}
-    <title>Ver detalle embarcacion</title>
+    <title>Ver detalle publicacion</title>
 {% endblock %}
 
 {% block scripts %}
@@ -52,7 +52,7 @@
         <div class="box">
             <div class="info-container">
                 <div>
-                    <p>Dueño: {{publicacion.autor.mail}}</p>
+                    <p>Dueño: <a href="{% url 'ver perfil' publicacion.autor.id %}">{{publicacion.autor.mail}}</a></p>
                 </div>
                 <div>
                     <p>Tipo: {{publicacion.embarcacion.tipo.clase}}</p>
