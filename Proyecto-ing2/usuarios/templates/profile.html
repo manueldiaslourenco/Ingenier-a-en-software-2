@@ -30,7 +30,7 @@
         $("#indice2").click(function(event){
             event.preventDefault();
             $(".caja").hide();
-            //$("#caja2").show();
+            $("#caja2").show();
         });
         $("#indice3").click(function(event){
             event.preventDefault();
@@ -78,6 +78,9 @@
             <div>
                 <a href="{% url 'cargar embarcacion' %}">Cargar embarcacion</a>
             </div>
+            <div>
+                <a href="{% url 'cargar vehiculo' %}">Cargar vehiculo</a>
+            </div>
         {% endif %}
             <div class="container">
                 {% if request.user.id == param.id %}
@@ -104,10 +107,22 @@
                         </div>
                     {% endif %}
                 </div>
+
                 <div id="caja2" class="caja" style="display: none;">
-                    <div>
-                        <h3>No existen vehiculos cargados</h3>
-                    </div>
+                    {% if vehiculos %}
+                        <div>
+                            <h3>Vehiculos:</h3>
+                        </div>
+                        {% for vehiculo in vehiculos %}
+                            <div>
+                                <a href="">Patente: {{vehiculo.patente}}, Tipo: {{vehiculo.tipo.clase}}, Marca: {{vehiculo.marca}}, Modelo: {{vehiculo.modelo}}</a>
+                            </div>
+                        {% endfor %}
+                    {% else %}
+                        <div>
+                            <h3>No existen vehiculos cargados</h3>
+                        </div>
+                    {% endif %}
                 </div>
                 {% endif %}
                 <div id="caja3" class="caja" style="display: none;">
