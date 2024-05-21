@@ -61,9 +61,15 @@ ROOT_URLCONF = 'OhMyBoat.urls'
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': [os.path.join(BASE_DIR, 'autenticacion/templates'), os.path.join(BASE_DIR,'inicio/templates')
-                 ,os.path.join(BASE_DIR,'administrador/templates'), os.path.join(BASE_DIR, 'embarcaciones/templates'),
-                 os.path.join(BASE_DIR, 'publicaciones/templates')],
+        'DIRS': [os.path.join(BASE_DIR, 'administrador/templates'),
+                 os.path.join(BASE_DIR, 'autenticacion/templates'),
+                 os.path.join(BASE_DIR, 'embarcaciones/templates'),
+                 os.path.join(BASE_DIR, 'empleados/templates'),
+                 os.path.join(BASE_DIR, 'inicio/templates'),
+                 os.path.join(BASE_DIR, 'publicaciones/templates'),
+                 os.path.join(BASE_DIR, 'usuarios/templates'),
+                 os.path.join(BASE_DIR, 'vehiculos/templates')
+                 ],
         'APP_DIRS': True,
         'OPTIONS': {
             'context_processors': [
@@ -112,10 +118,14 @@ USE_TZ = True
 STATIC_URL = '/static/'
 
 STATICFILES_DIRS = [
-    os.path.join(BASE_DIR, 'inicio/static'),
+    os.path.join(BASE_DIR, 'administrador/static'),
     os.path.join(BASE_DIR, 'autenticacion/static'),
     os.path.join(BASE_DIR, 'embarcaciones/static'),
+    os.path.join(BASE_DIR, 'empleados/static'),
+    os.path.join(BASE_DIR, 'inicio/static'),
     os.path.join(BASE_DIR, 'publicaciones/static'),
+    os.path.join(BASE_DIR, 'usuarios/static'),
+    os.path.join(BASE_DIR, 'vehiculos/static'),
 ]
 
 MEDIA_ROOT = os.path.join(BASE_DIR, 'embarcaciones/static/imagenes_embarcaciones')
@@ -127,8 +137,8 @@ DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
 #tiempo para que se expire la sesion
 #funciona mal a chekear
-#SESSION_COOKIE_AGE = 1800 # La sesión expira después de 600 segundos
-#SESSION_SAVE_EVERY_REQUEST = True  # La sesión se guarda en cada solicitud, restableciendo el temporizador
+SESSION_COOKIE_AGE = 1800 # La sesión expira después de 600 segundos
+SESSION_SAVE_EVERY_REQUEST = True  # La sesión se guarda en cada solicitud, restableciendo el temporizador
 
 SESSION_EXPIRE_AT_BROWSER_CLOSE = True
 

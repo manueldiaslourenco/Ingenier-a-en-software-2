@@ -61,7 +61,7 @@ header > div {
 
 .logo > h1::before {
     content: '';
-    background-image: url('images/Oh_My_Boat_logo_2.jpg');
+    background-image: url('../images/Oh_My_Boat_logo_2.jpg');
     position: absolute;
     background-size: 50px;
     background-position: center;
