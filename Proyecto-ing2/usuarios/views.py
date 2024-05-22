@@ -6,6 +6,7 @@ from django.urls import reverse_lazy
 from embarcaciones.models import Embarcacion
 from publicaciones.models import Publicacion
 from vehiculos.models import Vehiculo
+from ofertas.models import Oferta
 
 @login_required(login_url=reverse_lazy('home'))
 def ver_perfil(request, id):
@@ -37,11 +38,21 @@ def ver_perfil(request, id):
             except Vehiculo.DoesNotExist:
                 vehiculos = []
 
+            try:
+                ofertas = Oferta.objects.filter(autor= id)
+            except Oferta.DoesNotExist:
+                ofertas = []
+
+                
+            trueques= []
+
             return render(request, 'profile.html', {
                 'param': usuario,
                 'embarcaciones': embarcaciones,
                 'publicaciones': publicaciones,
                 'vehiculos': vehiculos,
+                'ofertas': ofertas,
+                'trueques': trueques,
             })
         
     except UserModel.DoesNotExist:

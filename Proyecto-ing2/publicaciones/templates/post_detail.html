@@ -86,5 +86,9 @@
         </div>
     </div> 
 </section>
-
+<div>
+    {% if not request.user.mail == publicacion.autor.mail %}
+        <a href="{% url 'publicar oferta' publicacion.id %}">Publicar oferta</a>
+    {% endif %}
+</div>
 {% endblock %}

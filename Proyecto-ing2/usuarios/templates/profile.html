@@ -40,7 +40,12 @@
         $("#indice4").click(function(event){
             event.preventDefault();
             $(".caja").hide();
-            //$("#caja4").show();
+            $("#caja4").show();
+        });
+        $("#indice5").click(function(event){
+            event.preventDefault();
+            $(".caja").hide();
+            $("#caja5").show();
         });
     });
 </script>
@@ -64,7 +69,7 @@
             <h3 class="titulo">{{param.nombre}} {{param.apellido}}</h3>
             <p class="texto"></p>
         </div>
-        <div class="perfil-usuario-footer">
+        <div>
             <ul class="lista-datos">
                 <li><i class="fa-sharp fa-solid fa-envelope"></i> Mail: {{param.mail}}</li>
                 <li><i class="icono fas fa-phone-alt"></i> Telefono: {{param.telefono}}</li>
@@ -75,22 +80,24 @@
             </ul>
         </div>
         {% if request.user.id == param.id %}
-            <div>
-                <a href="{% url 'cargar embarcacion' %}">Cargar embarcacion</a>
-            </div>
-            <div>
-                <a href="{% url 'cargar vehiculo' %}">Cargar vehiculo</a>
+            <div class="button-container">
+                <a href="{% url 'cargar embarcacion' %}" class="button">Cargar embarcacion</a>
+                <a href="{% url 'cargar vehiculo' %}" class="button">Cargar vehiculo</a>
             </div>
         {% endif %}
+            <div class="containerIndices">
+                {% if request.user.id == param.id %}
+                <a href="#" id="indice1" class="button"><i class="fa-solid fa-sailboat"></i> Embarcaciones</a>
+                <a href="#" id="indice2" class="button"><i class="fa-solid fa-truck-pickup"></i> Vehiculos</a>
+                {% endif %}
+                <a href="#" id="indice3" class="button"><i class="fa-solid fa-arrow-up-from-bracket"></i> Publicaciones</a>
+                {% if request.user.id == param.id %}
+                <a href="#" id="indice4" class="button"><i class="fa-solid fa-comments-dollar"></i> Ofertas</a>
+                <a href="#" id="indice5" class="button"><i class="fa-solid fa-arrow-right-arrow-left"></i> Trueques</a>
+                {% endif %}
+            </div>
             <div class="container">
                 {% if request.user.id == param.id %}
-                <a href="#" id="indice1"><i class="fa-solid fa-sailboat"></i> Embarcaciones</a>
-                <a href="#" id="indice2"><i class="fa-solid fa-truck-pickup"></i> Vehiculos</a>
-                {% endif %}
-                <a href="#" id="indice3"><i class="fa-solid fa-arrow-up-from-bracket"></i> Publicaciones</a>
-                {% if request.user.id == param.id %}
-                <a href="#" id="indice4"><i class="fa-solid fa-arrow-right-arrow-left"></i> Trueques</a>
-            
                 <div id="caja1" class="caja" style="display: none;">
                     {% if embarcaciones %}
                         <div>
@@ -115,7 +122,7 @@
                         </div>
                         {% for vehiculo in vehiculos %}
                             <div>
-                                <a href="">Patente: {{vehiculo.patente}}, Tipo: {{vehiculo.tipo.clase}}, Marca: {{vehiculo.marca}}, Modelo: {{vehiculo.modelo}}</a>
+                                <a href="#">Patente: {{vehiculo.patente}}, Tipo: {{vehiculo.tipo.clase}}, Marca: {{vehiculo.marca}}, Modelo: {{vehiculo.modelo}}</a>
                             </div>
                         {% endfor %}
                     {% else %}
@@ -143,6 +150,28 @@
                 </div>
                 {% if request.user.id == param.id %}
                 <div id="caja4" class="caja" style="display: none;">
+                    {% if ofertas %}
+                        <div>
+                            <h3>Ofertas:</h3>
+                        </div>
+                        {% for oferta in ofertas %}
+                            {% if oferta.vehiculo_ofertado %}
+                            <div>
+                                <a href="#">Embarcacion ofertada: {{oferta.publicacion.matricula}}, Vehiculo ofrecido: {{oferta.vehiculo_ofertado.patente}}, monto: {{oferta.monto}}</a>
+                            </div>
+                            {% else %}
+                            <div>
+                                <a href="#">Embarcacion ofertada: {{oferta.publicacion.matricula}}, Embarcacion ofrecida: {{oferta.embarcacion_ofertada.matricula}}, monto: {{oferta.monto}}</a>
+                            </div>
+                            {% endif %}
+                        {% endfor %}
+                    {% else %}
+                        <div>
+                            <h3>No existen ofertas activas</h3>
+                        </div>
+                    {% endif %}
+                </div>
+                <div id="caja5" class="caja" style="display: none;">
                     <div>
                         <h3>No existen trueques cargados</h3>
                     </div>
