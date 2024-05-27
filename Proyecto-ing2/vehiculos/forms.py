@@ -40,3 +40,7 @@ class formularioCargarVehiculo(forms.Form):
     imagen2= forms.ImageField(label='imagen2', required=False, validators=[validar_extensiones])
 
     imagen3= forms.ImageField(label='imagen3', required=False, validators=[validar_extensiones])
+
+    def clean_patente(self):
+        patente = self.cleaned_data.get('patente', '').upper()
+        return patente

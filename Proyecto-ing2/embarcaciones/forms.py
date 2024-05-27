@@ -53,6 +53,10 @@ class formularioCargaEmbarcacion(forms.Form):
 
     imagen3= forms.ImageField(label='imagen3', required=False, validators=[validar_extensiones])
 
+    def clean_matricula(self):
+        matricula = self.cleaned_data.get('matricula', '').upper()
+        return matricula
+
 
 class formularioEditarEmbarcacion(forms.Form):
     eslora= forms.DecimalField(label='eslora',max_digits=10, decimal_places=2, required=False, error_messages={
@@ -92,3 +96,7 @@ class formularioEditarEmbarcacion(forms.Form):
     imagen2= forms.ImageField(label='imagen2', required=False, validators=[validar_extensiones])
 
     imagen3= forms.ImageField(label='imagen3', required=False, validators=[validar_extensiones])
+
+    def clean_matricula(self):
+        matricula = self.cleaned_data.get('matricula', '').upper()
+        return matricula
