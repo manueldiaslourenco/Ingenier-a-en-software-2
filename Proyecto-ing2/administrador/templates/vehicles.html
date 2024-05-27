@@ -1,0 +1,48 @@
+{% extends 'layouts/navbar.html' %}
+
+{% block title %}
+    <title>Vehículos</title>
+{% endblock %}
+
+{% block content %}
+
+<div class="header">
+    <h1>Vehículos</h1>
+</div>
+
+{% if vehiculos %}
+    <table>
+        <thead>
+            <tr>
+                <th>Patente</th>
+                <th>Marca</th>
+                <th>Modelo</th>
+                <th>Kilometraje</th>
+                <th>Año de Fabricación</th>
+                <th>Dueño</th>
+                <th>Tipo de Vehículo</th>
+            </tr>
+        </thead>
+        <tbody>
+
+            {% for vehiculo in vehiculos %}
+                <tr>
+                    <td>
+                        {{ vehiculo.patente }}
+                    </td>
+                    <td>{{ vehiculo.marca }}</td>
+                    <td>{{ vehiculo.modelo }}</td>
+                    <td>{{ vehiculo.kilometraje }}</td>
+                    <td>{{ vehiculo.año_fabricacion }}</td>
+                    <td>
+                        <a href="{% url 'ver perfil' vehiculo.dueño.id %}"> {{vehiculo.dueño}} </a>
+                    </td>
+                    <td>{{ vehiculo.tipo.clase }}</td>
+                </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+{% else %}
+    <h3>No existen vehículos en la plataforma.</h3>
+{% endif %}
+{% endblock %}

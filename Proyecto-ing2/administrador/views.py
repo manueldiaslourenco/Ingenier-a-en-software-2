@@ -9,6 +9,7 @@ from datetime import date
 from django.contrib.auth.hashers import make_password
 from empleados.models import EmpleConSede, Sede
 from embarcaciones.models import Embarcacion
+from vehiculos.models import Vehiculo
 
 @login_required(login_url=reverse_lazy('home'))
 def index(request):
@@ -156,3 +157,12 @@ def embarcaciones(request):
     
     embarcaciones = Embarcacion.objects.exclude(matricula__startswith='*')
     return render(request, 'boats.html', {'embarcaciones' : embarcaciones})
+
+@login_required(login_url=reverse_lazy('home'))
+def listar_vehiculos(request):
+    user = request.user
+    if not user.is_superuser:
+        return redirect('home')
+    
+    vehiculos = Vehiculo.objects.exclude(patente__startswith='*')
+    return render(request, 'vehicles.html', {'vehiculos': vehiculos})
