@@ -3,6 +3,38 @@
 
 {% block style %}
     <link rel="stylesheet" type="text/css" href="{% static 'styles/boat_detail_body.css' %}">
+    <style>
+                /* esto queda corregirlo hablar con manu para entender porque esta aca*/
+                /* Estilo para boton "Eliminar" */
+        .btn-delete {
+            background-color: rgb(167, 3, 3);
+            color: white;
+            border: none;
+            border-radius: 5px;
+            padding: 5px 10px;
+        }
+
+        /* Estilo para boton "Eliminar" al pasar sobre él */
+        .btn-delete:hover {
+            background-color: rgb(112, 0, 0);
+            border-color: rgb(112, 0, 0);
+        }
+
+        /* Estilo para boton "BLoquear" */
+        .btn-block {
+            background-color: #7a9ea0;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            padding: 5px 10px;
+        }
+
+        /* Estilo para boton "Bloquear" al pasar sobre él */
+        .btn-block:hover {
+            background-color: #26a5b9;
+            border-color: #26a5b9;
+        }
+    </style>
 {% endblock %}
 
 {% block title %}
@@ -100,10 +132,18 @@
             {% if oferta.vehiculo_ofertado %}
                 <div>
                     <a href="#">Vehiculo ofrecido: {{oferta.vehiculo_ofertado.patente}}, monto: {{oferta.monto}}</a>
+                    {% if request.user.mail == publicacion.autor.mail %}
+                    <a href="" class="btn-block">Aceptar</a>
+                    <a href="" class="btn-delete">rechazar</a>
+                    {% endif %}
                 </div>
             {% else %}
                 <div>
                     <a href="#">Embarcacion ofrecida: {{oferta.embarcacion_ofertada.matricula}}, monto: {{oferta.monto}}</a>
+                    {% if request.user.mail == publicacion.autor.mail %}
+                    <a href="" class="btn-block">Aceptar</a>
+                    <a href="" class="btn-delete">rechazar</a>
+                    {% endif %}
                 </div>
             {% endif %}
         {% endfor %}
