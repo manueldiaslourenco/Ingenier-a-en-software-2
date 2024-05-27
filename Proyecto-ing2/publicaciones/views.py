@@ -3,6 +3,8 @@ from django.contrib.auth.decorators import login_required
 from django.urls import reverse_lazy
 from .forms import formularioCrearPublicacion
 from embarcaciones.models import Embarcacion, ImagenEmbarcacion
+from ofertas.models import Oferta
+from usuarios.models import Usuario
 from .models import Publicacion
 from .backend import cargar_publicacion_back
 
@@ -42,6 +44,7 @@ def ver_detalle_publicacion(request, id_publicacion):
     try:
         unaPublicacion = Publicacion.objects.get(id=id_publicacion)
         imagenes= ImagenEmbarcacion.objects.filter(embarcacion= unaPublicacion.embarcacion.id)
-        return render(request, 'post_detail.html', {'imagenes': imagenes, 'publicacion':  unaPublicacion})
+        ofertas= Oferta.objects.exclude(autor__is_blocked=True)
+        return render(request, 'post_detail.html', {'imagenes': imagenes, 'publicacion':  unaPublicacion, 'ofertas': ofertas})
     except Embarcacion.DoesNotExist:
         return render(request, '404_not_found.html')

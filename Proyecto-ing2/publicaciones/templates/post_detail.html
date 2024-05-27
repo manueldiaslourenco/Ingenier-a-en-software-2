@@ -91,4 +91,26 @@
         <a href="{% url 'publicar oferta' publicacion.id %}">Publicar oferta</a>
     {% endif %}
 </div>
+<div>
+    <h3>Ofertas:</h3>
+</div>
+<div>
+    {% if ofertas %}
+        {% for oferta in ofertas %}
+            {% if oferta.vehiculo_ofertado %}
+                <div>
+                    <a href="#">Vehiculo ofrecido: {{oferta.vehiculo_ofertado.patente}}, monto: {{oferta.monto}}</a>
+                </div>
+            {% else %}
+                <div>
+                    <a href="#">Embarcacion ofrecida: {{oferta.embarcacion_ofertada.matricula}}, monto: {{oferta.monto}}</a>
+                </div>
+            {% endif %}
+        {% endfor %}
+    {% else %}
+        <div>
+            <h3>No existen ofertas activas</h3>
+        </div>
+    {% endif %}
+</div>
 {% endblock %}

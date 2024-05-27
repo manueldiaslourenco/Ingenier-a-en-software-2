@@ -18,6 +18,8 @@ def ver_perfil(request, id):
             return redirect('admin')
         elif usuario.is_staff and usuario_actual.is_staff:
             return redirect('panel empleados')
+        elif usuario.is_blocked and not usuario_actual.is_superuser:
+            return render(request, '404_not_found.html')
         elif usuario.is_staff:
             return render(request, '404_not_found.html')
         elif usuario.is_superuser:
