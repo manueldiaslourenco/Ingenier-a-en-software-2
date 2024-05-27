@@ -3,7 +3,10 @@ from embarcaciones.models import Embarcacion
 from vehiculos.models import Vehiculo
 from .forms import formularioCrearOferta
 from .backend import crear_oferta_back
+from django.contrib.auth.decorators import login_required
+from django.urls import reverse_lazy
 
+@login_required(login_url=reverse_lazy('iniciar sesion'))
 def publicar_oferta(request, id_publi):
     usuario_actual = request.user
     embarcaciones = Embarcacion.objects.exclude(matricula__startswith='*').filter(dueño=usuario_actual)
