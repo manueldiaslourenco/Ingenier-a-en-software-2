@@ -28,7 +28,7 @@
             {% for vehiculo in vehiculos %}
                 <tr>
                     <td>
-                        {{ vehiculo.patente }}
+                        <a href="{% url 'ver detalle vehiculo' vehiculo.id 0 %}"> {{vehiculo.patente}} </a>
                     </td>
                     <td>{{ vehiculo.marca }}</td>
                     <td>{{ vehiculo.modelo }}</td>

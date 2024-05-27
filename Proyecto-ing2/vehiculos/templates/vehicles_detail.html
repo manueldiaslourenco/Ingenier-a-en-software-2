@@ -1,0 +1,74 @@
+{% extends 'layouts/base.html' %}
+{% load static %}
+
+{% block style %}
+    <link rel="stylesheet" type="text/css" href="{% static 'styles/vehicle_detail_body.css' %}">
+{% endblock %}
+
+{% block title %}
+    <title>Detalle de vehículo</title>
+{% endblock %}
+
+{% block scripts %}
+
+{% endblock %}
+
+{% block listnav %}
+    {% if request.user.is_authenticated %}
+        <li><a class="normal" href="{% url 'ver perfil' id=request.user.id %}"><i class="fa-solid fa-user"></i></a></li>
+    {% endif %}
+    {% if request.user.is_authenticated %}
+        <li class="modal"><a id="cerrar-sesion" class="normal"  href=""><i class="fa-solid fa-arrow-right-from-bracket"></i></a>
+            <div id="mensaje-cerrar-sesion" class="mensaje" style="display: none;">
+                <p>Estas seguro de cerrar la sesion?</p>
+                <a href="{% url 'cerrar sesion' %}" class="buton2">Confirmar</a>
+            </div>
+        </li>
+    {% else %}
+        <li><a href="{% url 'crear cuenta' %}" class="buton">Crear cuenta</a></li>
+        <li><a href="{% url 'iniciar sesion' %}" class="buton">Iniciar Sesion</a></li>
+    {% endif %}
+
+{% endblock %}
+
+{% block content %}
+<section>
+    <div>
+        <div class="box">
+            <div class="info-container">
+                <div>
+                    <p>Patente: {{ vehiculo.patente }}</p>
+                </div>
+                <div>
+                    <p>Marca: {{ vehiculo.marca }}</p>
+                </div>
+                <div>
+                    <p>Modelo: {{ vehiculo.modelo }}</p>
+                </div>
+                <div>
+                    <p>Kilometraje: {{ vehiculo.kilometraje }}</p>
+                </div>
+                <div>
+                    <p>Tipo: {{ vehiculo.tipo.clase }}</p>
+                </div>
+                <div>
+                    <p>Año de fabricacion: {{ vehiculo.año_fabricacion }}</p>
+                </div>
+                <!-- Puedes agregar más detalles del vehículo según sea necesario -->
+            </div>
+            <div class="imagenesDiv">
+                <!-- Aquí puedes iterar sobre las imágenes del vehículo y mostrarlas -->
+                {% for imagen in imagenes %}
+                    {% with 'imagenes_vehiculos/'|add:imagen.nombre_especifico as ruta_imagen %}
+                        <div class="image-container">
+                            <div class="p1">
+                                <img src="{% static ruta_imagen %}">
+                            </div>
+                        </div>
+                    {% endwith %}
+                {% endfor %}
+            </div>
+        </div>
+    </div>
+</section>
+{% endblock %}

@@ -2,7 +2,7 @@ from django.shortcuts import render
 from django.contrib.auth.decorators import login_required
 from django.urls import reverse_lazy
 from .forms import formularioCargarVehiculo
-from .models import TipoVehiculo
+from .models import TipoVehiculo, Vehiculo, ImagenVehiculo
 from .backend import cargar_vehiculo_back
 
 
@@ -45,3 +45,15 @@ def cuestionario_cargar_vehiculo(request):
         'ok': ok,
         'tipos': tipos
     })
+
+@login_required(login_url=reverse_lazy('home'))
+def ver_detalle_vehiculo(request, id_vehiculo, ok):
+    try:
+        unVehiculo = Vehiculo.objects.exclude(patente__startswith='*').get(id= id_vehiculo)
+        if unVehiculo.dueño.id == request.user.id or request.user.is_superuser:
+            imagenes= ImagenVehiculo.objects.filter(vehiculo= unVehiculo.id)
+            return render(request, 'vehicles_detail.html', {'imagenes': imagenes, 'vehiculo':  unVehiculo, 'ok':ok})
+        else:
+            return render(request, '404_not_found.html')
+    except Vehiculo.DoesNotExist:
+        return render(request, '404_not_found.html')
