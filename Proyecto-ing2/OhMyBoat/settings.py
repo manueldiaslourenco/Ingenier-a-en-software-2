@@ -42,10 +42,11 @@ INSTALLED_APPS = [
     'embarcaciones',
     'empleados',
     'inicio',
+    'ofertas',
     'publicaciones',
+    'trueques',
     'usuarios',
     'vehiculos',
-    'ofertas'
 ]
 
 MIDDLEWARE = [
