@@ -51,6 +51,7 @@ body{
 }
 
 .window-mensaje {
+    color: #fff;
     background: rgba(33, 41, 52, .85);
     left: 0;
     bottom: 0;

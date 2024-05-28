@@ -2,6 +2,7 @@
 {% load static %}
 
 {% block style %}
+    <link rel="stylesheet" type="text/css" href="{% static 'styles/register_offer.css' %}">
 {% endblock %}
 
 {% block title %}
@@ -56,7 +57,7 @@
     
                     <div>
                         <select name="articulo_cambio" class="input-control" required>
-                            <option value="">Selecciona una embarcación</option>
+                            <option value="">Selecciona un vehiculo o una embarcación</option>
                             {% for unaEmbarcacion in embarcaciones %}
                               <option value="{{ unaEmbarcacion }}">{{ unaEmbarcacion }}</option>
                             {% endfor %}
