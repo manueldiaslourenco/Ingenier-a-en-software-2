@@ -12,4 +12,5 @@ class Trueque(models.Model):
     embarcacion2 = models.ForeignKey(Embarcacion, related_name='trueques_como_embarcacion2', on_delete=models.SET_NULL, null=True)
     vehiculo = models.ForeignKey(Vehiculo, on_delete=models.SET_NULL, null=True)
     sede = models.ForeignKey(Sede, on_delete=models.SET_NULL, null=True)
+    estado= models.CharField(max_length=50, default='Pendiente')
 

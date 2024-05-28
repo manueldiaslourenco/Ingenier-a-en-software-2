@@ -36,3 +36,11 @@ def publicar_oferta(request, id_publi):
         mensaje = 'Para ofertar, primero debes cargar una embarcación o un vehiculo desde tu perfil.'
         return render(request, 'register_offer.html' , {'mensaje': mensaje,
                                                         'id_publi': id_publi,})
+"""cuando se acpeta la ofreta que se esconda,
+cuando se valide el trueque se elimine la publicaicon 
+cuando se rechza el trueque se vuelve a mostar """
+
+@login_required(login_url=reverse_lazy('iniciar sesion'))
+def aceptar_oferta(request):
+
+    return render

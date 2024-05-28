@@ -57,11 +57,8 @@ def cuestionario_cargar_embarcacion(request):
 def ver_detalle_embarcacion(request, id_embarcacion, ok):
     try:
         unaEmbarcacion = Embarcacion.objects.exclude(matricula__startswith='*').get(id= id_embarcacion)
-        if unaEmbarcacion.dueño.id == request.user.id or request.user.is_superuser:
-            imagenes= ImagenEmbarcacion.objects.filter(embarcacion= unaEmbarcacion.id)
-            return render(request, 'boat_detail.html', {'imagenes': imagenes, 'embarcacion':  unaEmbarcacion, 'ok':ok})
-        else:
-            return render(request, '404_not_found.html')
+        imagenes= ImagenEmbarcacion.objects.filter(embarcacion= unaEmbarcacion.id)
+        return render(request, 'boat_detail.html', {'imagenes': imagenes, 'embarcacion':  unaEmbarcacion, 'ok':ok})
     except Embarcacion.DoesNotExist:
         return render(request, '404_not_found.html')
 

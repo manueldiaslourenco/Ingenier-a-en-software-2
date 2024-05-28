@@ -69,14 +69,15 @@
                 <div>
                     <p> Calado: {{embarcacion.m_calado}}</p>
                 </div>
+                {% if unaEmbarcacion.dueño.id == request.user.id %}
                 <div class="btn-container">
                     {% with id_embarcacion=embarcacion.id %}
-                        {% if not request.user.is_superuser %}
                             <a class="btn" href="{% url 'editar embarcacion' id_embarcacion %}">Editar embarcacion</a>
-                        {% endif %}
                     {% endwith %}
                 </div>
+                {% endif %}
                 <br>
+                {% if request.user.is_superuser or unaEmbarcacion.dueño.id == request.user.id %}
                 <div>
                     <div class="btn-container">
                         <a class="btn" id="eliminar-embarcacion" href="">Eliminar embarcacion</a>
@@ -88,6 +89,7 @@
                         {% endwith %}
                     </div>
                 </div>
+                {% endif %}
             </div>
             <div class='imagenesDiv'>
             {% for imagen in imagenes %}

@@ -98,6 +98,9 @@
                 <div>
                     <p>Monto: {{publicacion.monto}}</p>
                 </div>
+                <div>
+                    <p>Matricula: <a href="{% url 'ver detalle embarcacion' publicacion.embarcacion.id 0 %}">{{publicacion.embarcacion.matricula}}</a></p>
+                </div>
                 {% if request.user.is_superuser %}
                 <div>
                     <a href="#">Eliminar</a>
@@ -129,23 +132,17 @@
 <div>
     {% if ofertas %}
         {% for oferta in ofertas %}
+            <div>
             {% if oferta.vehiculo_ofertado %}
-                <div>
-                    <a href="#">Vehiculo ofrecido: {{oferta.vehiculo_ofertado.patente}}, monto: {{oferta.monto}}</a>
-                    {% if request.user.mail == publicacion.autor.mail %}
-                    <a href="" class="btn-block">Aceptar</a>
-                    <a href="" class="btn-delete">rechazar</a>
-                    {% endif %}
-                </div>
+                    <a href="">Vehiculo ofrecido: <a href="{% url 'ver detalle vehiculo' oferta.vehiculo_ofertado.id 0 %}">{{oferta.vehiculo_ofertado.patente}}</a>, monto: {{oferta.monto}}</a>
             {% else %}
-                <div>
-                    <a href="#">Embarcacion ofrecida: {{oferta.embarcacion_ofertada.matricula}}, monto: {{oferta.monto}}</a>
-                    {% if request.user.mail == publicacion.autor.mail %}
+                    <a href="">Embarcacion ofrecida: <a href="{% url 'ver detalle embarcacion' oferta.embarcacion_ofertada.matricula 0 %}">{{oferta.embarcacion_ofertada.matricula}}</a>, monto: {{oferta.monto}}</a>
+            {% endif %}
+            {% if request.user.mail == publicacion.autor.mail %}
                     <a href="" class="btn-block">Aceptar</a>
                     <a href="" class="btn-delete">rechazar</a>
-                    {% endif %}
-                </div>
             {% endif %}
+            </div>
         {% endfor %}
     {% else %}
         <div>
