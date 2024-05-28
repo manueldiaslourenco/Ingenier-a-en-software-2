@@ -171,13 +171,8 @@ body{
 }
 
 .btn{
-  height: 100px;
-  width: 100%;
   font-size: 24px;
   font-weight: 500;
-  text-transform: capitalize;
-  font-family: Arial, Helvetica, sans-serif;
-  cursor: pointer;
   border-radius: 70px;
   user-select: none;
   background-color: var(--aquamarine);
@@ -189,6 +184,36 @@ body{
   color: white;
   position: relative;
   margin: 0px;
+}
+
+.btn-delete {
+  background-color: rgb(167, 3, 3);
+  color: white;
+  border: none;
+  border-radius: 5px;
+  padding: 5px 10px;
+}
+
+/* Estilo para boton "Eliminar" al pasar sobre él */
+.btn-delete:hover {
+  background-color: rgb(112, 0, 0);
+  border-color: rgb(112, 0, 0);
+  cursor: pointer;
+}
+
+/* Estilo para boton "BLoquear" */
+.btn-post-offer {
+  background-color: #26a5b9;
+  color: white;
+  border: none;
+  border-radius: 5px;
+  padding: 5px 10px;
+}
+
+/* Estilo para boton "Bloquear" al pasar sobre él */
+.btn-post-offer:hover {
+  background-color: #7a9ea0;
+  cursor: pointer;
 }
 
 br{

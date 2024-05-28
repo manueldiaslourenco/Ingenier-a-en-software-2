@@ -46,7 +46,7 @@ def cuestionario_cargar_vehiculo(request):
         'tipos': tipos
     })
 
-@login_required(login_url=reverse_lazy('home'))
+@login_required(login_url=reverse_lazy('iniciar sesion'))
 def ver_detalle_vehiculo(request, id_vehiculo, ok):
     try:
         unVehiculo = Vehiculo.objects.exclude(patente__startswith='*').get(id= id_vehiculo)

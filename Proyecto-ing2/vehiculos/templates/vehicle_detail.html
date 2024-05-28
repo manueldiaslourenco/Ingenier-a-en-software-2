@@ -54,10 +54,8 @@
                 <div>
                     <p>Año de fabricacion: {{ vehiculo.año_fabricacion }}</p>
                 </div>
-                <!-- Puedes agregar más detalles del vehículo según sea necesario -->
             </div>
             <div class="imagenesDiv">
-                <!-- Aquí puedes iterar sobre las imágenes del vehículo y mostrarlas -->
                 {% for imagen in imagenes %}
                     {% with 'imagenes_vehiculos/'|add:imagen.nombre_especifico as ruta_imagen %}
                         <div class="image-container">

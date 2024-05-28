@@ -53,7 +53,7 @@ def cuestionario_cargar_embarcacion(request):
 
     return render(request, 'register_boat.html', {'form': form, 'ok': ok, 'tipos': tipos, 'sedes': sedes})
 
-@login_required(login_url=reverse_lazy('home'))
+@login_required(login_url=reverse_lazy('iniciar sesion'))
 def ver_detalle_embarcacion(request, id_embarcacion, ok):
     try:
         unaEmbarcacion = Embarcacion.objects.exclude(matricula__startswith='*').get(id= id_embarcacion)

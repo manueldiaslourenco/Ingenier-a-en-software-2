@@ -2,39 +2,7 @@
 {% load static %}
 
 {% block style %}
-    <link rel="stylesheet" type="text/css" href="{% static 'styles/boat_detail_body.css' %}">
-    <style>
-                /* esto queda corregirlo hablar con manu para entender porque esta aca*/
-                /* Estilo para boton "Eliminar" */
-        .btn-delete {
-            background-color: rgb(167, 3, 3);
-            color: white;
-            border: none;
-            border-radius: 5px;
-            padding: 5px 10px;
-        }
-
-        /* Estilo para boton "Eliminar" al pasar sobre él */
-        .btn-delete:hover {
-            background-color: rgb(112, 0, 0);
-            border-color: rgb(112, 0, 0);
-        }
-
-        /* Estilo para boton "BLoquear" */
-        .btn-block {
-            background-color: #7a9ea0;
-            color: white;
-            border: none;
-            border-radius: 5px;
-            padding: 5px 10px;
-        }
-
-        /* Estilo para boton "Bloquear" al pasar sobre él */
-        .btn-block:hover {
-            background-color: #26a5b9;
-            border-color: #26a5b9;
-        }
-    </style>
+    <link rel="stylesheet" type="text/css" href="{% static 'styles/post_detail.css' %}">
 {% endblock %}
 
 {% block title %}
@@ -102,9 +70,11 @@
                     <p>Matricula: <a href="{% url 'ver detalle embarcacion' publicacion.embarcacion.id 0 %}">{{publicacion.embarcacion.matricula}}</a></p>
                 </div>
                 {% if request.user.is_superuser %}
-                <div>
-                    <a href="#">Eliminar</a>
-                </div>
+                    <form action="#" method="post">
+                        {% csrf_token %}
+                        <input type="hidden" name="embarcacion_id" value="{{ embarcacion.id }}">
+                        <button type="submit" class="btn-delete">Eliminar</button>
+                    </form>
                 {% endif %}
             </div>
             <div class='imagenesDiv'>
@@ -123,7 +93,11 @@
 </section>
 <div>
     {% if not request.user.mail == publicacion.autor.mail %}
-        <a href="{% url 'publicar oferta' publicacion.id %}">Publicar oferta</a>
+        <form action="{% url 'publicar oferta' publicacion.id %}" method="post">
+            {% csrf_token %}
+            <input type="hidden" name="publicacion_id" value="{{ publicacion.id }}">
+            <button type="submit" class="btn-post-offer">Publicar oferta</button>
+        </form>
     {% endif %}
 </div>
 <div>
