@@ -201,7 +201,22 @@ body{
   cursor: pointer;
 }
 
-/* Estilo para boton "BLoquear" */
+/* Estilo para boton "Aceptar" */
+.btn-acept {
+  background-color: #26a5b9;
+  color: white;
+  border: none;
+  border-radius: 5px;
+  padding: 5px 10px;
+}
+
+/* Estilo para boton "Aceptar" al pasar sobre él */
+.btn-acept:hover {
+  background-color: #7a9ea0;
+  cursor: pointer;
+}
+
+/* Estilo para boton "Publicar oferta" */
 .btn-post-offer {
   background-color: #26a5b9;
   color: white;
@@ -210,7 +225,7 @@ body{
   padding: 5px 10px;
 }
 
-/* Estilo para boton "Bloquear" al pasar sobre él */
+/* Estilo para boton "Publicar oferta" al pasar sobre él */
 .btn-post-offer:hover {
   background-color: #7a9ea0;
   cursor: pointer;

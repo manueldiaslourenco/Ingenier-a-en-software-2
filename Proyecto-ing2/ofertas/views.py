@@ -2,6 +2,8 @@ from django.shortcuts import render, redirect
 from embarcaciones.models import Embarcacion
 from vehiculos.models import Vehiculo
 from publicaciones.models import Publicacion
+from trueques.models import Trueque
+from .models import Oferta
 from .forms import formularioCrearOferta
 from .backend import crear_oferta_back
 from django.contrib.auth.decorators import login_required
@@ -34,13 +36,47 @@ def publicar_oferta(request, id_publi):
                                                          'vehiculos': patentes_vehiculos})
     else:
         mensaje = 'Para ofertar, primero debes cargar una embarcación o un vehiculo desde tu perfil.'
-        return render(request, 'register_offer.html' , {'mensaje': mensaje,
-                                                        'id_publi': id_publi,})
-"""cuando se acpeta la ofreta que se esconda,
+        return render(request, 'register_offer.html' , {'mensaje': mensaje, 'id_publi': id_publi,})
+    
+
+"""cuando se acpeta la oferta que se esconda,
 cuando se valide el trueque se elimine la publicaicon 
 cuando se rechza el trueque se vuelve a mostar """
 
 @login_required(login_url=reverse_lazy('iniciar sesion'))
 def aceptar_oferta(request):
+    try:
+        publicacion_id = request.POST.get('publicacion_id')
+        oferta_id = request.POST.get('oferta_id')
+        print('AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA')
+        print(publicacion_id)
+        print(oferta_id)
+        print('AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA')
+        publicacion = Publicacion.objects.get(id=publicacion_id)
+        oferta = Oferta.objects.get(id=oferta_id)
 
-    return render
+        publicacion.oculta = True
+        publicacion.save()
+
+        ofertas_relacionadas = Oferta.objects.filter(publicacion=publicacion)
+        for oferta_relacionada in ofertas_relacionadas:
+            if oferta_relacionada.id != oferta.id:
+                oferta_relacionada.estado = "Pausada"
+                oferta_relacionada.save()
+        
+        oferta.oculta = True
+        oferta.save()
+        
+        Trueque.objects.create(
+            monto=oferta.monto,
+            usuario1=publicacion.autor,
+            usuario2=oferta.autor,
+            embarcacion1=publicacion.embarcacion,
+            embarcacion2=oferta.embarcacion_ofertada,
+            vehiculo=oferta.vehiculo_ofertado,
+            sede=publicacion.embarcacion.sede,
+            estado="Pendiente"
+        )
+    except:
+        return render(request, '404_not_found.html')
+    return redirect ('home')

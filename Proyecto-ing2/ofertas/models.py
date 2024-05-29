@@ -12,3 +12,4 @@ class Oferta(models.Model):
     embarcacion_ofertada = models.ForeignKey(Embarcacion, on_delete=models.SET_NULL, null=True)
     publicacion= models.ForeignKey(Publicacion, on_delete=models.CASCADE)
     estado= models.CharField(max_length=50, default='Pendiente')
+    oculta = models.BooleanField(default=False)
