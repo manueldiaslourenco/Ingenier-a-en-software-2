@@ -50,10 +50,7 @@ def cuestionario_cargar_vehiculo(request):
 def ver_detalle_vehiculo(request, id_vehiculo, ok):
     try:
         unVehiculo = Vehiculo.objects.exclude(patente__startswith='*').get(id= id_vehiculo)
-        if unVehiculo.dueño.id == request.user.id or request.user.is_superuser:
-            imagenes= ImagenVehiculo.objects.filter(vehiculo= unVehiculo.id)
-            return render(request, 'vehicles_detail.html', {'imagenes': imagenes, 'vehiculo':  unVehiculo, 'ok':ok})
-        else:
-            return render(request, '404_not_found.html')
+        imagenes= ImagenVehiculo.objects.filter(vehiculo= unVehiculo.id)
+        return render(request, 'vehicle_detail.html', {'imagenes': imagenes, 'vehiculo':  unVehiculo, 'ok':ok})
     except Vehiculo.DoesNotExist:
         return render(request, '404_not_found.html')
