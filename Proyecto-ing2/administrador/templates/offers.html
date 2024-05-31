@@ -1,0 +1,53 @@
+{% extends 'layouts/navbar.html' %}
+
+{% block title %}
+    <title>Ofertas</title>
+{% endblock %}
+
+{% block content %}
+
+<div class="header">
+    <h1>Ofertas</h1>
+</div>
+
+{% if ofertas %}
+    <table>
+        <thead>
+            <tr>
+                <th>Ofertante</th>
+                <th>Monto</th>
+                <th>Vehículo/Embarcación ofertado</th>
+                <th>Publicación</th>
+                <th>Estado</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for oferta in ofertas %}
+                <tr>
+                    <td>
+                        <a href="{% url 'ver perfil' oferta.autor.id %}">{{oferta.autor.mail}}</a>
+                    </td>
+                    <td>{{ oferta.monto }}</td>
+                    {% if oferta.vehiculo_ofertado %}
+                        <td>
+                            <a href="{% url 'ver detalle vehiculo' oferta.vehiculo_ofertado.id 0 %}">{{ oferta.vehiculo_ofertado.patente }}</a>
+                        </td>
+                    {% elif oferta.embarcacion_ofertada %}
+                        <td>
+                            <a href="{% url 'ver detalle embarcacion' oferta.embarcacion_ofertada.id 0 %}">{{ oferta.embarcacion_ofertada.matricula }}</a>
+                        </td>
+                    {% else %}
+                        <td>No se ofreció un vehículo o embarcación</td>
+                    {% endif %}
+                    <td>
+                        <a href="{% url 'ver detalle publicacion' oferta.publicacion.id %}">{{ oferta.publicacion.embarcacion.tipo.clase }}</a>
+                    </td>
+                    <td>{{ oferta.estado }}</td>
+                </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+{% else %}
+    <h3>No existen ofertas en la plataforma.</h3>
+{% endif %}
+{% endblock %}

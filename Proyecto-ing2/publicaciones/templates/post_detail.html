@@ -110,7 +110,7 @@
             {% if oferta.vehiculo_ofertado %}
                     <a href="">Vehiculo ofrecido: <a href="{% url 'ver detalle vehiculo' oferta.vehiculo_ofertado.id 0 %}">{{oferta.vehiculo_ofertado.patente}}</a>, monto: {{oferta.monto}}</a>
             {% else %}
-                    <a href="">Embarcacion ofrecida: <a href="{% url 'ver detalle embarcacion' oferta.embarcacion_ofertada.matricula 0 %}">{{oferta.embarcacion_ofertada.matricula}}</a>, monto: {{oferta.monto}}</a>
+                    <a href="">Embarcacion ofrecida: <a href="{% url 'ver detalle embarcacion' oferta.embarcacion_ofertada.id 0 %}">{{oferta.embarcacion_ofertada.matricula}}</a>, monto: {{oferta.monto}}</a>
             {% endif %}
             {% if request.user.mail == publicacion.autor.mail %}
                 <form action="{% url 'ver detalle publicacion' publicacion.id %}" method="POST">

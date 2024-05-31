@@ -11,4 +11,5 @@ urlpatterns = [
     path('administracion/usuarios/desbloquear_usuario', views.desbloquear_usuario, name="desbloquear usuario"),
     path('administracion/embarcaciones/', views.embarcaciones, name="lista embarcaciones"),
     path('administrador/vehiculos/', views.listar_vehiculos, name='lista vehiculos'),
+    path('administrador/ofertas/', views.listar_ofertas, name='lista ofertas'),
 ]

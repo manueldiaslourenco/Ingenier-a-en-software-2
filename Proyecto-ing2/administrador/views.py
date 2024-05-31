@@ -10,6 +10,7 @@ from django.contrib.auth.hashers import make_password
 from empleados.models import EmpleConSede, Sede
 from embarcaciones.models import Embarcacion
 from vehiculos.models import Vehiculo
+from ofertas.models import Oferta
 
 @login_required(login_url=reverse_lazy('home'))
 def index(request):
@@ -166,3 +167,12 @@ def listar_vehiculos(request):
     
     vehiculos = Vehiculo.objects.exclude(patente__startswith='*')
     return render(request, 'vehicles.html', {'vehiculos': vehiculos})
+
+@login_required(login_url=reverse_lazy('home'))
+def listar_ofertas(request):
+    user = request.user
+    if not user.is_superuser:
+        return redirect('home')
+    
+    ofertas = Oferta.objects.exclude(oculta = True)
+    return render(request, 'offers.html', {'ofertas': ofertas})
