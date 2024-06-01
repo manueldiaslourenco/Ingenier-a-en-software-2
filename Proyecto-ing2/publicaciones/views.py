@@ -44,22 +44,22 @@ def ver_detalle_publicacion(request, id_publicacion):
     try:
         unaPublicacion = Publicacion.objects.get(id=id_publicacion)
         imagenes= ImagenEmbarcacion.objects.filter(embarcacion= unaPublicacion.embarcacion.id)
-        ofertas= Oferta.objects.exclude(autor__is_blocked=True)
-        
-        #Para 'Aceptar oferta'
-        ok = False
-        acepto = False
+        ofertas= Oferta.objects.exclude(autor__is_blocked=True).filter(publicacion= id_publicacion).filter(estado= 'Pendiente')
+
+        # Para 'Aceptar oferta'
+        ok = 0
+        acepto = 0
         oferta_id = 0
         if request.method == 'POST':
             acepto = request.POST.get('acepto')
             oferta_id = request.POST.get('oferta_id')
-            ok = True
-        
+            ok = request.POST.get('ok')
+
         return render(request, 'post_detail.html', {'imagenes': imagenes,
                                                     'publicacion': unaPublicacion,
                                                     'ofertas': ofertas,
                                                     'ok': ok,
-                                                    'acepto':acepto,
-                                                    'oferta_id':oferta_id})
+                                                    'acepto': acepto,
+                                                    'oferta_id': oferta_id})
     except Embarcacion.DoesNotExist:
         return render(request, '404_not_found.html')

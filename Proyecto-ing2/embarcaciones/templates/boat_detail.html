@@ -102,15 +102,14 @@
                 {% endwith %}
             {% endfor %}
             </div>
-                {% if ok == 1 %}
-                    <div class="window-eliminar" id="window-eliminar">  
-                        <div class="eliminar-content">
-                            <p class="eliminar-content-text">La embarcacion se elimino correctamente</p> 
-                            <div class="eliminar-content-button"><a href="{% url 'eliminar embarcacion' embarcacion.id %}">Aceptar</a></div>
-                        </div>
+            {% if ok == 1 %}
+                <div class="window-eliminar" id="window-eliminar">  
+                    <div class="eliminar-content">
+                        <p class="eliminar-content-text">La embarcacion se elimino correctamente</p> 
+                        <div class="eliminar-content-button"><a href="{% url 'eliminar embarcacion' embarcacion.id %}">Aceptar</a></div>
                     </div>
-                {% endif %} 
-            </div>
+                </div>
+            {% endif %} 
         </div>
     </div>
 </section>
