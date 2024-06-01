@@ -1,4 +1,4 @@
-from django.shortcuts import render
+from django.shortcuts import render, redirect
 from django.contrib.auth.decorators import login_required
 from django.urls import reverse_lazy
 from .forms import formularioCrearPublicacion
@@ -6,7 +6,7 @@ from embarcaciones.models import Embarcacion, ImagenEmbarcacion
 from ofertas.models import Oferta
 from usuarios.models import Usuario
 from .models import Publicacion
-from .backend import cargar_publicacion_back
+from .backend import cargar_publicacion_back, eliminar_publicacion_fisica
 
 @login_required(login_url=reverse_lazy('iniciar sesion'))
 def cuestionario_cargar_publicacion(request):
@@ -64,3 +64,8 @@ def ver_detalle_publicacion(request, id_publicacion):
                                                     'oferta_id': oferta_id})
     except Embarcacion.DoesNotExist:
         return render(request, '404_not_found.html')
+
+@login_required(login_url=reverse_lazy('iniciar sesion'))
+def eliminar_publicacion_vista(request, id_publicacion):
+    eliminar_publicacion_fisica(id_publicacion)
+    return redirect('home')
