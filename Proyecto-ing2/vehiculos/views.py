@@ -3,6 +3,7 @@ from django.contrib.auth.decorators import login_required
 from django.urls import reverse_lazy
 from .forms import formularioCargarVehiculo
 from .models import TipoVehiculo, Vehiculo, ImagenVehiculo
+from ofertas.models import Oferta
 from .backend import cargar_vehiculo_back
 
 
@@ -51,6 +52,11 @@ def ver_detalle_vehiculo(request, id_vehiculo, ok):
     try:
         unVehiculo = Vehiculo.objects.exclude(patente__startswith='*').get(id= id_vehiculo)
         imagenes= ImagenVehiculo.objects.filter(vehiculo= unVehiculo.id)
-        return render(request, 'vehicle_detail.html', {'imagenes': imagenes, 'vehiculo':  unVehiculo, 'ok':ok})
+        try:
+            Oferta.objects.get(vehiculo_ofertado= id_vehiculo)
+            oferta_aceptada= True
+        except Oferta.DoesNotExist:
+            oferta_aceptada= False
+        return render(request, 'vehicle_detail.html', {'imagenes': imagenes, 'vehiculo':  unVehiculo, 'ok':ok, 'oferta_aceptada': oferta_aceptada})
     except Vehiculo.DoesNotExist:
         return render(request, '404_not_found.html')

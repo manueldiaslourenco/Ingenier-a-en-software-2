@@ -13,8 +13,9 @@ def cuestionario_cargar_publicacion(request):
     usuario_actual = request.user
     embarcaciones = Embarcacion.objects.exclude(matricula__startswith='*').filter(dueño=usuario_actual)
     embarcaciones_con_publicacion = Publicacion.objects.values_list('embarcacion_id', flat=True)
+    embarcaciones_con_ofertas= Oferta.objects.values_list('embarcacion_ofertada_id', flat=True)
     embarcaciones = embarcaciones.exclude(id__in=embarcaciones_con_publicacion)
-
+    embarcaciones = embarcaciones.exclude(id__in=embarcaciones_con_ofertas)
     tiene_embarcaciones = embarcaciones.exists()
     
     if tiene_embarcaciones:
@@ -37,7 +38,7 @@ def cuestionario_cargar_publicacion(request):
 
         return render(request, 'register_post.html', {'form': form, 'ok': ok, 'embarcaciones':  matriculas_embarcaciones})
     else:
-        mensaje = "Para crear una publicación, primero debes cargar una embarcación desde tu perfil."
+        mensaje = "Para crear una publicación, primero debes cargar una embarcación desde tu perfil. (Recorda que para publicar una embarcacion la misma no debe terner ofertas)"
         return render(request, 'index.html', {'mensaje': mensaje})
     
 def ver_detalle_publicacion(request, id_publicacion):

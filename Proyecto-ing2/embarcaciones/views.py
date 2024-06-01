@@ -7,6 +7,7 @@ from django.urls import reverse_lazy
 from .forms import formularioCargaEmbarcacion, formularioEditarEmbarcacion
 from .models import TipoEmbarcacion, Embarcacion, ImagenEmbarcacion
 from publicaciones.models import Publicacion
+from ofertas.models import Oferta
 from empleados.models import Sede
 from .backend import cargar_embarcacion_back, eliminar_logicamente_embarcacion, eliminar_imagenes_y_objeto_tabla
 
@@ -58,7 +59,12 @@ def ver_detalle_embarcacion(request, id_embarcacion, ok):
     try:
         unaEmbarcacion = Embarcacion.objects.exclude(matricula__startswith='*').get(id= id_embarcacion)
         imagenes= ImagenEmbarcacion.objects.filter(embarcacion= unaEmbarcacion.id)
-        return render(request, 'boat_detail.html', {'imagenes': imagenes, 'embarcacion':  unaEmbarcacion, 'ok':ok})
+        try:
+            Oferta.objects.get(embarcacion_ofertada= id_embarcacion)
+            oferta_aceptada= True
+        except Oferta.DoesNotExist:
+            oferta_aceptada= False
+        return render(request, 'boat_detail.html', {'imagenes': imagenes, 'embarcacion':  unaEmbarcacion, 'ok':ok, 'oferta_aceptada': oferta_aceptada})
     except Embarcacion.DoesNotExist:
         return render(request, '404_not_found.html')
 
