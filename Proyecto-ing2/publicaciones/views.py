@@ -1,4 +1,4 @@
-from django.shortcuts import redirect, render
+from django.shortcuts import render, redirect
 from django.contrib.auth.decorators import login_required
 from django.urls import reverse_lazy
 from .forms import formularioCrearPublicacion
@@ -66,6 +66,6 @@ def ver_detalle_publicacion(request, id_publicacion):
         return render(request, '404_not_found.html')
 
 @login_required(login_url=reverse_lazy('iniciar sesion'))
-def eliminar_publicacion(request, id_publicacion):
+def eliminar_publicacion_vista(request, id_publicacion):
     eliminar_publicacion_fisica(id_publicacion)
     return redirect('home')

@@ -196,11 +196,11 @@
                         {% for trueque in trueques %}
                             {% if trueque.embarcacion2 %}
                                 <div>
-                                    <a href="#">Monto: {{trueque.monto}}, Dueño de publicacion: {{trueque.usuario1.id}}, Ofertante: {{trueque.usuario2.id}} Embarcacion publicada: {{trueque.embarcacion1}}, Embarcacion ofertada: {{trueque.embarcacion2.tipo.clase}} {{trueque.embarcacion2.modelo}}</a>
+                                    <a href="#">Monto: {{trueque.monto}}, Dueño de publicacion: {{trueque.usuario1.id}}, Ofertante: {{trueque.usuario2.id}} Embarcacion publicada: {{trueque.embarcacion1.tipo.clase}} {{trueque.embarcacion1.modelo}}, Embarcacion ofertada: {{trueque.embarcacion2.tipo.clase}} {{trueque.embarcacion2.modelo}}</a>
                                 </div>
                             {% else %}
                                 <div>
-                                    <a href="#">Monto: {{trueque.monto}}, Dueño de publicacion: {{trueque.usuario1.id}}, Ofertante: {{trueque.usuario2.id}} Embarcacion publicada: {{trueque.embarcacion1}}, Vehiculo ofertado: {{trueque.vehiculo.marca}} {{trueque.vehiculo.modelo}} {{trueque.vehiculo.año_fabricacion}}</a>
+                                    <a href="#">Monto: {{trueque.monto}}, Dueño de publicacion: {{trueque.usuario1.id}}, Ofertante: {{trueque.usuario2.id}} Embarcacion publicada: {{trueque.embarcacion1.tipo.clase}} {{trueque.embarcacion1.modelo}}, Vehiculo ofertado: {{trueque.vehiculo.marca}} {{trueque.vehiculo.modelo}} {{trueque.vehiculo.año_fabricacion}}</a>
                                 </div>
                             {% endif %}
                         {% endfor %}

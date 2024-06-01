@@ -12,8 +12,7 @@ def crear_oferta_back(lista):
 
     try:
         embarcacion = Embarcacion.objects.get(matricula= lista[1])
-        if lista[2] is None:
-                lista[2] = 0
+
         Oferta.objects.create(
             monto= lista[2],
             autor=usuario,
