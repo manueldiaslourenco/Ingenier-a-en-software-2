@@ -62,9 +62,9 @@ body{
     z-index: 999;
 }
 
-.window-mensaje .mensaje-content {/*no entiendo donde cambia el background*/
-    background: linear-gradient(to right, #a3a397, #6785b4);;
-    border-radius: 2px;
+.window-mensaje .mensaje-content {
+    background: linear-gradient(to right, #a3a397, #6785b4);
+    border-radius: 10px;
     box-shadow: 0 1px 3px rgba(33, 41, 52, .75);
     box-sizing: content-box;
     display: flex;
@@ -81,19 +81,11 @@ body{
     justify-content: center;
 }
 
-.window-mensaje .mensaje-content .mensaje-content-text p{
-    display: block;
+.window-mensaje .mensaje-content .mensaje-content-text {
     height: 45px;
-    width: 100%;
-    background-color: transparent;
-    border: none;
-    border-bottom: 1px solid var(--border-color);
-    color: #fff; /*hay q cambiar la letra a blanco*/
-    font-weight: inherit;
-    font-family: inherit;
     font-size: 24px;
-    align-items: center;
-    justify-content: center;
+    margin-bottom: 40px;
+    text-align: center;
 }
 
 .window-mensaje .mensaje-content .mensaje-content-button a{
@@ -103,5 +95,5 @@ body{
     box-shadow: 0 1px 3px rgba(33, 41, 52, .75);
     background: linear-gradient(to right, #a3a397, #6785b4);
     padding: 10px;
-    border-radius: 20px;
+    border-radius: 10px;
 }

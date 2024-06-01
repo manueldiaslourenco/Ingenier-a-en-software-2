@@ -48,10 +48,7 @@ def aceptar_oferta(request):
     try:
         publicacion_id = request.POST.get('publicacion_id')
         oferta_id = request.POST.get('oferta_id')
-        print('AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA')
-        print(publicacion_id)
-        print(oferta_id)
-        print('AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA')
+        
         publicacion = Publicacion.objects.get(id=publicacion_id)
         oferta = Oferta.objects.get(id=oferta_id)
 

@@ -189,9 +189,26 @@
                     {% endif %}
                 </div>
                 <div id="caja5" class="caja" style="display: none;">
-                    <div>
-                        <h3>No existen trueques cargados</h3>
-                    </div>
+                    {% if trueques %}
+                        <div>
+                            <h3>Trueques:</h3>
+                        </div>
+                        {% for trueque in trueques %}
+                            {% if trueque.embarcacion2 %}
+                                <div>
+                                    <a href="#">Monto: {{trueque.monto}}, Dueño de publicacion: {{trueque.usuario1.id}}, Ofertante: {{trueque.usuario2.id}} Embarcacion publicada: {{trueque.embarcacion1}}, Embarcacion ofertada: {{trueque.embarcacion2.tipo.clase}} {{trueque.embarcacion2.modelo}}</a>
+                                </div>
+                            {% else %}
+                                <div>
+                                    <a href="#">Monto: {{trueque.monto}}, Dueño de publicacion: {{trueque.usuario1.id}}, Ofertante: {{trueque.usuario2.id}} Embarcacion publicada: {{trueque.embarcacion1}}, Vehiculo ofertado: {{trueque.vehiculo.marca}} {{trueque.vehiculo.modelo}} {{trueque.vehiculo.año_fabricacion}}</a>
+                                </div>
+                            {% endif %}
+                        {% endfor %}
+                    {% else %}
+                        <div>
+                            <h3>No existen trueques</h3>
+                        </div>
+                    {% endif %}
                 </div>
                 {% endif %}
             </div>

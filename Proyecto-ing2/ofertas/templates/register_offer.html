@@ -71,7 +71,7 @@
                     </div>
     
                     <div>
-                        <input id="monto" type="number" name="monto" placeholder="Monto" class="input-control" value="{{ form.monto.value|default_if_none:'' }}">
+                        <input id="monto" type="number" name="monto" placeholder="Monto" class="input-control" value="{{ form.monto.value|default_if_none:'0' }}">
                     </div>
                     {% if form.monto.errors %}
                             <div class="error">{{ form.monto.errors }}</div>

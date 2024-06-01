@@ -7,6 +7,9 @@ from embarcaciones.models import Embarcacion
 from publicaciones.models import Publicacion
 from vehiculos.models import Vehiculo
 from ofertas.models import Oferta
+from trueques.models import Trueque
+from django.db.models import Q
+
 
 @login_required(login_url=reverse_lazy('home'))
 def ver_perfil(request, id):
@@ -31,7 +34,7 @@ def ver_perfil(request, id):
                 embarcaciones = []
 
             try:
-                publicaciones = Publicacion.objects.filter(autor = id)
+                publicaciones = Publicacion.objects.filter(autor = id).exclude(oculta = True)
             except Publicacion.DoesNotExist:
                 publicaciones = []
 
@@ -41,12 +44,12 @@ def ver_perfil(request, id):
                 vehiculos = []
 
             try:
-                ofertas = Oferta.objects.filter(autor= id)
+                ofertas = Oferta.objects.filter(autor = id)
             except Oferta.DoesNotExist:
                 ofertas = []
 
-                
-            trueques= []
+            trueques = Trueque.objects.filter(Q(usuario1_id = id) | Q(usuario2_id = id))
+            # Uso Q para utilizar 'or'
 
             return render(request, 'profile.html', {
                 'param': usuario,

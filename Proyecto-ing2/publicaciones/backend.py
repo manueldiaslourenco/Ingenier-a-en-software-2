@@ -2,6 +2,7 @@ from django.contrib.auth import authenticate
 from usuarios.models import Usuario
 from embarcaciones.models import Embarcacion
 from publicaciones.models import Publicacion
+from ofertas.models import Oferta
 from django.db import IntegrityError
 
 def autenticar_usuario(username, password):
@@ -33,3 +34,11 @@ def cargar_publicacion_back(lista, form):
     except IntegrityError:
         form.add_error('embarcacion', 'La embarcacion ingresada ya cuenta con una publicación.')
         return False
+
+def eliminar_publicacion_fisica(id_publicacion):
+    ofertas= Oferta.objects.filter(publicacion= id_publicacion)
+    for oferta in ofertas:
+        oferta.estado= 'Rechazada'
+        oferta.save()
+    publicacion_borrar= Publicacion.objects.get(id= id_publicacion)
+    publicacion_borrar.delete()
