@@ -58,7 +58,7 @@ def aceptar_oferta(request):
         ofertas_relacionadas = Oferta.objects.filter(publicacion=publicacion)
         for oferta_relacionada in ofertas_relacionadas:
             if oferta_relacionada.id != oferta.id:
-                oferta_relacionada.estado = "Pausada"
+                oferta_relacionada.estado = "Rechazada"
                 oferta_relacionada.save()
         
         oferta.estado = "Aceptada"
