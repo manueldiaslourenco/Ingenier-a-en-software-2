@@ -30,20 +30,13 @@
 {% endblock %}
 
 {% block listnav %}
-    {% if request.user.is_authenticated %}
         <li><a class="normal" href="{% url 'ver perfil' id=request.user.id %}"><i class="fa-solid fa-user"></i></a></li>
-    {% endif %}
-    {% if request.user.is_authenticated %}
         <li class="modal"><a id="cerrar-sesion" class="normal"  href=""><i class="fa-solid fa-arrow-right-from-bracket"></i></a>
             <div id="mensaje-cerrar-sesion" class="mensaje" style="display: none;">
                 <p>Estas seguro de cerrar la sesion?</p>
                 <a href="{% url 'cerrar sesion' %}" class="buton2">Confirmar</a>
             </div>
         </li>
-    {% else %}
-        <li><a href="{% url 'crear cuenta' %}" class="buton">Crear cuenta</a></li>
-        <li><a href="{% url 'iniciar sesion' %}" class="buton">Iniciar Sesion</a></li>
-    {% endif %}
 {% endblock %}
 
 {% block content %}
@@ -69,7 +62,7 @@
                 <div>
                     <p> Calado: {{embarcacion.m_calado}}</p>
                 </div>
-                {% if embarcacion.dueño.id == request.user.id and oferta_aceptada %}
+                {% if embarcacion.dueño.id == request.user.id and not oferta_aceptada %}
                 <div class="btn-container">
                     {% with id_embarcacion=embarcacion.id %}
                         <a class="btn" href="{% url 'editar embarcacion' id_embarcacion %}">Editar embarcacion</a>
@@ -77,7 +70,7 @@
                 </div>
                 {% endif %}
                 <br>
-                {% if request.user.is_superuser or embarcacion.dueño.id == request.user.id and oferta_aceptada %}
+                {% if request.user.is_superuser or embarcacion.dueño.id == request.user.id and not oferta_aceptada %}
                 <div>
                     <div class="btn-container">
                         <a class="btn" id="eliminar-embarcacion" href="">Eliminar embarcacion</a>

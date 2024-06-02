@@ -61,6 +61,7 @@ def aceptar_oferta(request):
                 oferta_relacionada.estado = "Pausada"
                 oferta_relacionada.save()
         
+        oferta.estado = "Aceptada"
         oferta.oculta = True
         oferta.save()
         

@@ -72,7 +72,8 @@ TEMPLATES = [
                  os.path.join(BASE_DIR, 'publicaciones/templates'),
                  os.path.join(BASE_DIR, 'usuarios/templates'),
                  os.path.join(BASE_DIR, 'vehiculos/templates'),
-                 os.path.join(BASE_DIR, 'ofertas/templates')
+                 os.path.join(BASE_DIR, 'ofertas/templates'),
+                 os.path.join(BASE_DIR, 'trueques/templates')
                  ],
         'APP_DIRS': True,
         'OPTIONS': {

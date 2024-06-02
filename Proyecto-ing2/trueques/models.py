@@ -13,4 +13,6 @@ class Trueque(models.Model):
     vehiculo = models.ForeignKey(Vehiculo, on_delete=models.SET_NULL, null=True)
     sede = models.ForeignKey(Sede, on_delete=models.SET_NULL, null=True)
     estado= models.CharField(max_length=50, default='Pendiente')
+    fecha_inicio = models.DateTimeField(auto_now_add=True)
+    fecha_cierre = models.DateTimeField(null=True)
 
