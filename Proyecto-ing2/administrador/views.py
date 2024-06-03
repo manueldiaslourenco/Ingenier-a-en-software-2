@@ -11,6 +11,7 @@ from empleados.models import EmpleConSede, Sede
 from embarcaciones.models import Embarcacion
 from vehiculos.models import Vehiculo
 from ofertas.models import Oferta
+from publicaciones.models import Publicacion
 
 @login_required(login_url=reverse_lazy('home'))
 def index(request):
@@ -176,3 +177,12 @@ def listar_ofertas(request):
     
     ofertas = Oferta.objects.exclude(oculta = True)
     return render(request, 'offers.html', {'ofertas': ofertas})
+
+@login_required(login_url=reverse_lazy('home'))
+def listar_publicaciones(request):
+    user = request.user
+    if not user.is_superuser:
+        return redirect('home')
+    
+    publicaciones = Publicacion.objects.exclude(oculta = True)
+    return render(request, 'publications.html', {'publicaciones': publicaciones})

@@ -1,0 +1,46 @@
+{% extends 'layouts/navbar.html' %}
+
+{% block title %}
+    <title>Ofertas</title>
+{% endblock %}
+
+{% block content %}
+
+<div class="header">
+    <h1>Publicaciones</h1>
+</div>
+
+{% if publicaciones %}
+    <table>
+        <thead>
+            <tr>
+                <th>Publicante</th>
+                <th>Deuda</th>
+                <th>Embarcacion publicada</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for publicacion in publicaciones %}
+                <tr>
+                    <td>
+                        <a href="{% url 'ver perfil' publicacion.autor.id %}">{{publicacion.autor.mail}}</a>
+                    </td>
+                    <td>{{ publicacion.monto }}</td>
+                    {% if publicacion.embarcacion_id %}
+                        <td>
+                            <a href="{% url 'ver detalle embarcacion' publicacion.embarcacion_id 0%}">{{ publicacion.embarcacion.matricula }}</a>
+                        </td>
+                    {% else %}
+                        <td>No se publico una embarcacion</td>    
+                    {% endif %}
+                    <td>
+                        <a href="{% url 'ver detalle publicacion' publicacion.id %}">{{ oferta.publicacion.embarcacion.tipo.clase }}</a>
+                    </td>
+                </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+{% else %}
+    <h3>No existen publicaciones en la plataforma.</h3>
+{% endif %}
+{% endblock %}
