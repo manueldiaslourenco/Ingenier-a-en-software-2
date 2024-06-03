@@ -185,4 +185,4 @@ def listar_publicaciones(request):
         return redirect('home')
     
     publicaciones = Publicacion.objects.exclude(oculta = True)
-    return render(request, 'publications.html', {'publicaciones': publicaciones})
+    return render(request, 'posts.html', {'publicaciones': publicaciones})

@@ -1,7 +1,7 @@
 {% extends 'layouts/navbar.html' %}
 
 {% block title %}
-    <title>Ofertas</title>
+    <title>Publicaciones</title>
 {% endblock %}
 
 {% block content %}
@@ -16,25 +16,22 @@
             <tr>
                 <th>Publicante</th>
                 <th>Deuda</th>
-                <th>Embarcacion publicada</th>
+                <th>Embarcacion</th>
+                <th>Tipo de embarcacion</th>
             </tr>
         </thead>
         <tbody>
             {% for publicacion in publicaciones %}
                 <tr>
                     <td>
-                        <a href="{% url 'ver perfil' publicacion.autor.id %}">{{publicacion.autor.mail}}</a>
+                        <a href="{% url 'ver perfil' publicacion.autor.id %}">{{ publicacion.autor.mail }}</a>
                     </td>
                     <td>{{ publicacion.monto }}</td>
-                    {% if publicacion.embarcacion_id %}
-                        <td>
-                            <a href="{% url 'ver detalle embarcacion' publicacion.embarcacion_id 0%}">{{ publicacion.embarcacion.matricula }}</a>
-                        </td>
-                    {% else %}
-                        <td>No se publico una embarcacion</td>    
-                    {% endif %}
                     <td>
-                        <a href="{% url 'ver detalle publicacion' publicacion.id %}">{{ oferta.publicacion.embarcacion.tipo.clase }}</a>
+                        <a href="{% url 'ver detalle embarcacion' publicacion.embarcacion_id 0%}">{{ publicacion.embarcacion.matricula }}</a>
+                    </td>
+                    <td>
+                        <a href="{% url 'ver detalle publicacion' publicacion.id %}">{{ publicacion.embarcacion.tipo.clase }}</a>
                     </td>
                 </tr>
             {% endfor %}

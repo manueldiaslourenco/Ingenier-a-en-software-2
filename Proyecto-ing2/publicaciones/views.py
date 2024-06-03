@@ -4,21 +4,19 @@ from django.urls import reverse_lazy
 from .forms import formularioCrearPublicacion
 from embarcaciones.models import Embarcacion, ImagenEmbarcacion
 from ofertas.models import Oferta
-from usuarios.models import Usuario
 from .models import Publicacion
 from .backend import cargar_publicacion_back, eliminar_publicacion_fisica
 
 @login_required(login_url=reverse_lazy('iniciar sesion'))
 def cuestionario_cargar_publicacion(request):
     usuario_actual = request.user
-    embarcaciones = Embarcacion.objects.exclude(matricula__startswith='*').filter(dueño=usuario_actual)
-    embarcaciones_con_publicacion = Publicacion.objects.values_list('embarcacion_id', flat=True)
-    embarcaciones_con_ofertas= Oferta.objects.values_list('embarcacion_ofertada_id', flat=True)
-    embarcaciones = embarcaciones.exclude(id__in=embarcaciones_con_publicacion)
-    embarcaciones = embarcaciones.exclude(id__in=embarcaciones_con_ofertas)
-    tiene_embarcaciones = embarcaciones.exists()
     
-    if tiene_embarcaciones:
+    embarcaciones = Embarcacion.objects.filter(dueño = usuario_actual)
+    embarcaciones = embarcaciones.exclude(matricula__startswith='*')
+    embarcaciones = embarcaciones.filter(publicacion__isnull=True)
+    embarcaciones = embarcaciones.filter(oferta__isnull=True)
+    
+    if embarcaciones:
         ok=False
         form = formularioCrearPublicacion()
         usuario_actual = request.user
