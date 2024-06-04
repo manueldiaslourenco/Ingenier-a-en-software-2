@@ -10,7 +10,23 @@
 {% endblock %}
 
 {% block scripts %}
-
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+<script>
+    $(document).ready(function(){
+        $("#cerrar-sesion").click(function(event){
+            event.preventDefault();
+            $("#mensaje-cerrar-sesion").toggle();
+        });
+    });
+</script>
+<script>
+    $(document).ready(function(){
+        $("#eliminar-vehiculo").click(function(event){
+            event.preventDefault();
+            $("#mensaje-eliminar-vehiculo").toggle();
+        });
+    });
+</script>
 {% endblock %}
 
 {% block listnav %}
@@ -54,6 +70,23 @@
                 <div>
                     <p>Año de fabricacion: {{ vehiculo.año_fabricacion }}</p>
                 </div>
+                {% if vehiculo.dueño.id == request.user.id %}
+                <div>
+                    <a class="btn" href="#">Editar vehiculo</a>
+                </div>
+                <br>
+                {% endif %}
+                {% if request.user.is_superuser or vehiculo.dueño.id == request.user.id %}
+                <div>
+                    <div class="btn-container">
+                        <a class="btn" id="eliminar-vehiculo" href="">Eliminar vehiculo</a>
+                    </div>
+                    <div class="confirm"id="mensaje-eliminar-vehiculo" style="display: none;">
+                        <p>¿Estas seguro de eliminar el vehiculo?</p>
+                        <a class="btn" href="#">Confirmar</a>
+                    </div>
+                </div>
+                {% endif %}
             </div>
             <div class="imagenesDiv">
                 {% for imagen in imagenes %}

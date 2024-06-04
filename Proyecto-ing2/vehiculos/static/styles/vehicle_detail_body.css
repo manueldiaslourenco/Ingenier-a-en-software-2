@@ -1,0 +1,286 @@
+:root{
+    --sand: #c8baa0;
+    --gray-sand: #c4c4be;
+    --aqua-light: #a9cecf;
+    --aquamarine: #26a5b9;
+    --cyan: #6785b4;  
+  }
+  
+  .window-notice {
+    background: rgba(33, 41, 52, .85);
+    left: 0;
+    bottom: 0;
+    right: 0;
+    top: 0;
+    display: flex;
+    position: fixed;
+    z-index: 999;
+    color: white;
+  }
+  
+  .window-notice .content {
+    background: linear-gradient(to right, #a3a397, #6785b4);
+    border-radius: 2px;
+    box-shadow: 0 1px 3px rgba(33, 41, 52, .75);
+    box-sizing: content-box;
+    display: flex;
+    flex-direction: column;
+    margin: auto;
+    max-width: 600px;
+    min-width: 320px !important;
+    overflow: hidden;
+    position: relative;
+    width: 100%;
+    padding: 2rem;
+    font-size: 1.3rem;
+    align-items: center;
+    justify-content: center;
+  }
+  
+  .window-notice .content .content-text p {
+    display: block;
+    height: 45px;
+    width: 100%;
+    background-color: transparent;
+    border: none;
+    color: white;
+    font-weight: inherit;
+    font-family: inherit;
+    font-size: 24px;
+    align-items: center;
+    justify-content: center;
+  }
+  
+  .content-buttons {
+    display: flex;
+    gap: 10px; /* Añade espacio entre los botones si es necesario */
+    justify-content: center; /* Centra los botones horizontalmente */
+    margin-top: 20px; /* Añade un poco de margen superior si es necesario */
+  }
+  
+  .window-notice .content .content-buttons button {
+    all: unset;
+    color: var(--text-white);
+    text-decoration: none;
+    box-sizing: border-box;
+    box-shadow: 0 1px 3px rgba(33, 41, 52, .75);
+    background: linear-gradient(to right, #a3a397, #6785b4);
+    padding: 10px;
+    border-radius: 20px;
+  }
+  
+  .window-notice .content .content-buttons button:hover {
+    background: linear-gradient(to right, #85857b, #4e6589);
+    cursor: pointer;
+  }
+  
+  .box {
+    display: inline-block;
+    overflow-x: auto;
+    width: 100%;
+    position: relative;
+    align-items: center;
+    justify-content: center;
+    font-family: Arial, Helvetica, sans-serif;
+    font-size: 20px;
+    border: 1px solid black;
+  }
+  
+  .imagenesDiv {
+    width: 100%;
+    padding: 10px 20px;
+    align-items: center;
+  }
+  
+  .imagenesDiv .image-container {
+    display: inline-flex;
+    margin-right: 0px;
+    object-fit: contain;
+  }
+  
+  .imagenesDiv .image-container:last-child {
+    margin-right: 0; 
+  }
+  
+  .imagenesDiv .image-container .p1{
+    display: inline-block;
+    width: max-content; 
+    align-items: left;
+  }
+  
+  .imagenesDiv .image-container .p1 img{
+    margin-left: 50px;
+  }
+  
+  .box .info-container {
+    position:relative;
+    display:inline-block;
+    width: 100%;
+    padding-bottom: 10px;
+    background: var(--sand);
+    border: 1px solid var(--sand);
+  }
+  
+  .info-container p{
+    margin-right: 50px;
+    align-items: center;
+  }
+  
+  .p1 {
+    flex: 0 0 auto;
+    scroll-snap-align: start;
+    width: 70%;
+  }
+  
+  .p1 img {
+    width: 50%;
+    max-height: 575px;
+  }
+  
+  .oferta-container {
+    display: flex;
+    align-items: center;  /* Alinea verticalmente al centro */
+    justify-content: flex-start; /* Espacio entre los elementos */
+    margin-bottom: 10px;
+  }
+  
+  .oferta-info {
+    margin-right: 10px;
+  }
+  
+  .oferta-form {
+    margin: 0 5px; /* Añade un poco de espacio entre los formularios */
+  }
+  
+  .btn-container{
+    margin: 10px 0px;
+  }
+  
+  /* Estilo para boton "Eliminar publicacion" */
+  .btn {
+    color: white;
+    border: none;
+    border-radius: 5px;
+    padding: 5px 10px;
+    flex-shrink: 0; /* Evita que los botones se reduzcan */
+    background-color: rgb(167, 3, 3);
+  }
+  
+  /* Estilo para boton "Eliminar publicacion" */
+  .btn:hover {
+    background-color: rgb(112, 0, 0);
+    border-color: rgb(112, 0, 0);
+    cursor: pointer;
+  }
+  
+  .confirm p {
+    margin: 10px 0px;
+  }
+  
+  /* Estilo para botones "Aceptar" y "Rechazar" */
+  .btn-acept, .btn-rechazar {
+    color: white;
+    border: none;
+    border-radius: 5px;
+    padding: 5px 10px;
+    flex-shrink: 0; /* Evita que los botones se reduzcan */
+  }
+  
+  /* Estilo para boton "Rechazar" */
+  .btn-rechazar {
+    background-color: rgb(167, 3, 3);
+  }
+  
+  /* Estilo para boton "Rechazar" al pasar sobre él */
+  .btn-rechazar:hover {
+    background-color: rgb(112, 0, 0);
+    border-color: rgb(112, 0, 0);
+    cursor: pointer;
+  }
+  
+  /* Estilo para boton "Aceptar" */
+  .btn-acept {
+    background-color: #26a5b9;
+  
+  }
+  
+  /* Estilo para boton "Aceptar" al pasar sobre él */
+  .btn-acept:hover {
+    background-color: #7a9ea0;
+    cursor: pointer;
+  }
+  
+  /* Estilo para boton "Publicar oferta" */
+  .btn-post-offer {
+    background-color: #26a5b9;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    padding: 5px 10px;
+  }
+  
+  /* Estilo para boton "Publicar oferta" al pasar sobre él */
+  .btn-post-offer:hover {
+    background-color: #7a9ea0;
+    cursor: pointer;
+  }
+  
+  br{
+    margin: 0px;
+  }
+  
+  .window-eliminar {
+    color: #fff;
+    background: rgba(33, 41, 52, .85);
+    left: 0;
+    bottom: 0;
+    right: 0;
+    top: 0;
+    display: flex;
+    position: fixed;
+    z-index: 999;
+  }
+  
+  .window-eliminar .eliminar-content {
+    background: linear-gradient(to right, #a3a397, #6785b4);
+    border-radius: 10px;
+    box-shadow: 0 1px 3px rgba(33, 41, 52, .75);
+    box-sizing: content-box;
+    display: flex;
+    flex-direction: column;
+    margin: auto;
+    max-width: 600px;
+    min-width: 320px !important;
+    overflow: hidden;
+    position: relative;
+    width: 100%;
+    padding: 2rem;
+    font-size: 1.3rem;
+    align-items: center;
+    justify-content: center;
+  }
+  
+  .window-eliminar .eliminar-content .eliminar-content-text {
+    height: 45px;
+    font-size: 24px;
+    margin-bottom: 5px;
+    text-align: center;
+  }
+  
+  .window-eliminar .eliminar-content .eliminar-content-button a{
+    color: var(--text-white);
+    text-decoration: none;
+    box-sizing: border-box;
+    box-shadow: 0 1px 3px rgba(33, 41, 52, .75);
+    background: linear-gradient(to right, #a3a397, #6785b4);
+    padding: 10px;
+    border-radius: 20px;
+  }
+  
+  @media(max-width: 575px){
+    section::after,
+    section::before{
+        height: 250px;
+        width: 250px;
+    }
+  }
