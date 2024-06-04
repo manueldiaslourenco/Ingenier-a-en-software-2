@@ -65,7 +65,7 @@
             {% for post in publicaciones %}
                 <div class="publicacion">
                     {% with 'imagenes_embarcaciones/'|add:post.imagen as ruta_imagen %}
-                        <a href="{% url 'ver detalle publicacion' post.id %}" >
+                        <a href="{% url 'ver detalle publicacion' post.id 0 %}" >
                             <img src="{% static ruta_imagen %}">
                         </a>
                     {% endwith %}

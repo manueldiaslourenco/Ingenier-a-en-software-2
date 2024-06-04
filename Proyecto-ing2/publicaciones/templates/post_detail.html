@@ -21,9 +21,9 @@
 </script>
 <script>
     $(document).ready(function(){
-        $("#eliminar-embarcacion").click(function(event){
+        $("#eliminar-publicacion").click(function(event){
             event.preventDefault();
-            $("#mensaje-eliminar-embarcacion").toggle();
+            $("#mensaje-eliminar-publicacion").toggle();
         });
     });
 </script>
@@ -69,12 +69,17 @@
                 <div>
                     <p>Matricula: <a href="{% url 'ver detalle embarcacion' publicacion.embarcacion.id 0 %}">{{publicacion.embarcacion.matricula}}</a></p>
                 </div>
-                {% if request.user.is_superuser %}
-                    <form action="#" method="post">
-                        {% csrf_token %}
-                        <input type="hidden" name="embarcacion_id" value="{{ embarcacion.id }}">
-                        <button type="submit" class="btn-rechazar">Eliminar</button>
-                    </form>
+                {% if request.user.is_superuser or request.user == publicacion.autor %}
+                <div>
+                    <div class="btn-container">
+                        <a class="btn" id="eliminar-publicacion" href="">Eliminar publicacion</a>
+                    </div>
+                    <div class="confirm" id="mensaje-eliminar-publicacion" style="display: none;">
+                        <p>¿Estas seguro de eliminar la publicacion?</p>
+                        <a class="btn" href="{% url 'ver detalle publicacion' publicacion.id 1 %}">Confirmar</a>
+                        </div>
+                    </div>
+                </div>
                 {% endif %}
             </div>
             <div class='imagenesDiv'>
@@ -180,5 +185,13 @@
         {% endif %}
     </div>
 </div>
-{% endif %} 
+{% endif %}
+{% if eliminar == 1 %}
+<div class="window-eliminar" id="window-eliminar">  
+    <div class="eliminar-content">
+        <p class="eliminar-content-text">La publicacion se elimino correctamente</p> 
+        <div class="eliminar-content-button"><a href="{% url 'eliminar publicacion' publicacion.id %}">Aceptar</a></div>
+    </div>
+</div>
+{% endif %}  
 {% endblock %}

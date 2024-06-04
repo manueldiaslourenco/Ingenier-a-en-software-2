@@ -116,6 +116,7 @@
   position:relative;
   display:inline-block;
   width: 100%;
+  padding-bottom: 10px;
   background: var(--sand);
   border: 1px solid var(--sand);
 }
@@ -149,6 +150,31 @@
 
 .oferta-form {
   margin: 0 5px; /* Añade un poco de espacio entre los formularios */
+}
+
+.btn-container{
+  margin: 10px 0px;
+}
+
+/* Estilo para boton "Eliminar publicacion" */
+.btn {
+  color: white;
+  border: none;
+  border-radius: 5px;
+  padding: 5px 10px;
+  flex-shrink: 0; /* Evita que los botones se reduzcan */
+  background-color: rgb(167, 3, 3);
+}
+
+/* Estilo para boton "Eliminar publicacion" */
+.btn:hover {
+  background-color: rgb(112, 0, 0);
+  border-color: rgb(112, 0, 0);
+  cursor: pointer;
+}
+
+.confirm p {
+  margin: 10px 0px;
 }
 
 /* Estilo para botones "Aceptar" y "Rechazar" */
@@ -201,6 +227,54 @@
 
 br{
   margin: 0px;
+}
+
+.window-eliminar {
+  color: #fff;
+  background: rgba(33, 41, 52, .85);
+  left: 0;
+  bottom: 0;
+  right: 0;
+  top: 0;
+  display: flex;
+  position: fixed;
+  z-index: 999;
+}
+
+.window-eliminar .eliminar-content {
+  background: linear-gradient(to right, #a3a397, #6785b4);
+  border-radius: 10px;
+  box-shadow: 0 1px 3px rgba(33, 41, 52, .75);
+  box-sizing: content-box;
+  display: flex;
+  flex-direction: column;
+  margin: auto;
+  max-width: 600px;
+  min-width: 320px !important;
+  overflow: hidden;
+  position: relative;
+  width: 100%;
+  padding: 2rem;
+  font-size: 1.3rem;
+  align-items: center;
+  justify-content: center;
+}
+
+.window-eliminar .eliminar-content .eliminar-content-text {
+  height: 45px;
+  font-size: 24px;
+  margin-bottom: 5px;
+  text-align: center;
+}
+
+.window-eliminar .eliminar-content .eliminar-content-button a{
+  color: var(--text-white);
+  text-decoration: none;
+  box-sizing: border-box;
+  box-shadow: 0 1px 3px rgba(33, 41, 52, .75);
+  background: linear-gradient(to right, #a3a397, #6785b4);
+  padding: 10px;
+  border-radius: 20px;
 }
 
 @media(max-width: 575px){

@@ -63,7 +63,7 @@
                     <p> Calado: {{embarcacion.m_calado}}</p>
                 </div>
                 {% if embarcacion.dueño.id == request.user.id and not oferta_aceptada %}
-                <div class="btn-container">
+                <div>
                     {% with id_embarcacion=embarcacion.id %}
                         <a class="btn" href="{% url 'editar embarcacion' id_embarcacion %}">Editar embarcacion</a>
                     {% endwith %}
@@ -72,7 +72,7 @@
                 <br>
                 {% if request.user.is_superuser or embarcacion.dueño.id == request.user.id and not oferta_aceptada %}
                 <div>
-                    <div class="btn-container">
+                    <div>
                         <a class="btn" id="eliminar-embarcacion" href="">Eliminar embarcacion</a>
                     </div>
                     <div class="confirm"id="mensaje-eliminar-embarcacion" style="display: none;">

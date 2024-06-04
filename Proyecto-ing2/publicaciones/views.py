@@ -39,7 +39,7 @@ def cuestionario_cargar_publicacion(request):
         mensaje = "Para crear una publicación, primero debes cargar una embarcación desde tu perfil. (Recorda que para publicar una embarcacion la misma no debe terner ofertas)"
         return render(request, 'index.html', {'mensaje': mensaje})
     
-def ver_detalle_publicacion(request, id_publicacion):
+def ver_detalle_publicacion(request, id_publicacion, eliminar):
     try:
         unaPublicacion = Publicacion.objects.get(id=id_publicacion)
         imagenes= ImagenEmbarcacion.objects.filter(embarcacion= unaPublicacion.embarcacion.id)
@@ -59,7 +59,8 @@ def ver_detalle_publicacion(request, id_publicacion):
                                                     'ofertas': ofertas,
                                                     'ok': ok,
                                                     'acepto': acepto,
-                                                    'oferta_id': oferta_id})
+                                                    'oferta_id': oferta_id,
+                                                    'eliminar':eliminar})
     except Embarcacion.DoesNotExist:
         return render(request, '404_not_found.html')
 
