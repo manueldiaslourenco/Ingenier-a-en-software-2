@@ -43,7 +43,7 @@
         <div class="window-mensaje">  
             <div class="mensaje-content">
                 <p class="mensaje-content-text">{{ mensaje }}</p> 
-                <div class="mensaje-content-button"><a href="{% url 'ver detalle publicacion' id_publicacion=id_publi %}">Aceptar</a></div>
+                <div class="mensaje-content-button"><a href="{% url 'ver detalle publicacion' id_publi 0 %}">Aceptar</a></div>
             </div>
         </div>
     {% endif %}
@@ -89,7 +89,7 @@
             <div class="window-notice" id="window-notice">  
                 <div class="content">
                     <p class="content-text"> Se cargo la oferta con exito</p> 
-                    <div class="content-button"><a href="{% url 'ver detalle publicacion' id_publicacion=id_publi %}">Aceptar</a></div>
+                    <div class="content-button"><a href="{% url 'ver detalle publicacion' id_publi 0 %}">Aceptar</a></div>
                 </div>
             </div>
         {% endif %} 

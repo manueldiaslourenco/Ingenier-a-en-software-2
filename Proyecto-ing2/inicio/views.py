@@ -8,8 +8,9 @@ def redirigir_inicio(request):
     return redirect('home')
 
 def inicio(request):
+    user = request.user
     publicaciones= Publicacion.objects.exclude(autor__is_blocked= True).exclude(oculta=True)
     for publicacion in publicaciones:
         post_image = ImagenEmbarcacion.objects.filter(embarcacion=publicacion.embarcacion.id)
         publicacion.imagen = post_image[0].nombre_especifico
-    return render(request, 'index.html', {'publicaciones' : publicaciones})
+    return render(request, 'index.html', {'publicaciones' : publicaciones, 'user':user})

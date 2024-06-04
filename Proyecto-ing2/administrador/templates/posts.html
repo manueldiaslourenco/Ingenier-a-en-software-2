@@ -31,7 +31,7 @@
                         <a href="{% url 'ver detalle embarcacion' publicacion.embarcacion_id 0%}">{{ publicacion.embarcacion.matricula }}</a>
                     </td>
                     <td>
-                        <a href="{% url 'ver detalle publicacion' publicacion.id %}">{{ publicacion.embarcacion.tipo.clase }}</a>
+                        <a href="{% url 'ver detalle publicacion' publicacion.id 0 %}">{{ publicacion.embarcacion.tipo.clase }}</a>
                     </td>
                 </tr>
             {% endfor %}

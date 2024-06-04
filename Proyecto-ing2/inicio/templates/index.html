@@ -45,6 +45,7 @@
 {% endblock %}
 
 {% block content %}
+    {% if user.is_staff == 0 %}
     <aside>
         <ul>
             <li>
@@ -52,7 +53,7 @@
             </li>
         </ul>
     </aside>
-
+    {% endif %}
     {% if mensaje %}
         <div class="window-mensaje">  
             <div class="mensaje-content">

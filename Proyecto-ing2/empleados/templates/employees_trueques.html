@@ -1,0 +1,75 @@
+{% extends 'layouts/navbar_employees.html' %}
+
+{% block title %}
+    <title>Trueques</title>
+{% endblock %}
+
+{% block content %}
+
+<div class="header">
+    <h1>Trueques</h1>
+</div>
+
+{% if trueques %}
+    <table>
+        <thead>
+            <tr>
+                <th>Publicante</th>
+                <th>Monto</th>
+                <th>Embarcacion publicada</th>
+                <th>Ofertante</th>
+                <th>Vehiculo/Embaracion ofertada</th>
+                <th>Fecha inicio</th>
+                <th>Estado</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for trueque in trueques %}
+                <tr>
+                    <td>
+                        <a href="{% url 'ver perfil' trueque.usuario1_id %}">{{ trueque.usuario1.mail }}</a>
+                    </td>
+                    <td>{{ trueque.monto }}</td>
+                    <td>
+                        <a href="{% url 'ver detalle embarcacion' trueque.embarcacion1_id 0 %}">{{ trueque.embarcacion1.matricula }}</a>
+                    </td>
+                    <td>
+                        <a href="{% url 'ver perfil' trueque.usuario2_id %}">{{ trueque.usuario2.mail }}</a>
+                    </td>
+                    {% if trueque.vehiculo_id %}
+                        <td>
+                            <a href="{% url 'ver detalle vehiculo' trueque.vehiculo_id 0 %}">{{ trueque.vehiculo.patente }}</a>
+                        </td>
+                    {% elif trueque.embarcacion2_id %}
+                        <td>
+                            <a href="{% url 'ver detalle embarcacion' trueque.embarcacion2_id 0 %}">{{ trueque.embarcacion2.matricula }}</a>
+                        </td>
+                    {% endif %}
+                    <td>
+                        {{ trueque.fecha_inicio }}
+                    </td>
+                    <td>
+                        {{ trueque.estado }}
+                    </td>
+                    <td><form action="{% url 'ver detalle publicacion' trueque.id 0 %}" method="POST">
+                        {% csrf_token %}
+                        <input type="hidden" name="acepto" value="{{ True }}">
+                        <input type="hidden" name="trueque_id" value="{{ trueque.id }}">
+                        <input type="hidden" name="ok" value="{{ True }}">
+                        <button type="submit" class="btn-primary">Validar</button>
+                    </form>
+                    <form action="{% url 'ver detalle publicacion' trueque.id 0 %}" method="POST">
+                        {% csrf_token %}
+                        <input type="hidden" name="acepto" value="{{ False }}">
+                        <input type="hidden" name="trueque_id" value="{{ trueque.id }}">
+                        <input type="hidden" name="ok" value="{{ True }}">
+                        <button class='btn-delete'type="submit">Rechazar</button>
+                    </form></td>
+                </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+{% else %}
+    <h3>No existen trueques en tu puerto.</h3>
+{% endif %}
+{% endblock %}

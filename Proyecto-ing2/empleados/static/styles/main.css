@@ -1,0 +1,312 @@
+:root{
+    --azul1: #6785b4;
+    --azul2: #26a5b9;
+    --azul3: #a9cecf;
+    --gris: #c4c4be8c;
+    --arena: #c8baa0;
+}
+
+/* Estilo para el cuerpo del html */
+body {
+    background: #e8d8ba;
+    color: rgb(255, 255, 255);
+    font-family: arial;
+    margin: 0;
+}
+
+.wrapper {
+    background: #26a5b9; /* Color de fondo del navbar */
+}
+
+/* Estilo para el navbar */
+.navbar {
+    max-width: 1400px; /* Establece el ancho máximo del navbar */
+    height: 120px; /* Establece la altura del navbar */
+    background: #26a5b9; /* Color de fondo del navbar */
+    margin: 0 auto; /* Centra el navbar horizontalmente */
+    display: flex;
+    align-items: center; /* Centra verticalmente los elementos del navbar */
+}
+
+/* Estilo para la lista del navbar */
+.navbar ul {
+    display: flex;
+    justify-content: space-between;
+    margin-top: 0px;
+    margin-bottom: 0px;
+    padding: 0;
+    width: 100%; /* Ajusta el ancho al 100% del contenedor */
+}
+
+/* Estilo para cada elemento de la lista del navbar */
+.navbar ul li {
+    list-style: none;
+    text-align: center;
+    flex-grow: 1; /* Permite que los elementos se expandan automáticamente */
+}
+
+/* Estilo para los links del navbar */
+.navbar ul li a {
+    color: white;
+    font-size: 20px;
+    text-decoration: none;
+}
+
+/* Estilo para links del navbar al pasar sobre ellos */
+.navbar ul li a:hover {
+    color: #a9cecf;
+}
+
+/* Estilo para el body del html */
+.container {
+    max-width: 1200px;
+    margin: auto;
+    padding: 20px 10px;
+}
+
+/* Estilo para el header de la tabla (h1 y boton "Crear ...") */
+.header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 20px;
+}
+
+/* Estilo para el texto del head de la tabla */
+.header h1 {
+    color: #4b463d;
+    margin: 0;
+}
+
+/* Estilo para el boton "Crear ..." */
+.btn-primary {
+    background-color: #26a5b9;
+    border-color: #26a5b9;
+    color: #fff;
+    padding: 8px 16px;
+    border-radius: 4px;
+    text-decoration: none;
+}
+
+/* Estilo para el boton "Crear ..." al pasar sobre él */
+.btn-primary:hover {
+    background-color: #7a9ea0;
+    border-color: #7a9ea0;
+}
+
+/* Estilo para el boton "Crear ..." al pasar sobre él */
+.btn-primary:visited {
+    color: #fff;
+}
+
+/* Estilo para la tabla */
+table {
+    width: 100%;
+    background: #807666;
+    color: whitesmoke;
+    padding: 10px;
+    margin-bottom: 2px;
+}
+
+/* Estilo para el texto de los titulos de la tabla */
+table thead th {
+    font-size: 18px;
+}
+
+/* Estilo para el texto del cuerpo de la tabla */
+table tbody td {
+    font-size: 16px;
+}
+
+/* Estilo para textos de la tabla */
+table th, table td {
+    padding: 8px;
+    text-align: center;
+}
+
+/* Estilo para mails */
+a:link, a:visited {
+    color: #5cb9c7;
+
+    font-size: 16px;
+}
+
+/* Estilo para mails al pasar sobre ellos  */
+a:hover, a:active {
+    color: #12aac2;
+    font-size: 16px;
+}
+
+/* Estilo para boton "Eliminar" */
+.btn-delete {
+    background-color: rgb(167, 3, 3);
+    color: white;
+    border: none;
+    border-radius: 5px;
+    padding: 5px 10px;
+}
+
+/* Estilo para boton "Eliminar" al pasar sobre él */
+.btn-delete:hover {
+    background-color: rgb(112, 0, 0);
+    border-color: rgb(112, 0, 0);
+}
+
+/* Estilo para boton "BLoquear" */
+.btn-block {
+    background-color: #7a9ea0;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    padding: 5px 10px;
+}
+
+/* Estilo para boton "Bloquear" al pasar sobre él */
+.btn-block:hover {
+    background-color: #26a5b9;
+    border-color: #26a5b9;
+}
+
+/* Estilo para las últimas dos columnas */
+td:nth-child(5),
+td:nth-child(6) {
+    width: 100px;
+}
+
+/* Estilo para el formulario principal */
+.form-main {
+    display: flex;
+    justify-content: center;
+    align-items: flex-start; /* Alinea el contenido hacia arriba */
+    height: 90vh; /* Reducir la altura para colocar el formulario más arriba */
+    padding-top: 5vh; /* Reducir el espacio superior para colocar el formulario más arriba */
+}
+
+/* Estilo para el contenido del formulario */
+.form-content {
+    width: 100%;
+    max-width: 450px;
+    padding: 40px 20px; /* Aumentar el espacio interno */
+    border-radius: 10px;
+    background: #807666;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.3); /* Agrega sombra al formulario */
+}
+
+/* Estilo para los campos de entrada del formulario */
+.input-control {
+    color: #fff;
+    width: 100%; /* Ocupa todo el ancho del formulario */
+    height: 45px; /* Ajusta la altura de los campos de entrada */
+    font-size: 16px; /* Ajusta el tamaño de fuente si es necesario */
+    margin: auto;
+    display: block;
+    background-color: transparent;
+    border: none;
+    border-bottom: 1px solid var(--border-color);
+}
+
+/*Estilo para los placeholders*/
+.input-control::placeholder{
+    color: #fff;
+}
+
+.form-content h2 {
+    margin-top: 0px;
+    text-align: center; /* Centra el texto */
+}
+
+/* Estilo para el botón "Crear cuenta" */
+.btn-crear_cuenta {
+    background-color: #7a9ea0; /* Color de fondo */
+    border-color: #7a9ea0; /* Color del borde */
+    color: #fff; /* Color del texto */
+    padding: 12px 24px; /* Ajusta el padding del botón */
+    border-radius: 5px; /* Ajusta el radio de borde */
+    text-decoration: none;
+    display: inline-block;
+    transition: background-color 0.3s, border-color 0.3s, color 0.3s; /* Agrega transición suave */
+    margin: 0 auto; /* Añade margen automático a los lados para centrar el botón */
+    display: block; /* Cambia el botón a un elemento de bloque para que el margen automático funcione */
+    margin-top: 20px; /* Agrega un margen superior de 20px */
+}
+
+/* Estilo para el botón "Crear cuenta" al pasar sobre él */
+.btn-crear_cuenta:hover {
+    background-color: #26a5b9; /* Cambia el color de fondo al pasar sobre el botón */
+    border-color: #26a5b9; /* Cambia el color del borde al pasar sobre el botón */
+}
+
+.form-content .window-notice {
+    background: rgba(33, 41, 52, .85);
+    left: 0;
+    bottom: 0;
+    right: 0;
+    top: 0;
+    display: flex;
+    position: fixed;
+    z-index: 999;
+}
+
+.form-content .window-notice .content {
+    background: linear-gradient(to right,#a3a397, var(--azul1));;
+    border-radius: 2px; 
+    box-shadow: 0 1px 3px rgba(33, 41, 52, .75);
+    box-sizing: content-box;
+    display: flex;
+    flex-direction: column;
+    margin: auto;
+    max-width: 600px;
+    min-width: 320px !important;
+    overflow: hidden;
+    position: relative;
+    width: 100%;
+    padding: 2rem;
+    font-size: 1.3rem;
+    align-items: center;
+    justify-content: center;
+}
+
+.form-content .window-notice .content .content-text p{
+    display: block;
+    height: 45px;
+    width: 100%;
+    background-color: transparent;
+    border: none;
+    border-bottom: 1px solid var(--border-color);
+    color: white solid;
+    font-weight: inherit;
+    font-family: inherit;
+    font-size: 24px;    
+    align-items: center;
+    justify-content: center;
+}
+
+.form-content .window-notice .content .content-button a{
+    color: var(--text-white);
+    text-decoration: none;
+    box-sizing: border-box;
+    box-shadow: 0 1px 3px rgba(33, 41, 52, .75);
+    background: #7a9ea0;
+    padding: 10px;
+    border-radius: 20px;
+}
+
+select.input-control  {
+    color: whitesmoke; /* Color del texto */
+}
+
+/* Estilo para las opciones del campo de selección */
+select.input-control option {
+    background-color: #404040; /* Color de fondo */
+    color: whitesmoke; /* Color del texto */
+}
+
+select.input-control option::placeholder{
+    color: whitesmoke;
+}
+
+/* Estilo para las opciones del campo de selección al pasar sobre ellas */
+select.input-control option:hover {
+    background-color: #0056b3; /* Cambia el color de fondo al pasar sobre las opciones */
+    color: white; /* Cambia el color del texto al pasar sobre las opciones */
+}

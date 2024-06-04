@@ -5,7 +5,7 @@ from publicaciones.models import Publicacion
 from trueques.models import Trueque
 from .models import Oferta
 from .forms import formularioCrearOferta
-from .backend import crear_oferta_back
+from .backend import crear_oferta_back, send_mail
 from django.contrib.auth.decorators import login_required
 from django.urls import reverse_lazy
 
@@ -62,6 +62,12 @@ def aceptar_oferta(request):
                 oferta_relacionada.save()
         
         oferta.estado = "Aceptada"
+        if oferta.estado =="Aceptada":
+            embarcacion_ofertada = publicacion.embarcacion.matricula
+            sede = publicacion.embarcacion.sede.nombre
+            telefono_publicante = publicacion.embarcacion.dueño.telefono
+            mail = oferta.autor.mail
+            send_mail(mail, sede, telefono_publicante, embarcacion_ofertada)
         oferta.oculta = True
         oferta.save()
         

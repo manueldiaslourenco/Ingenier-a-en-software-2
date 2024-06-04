@@ -122,7 +122,7 @@
                         </div>
                         {% for vehiculo in vehiculos %}
                             <div>
-                                <a href="#">Patente: {{vehiculo.patente}}, Tipo: {{vehiculo.tipo.clase}}, Marca: {{vehiculo.marca}}, Modelo: {{vehiculo.modelo}}</a>
+                                <a href="{% url 'ver detalle vehiculo' vehiculo.id 0 %}">Patente: {{vehiculo.patente}}, Tipo: {{vehiculo.tipo.clase}}, Marca: {{vehiculo.marca}}, Modelo: {{vehiculo.modelo}}</a>
                             </div>
                         {% endfor %}
                     {% else %}
@@ -158,9 +158,9 @@
                             {% if oferta.estado == "Pendiente" %}
                                 <div>
                                 {% if oferta.vehiculo_ofertado %}
-                                    <a href="{% url 'ver detalle publicacion' oferta.publicacion.id %}">Embarcacion ofertada: {{oferta.publicacion.embarcacion.matricula}}, Vehiculo ofrecido: {{oferta.vehiculo_ofertado.patente}}, monto: {{oferta.monto}}, estado: {{oferta.estado}}</a>
-                                {% else %}
-                                    <a href="{% url 'ver detalle publicacion' oferta.publicacion.id %}">Embarcacion ofertada: {{oferta.publicacion.embarcacion.matricula}}, Embarcacion ofrecida: {{oferta.embarcacion_ofertada.matricula}}, monto: {{oferta.monto}}, estado: {{oferta.estado}}</a>
+                                    <a href="{% url 'ver detalle publicacion' oferta.publicacion.id 0 %}">Embarcacion ofertada: {{oferta.publicacion.embarcacion.matricula}}, Vehiculo ofrecido: {{oferta.vehiculo_ofertado.patente}}, monto: {{oferta.monto}}, estado: {{oferta.estado}}</a>
+                                {% elif oferta.embarcacion_ofertada %}
+                                    <a href="{% url 'ver detalle publicacion' oferta.publicacion.id 0 %}">Embarcacion ofertada: {{oferta.publicacion.embarcacion.matricula}}, Embarcacion ofrecida: {{oferta.embarcacion_ofertada.matricula}}, monto: {{oferta.monto}}, estado: {{oferta.estado}}</a>
                                 {% endif %}
                                 </div>
                             {% elif oferta.estado == "Aceptada" %}
@@ -196,9 +196,9 @@
                         {% for trueque in trueques %}
                             <div>
                             {% if trueque.embarcacion2 %}
-                                    <a href="{% url 'ver detalle trueque' trueque.id %}">Monto: {{trueque.monto}}, Dueño de publicacion: {{trueque.usuario1.id}}, Ofertante: {{trueque.usuario2.id}} Embarcacion publicada: {{trueque.embarcacion1.tipo.clase}} {{trueque.embarcacion1.modelo}}, Embarcacion ofertada: {{trueque.embarcacion2.tipo.clase}} {{trueque.embarcacion2.modelo}}, estado {{trueque.estado}}</a>
+                                    <a href="{% url 'ver detalle trueque' trueque.id %}">Monto: {{trueque.monto}}, Dueño de publicacion: {{trueque.usuario1.mail}}, Ofertante: {{trueque.usuario2.mail}} Embarcacion publicada: {{trueque.embarcacion1.tipo.clase}} {{trueque.embarcacion1.modelo}} {{trueque.embarcacion1.matricula}}, Embarcacion ofertada: {{trueque.embarcacion2.tipo.clase}} {{trueque.embarcacion2.modelo}} {{trueque.embarcacion2.matricula}}, estado {{trueque.estado}}</a>
                             {% else %}
-                                    <a href="{% url 'ver detalle trueque' trueque.id %}">Monto: {{trueque.monto}}, Dueño de publicacion: {{trueque.usuario1.id}}, Ofertante: {{trueque.usuario2.id}} Embarcacion publicada: {{trueque.embarcacion1.tipo.clase}} {{trueque.embarcacion1.modelo}}, Vehiculo ofertado: {{trueque.vehiculo.marca}}, modelo: {{trueque.vehiculo.modelo}}, año fabricacion: {{trueque.vehiculo.año_fabricacion}}, estado {{trueque.estado}}</a>
+                                    <a href="{% url 'ver detalle trueque' trueque.id %}">Monto: {{trueque.monto}}, Dueño de publicacion: {{trueque.usuario1.mail}}, Ofertante: {{trueque.usuario2.mail}} Embarcacion publicada: {{trueque.embarcacion1.tipo.clase}} {{trueque.embarcacion1.modelo}} {{trueque.embarcacion1.matricula}}, Vehiculo ofertado: {{trueque.vehiculo.marca}}, modelo: {{trueque.vehiculo.modelo}}, año fabricacion: {{trueque.vehiculo.año_fabricacion}}, patente: {{trueque.vehiculo.patente}}, estado {{trueque.estado}}</a>
                             {% endif %}
                             </div>
                         {% endfor %}

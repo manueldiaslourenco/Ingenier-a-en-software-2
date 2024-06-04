@@ -4,6 +4,9 @@ from vehiculos.models import Vehiculo
 from .models import Oferta
 from publicaciones.models import Publicacion
 from django.db import IntegrityError
+from django.conf import settings
+from django.template.loader import get_template
+from django.core.mail import EmailMultiAlternatives
 
 
 def crear_oferta_back(lista):
@@ -31,3 +34,18 @@ def crear_oferta_back(lista):
             vehiculo_ofertado= vehiculo,
             publicacion= publi
         )
+
+def send_mail(mail, sede, telefono_publicante, embarcacion):
+    context = {'mail':mail, 'sede':sede, 'telefono_publicante': telefono_publicante, 'embarcacion':embarcacion}
+
+    template = get_template('mail_offer.html')
+    content = template.render(context)
+
+    email = EmailMultiAlternatives(
+        'Tu oferta ha sido aceptada',
+        'Hemos recibido la notificacion de que tu oferta ha sido aceptada',
+        settings.EMAIL_HOST_USER,
+        [mail],
+    )
+    email.attach_alternative(content, 'text/html')
+    email.send()

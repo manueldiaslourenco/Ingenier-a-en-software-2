@@ -120,14 +120,14 @@
                     {% endif %}
                 </div>
             {% if request.user.mail == publicacion.autor.mail %}
-                <form action="{% url 'ver detalle publicacion' publicacion.id %}" method="POST">
+                <form action="{% url 'ver detalle publicacion' publicacion.id 0 %}" method="POST">
                     {% csrf_token %}
                     <input type="hidden" name="acepto" value="{{ True }}">
                     <input type="hidden" name="oferta_id" value="{{ oferta.id }}">
                     <input type="hidden" name="ok" value="{{ True }}">
                     <button type="submit" class="btn-acept">Aceptar</button>
                 </form>
-                <form action="{% url 'ver detalle publicacion' publicacion.id %}" method="POST">
+                <form action="{% url 'ver detalle publicacion' publicacion.id 0 %}" method="POST">
                     {% csrf_token %}
                     <input type="hidden" name="acepto" value="{{ False }}">
                     <input type="hidden" name="oferta_id" value="{{ oferta.id }}">
@@ -155,7 +155,7 @@
                     <input type="hidden" name="oferta_id" value="{{ oferta_id }}">
                     <button type="submit">Confirmar</button>
                 </form>
-                <form action="{% url 'ver detalle publicacion' publicacion.id %}" method="POST">
+                <form action="{% url 'ver detalle publicacion' publicacion.id 0 %}" method="POST">
                     {% csrf_token %}
                     <input type="hidden" name="acepto" value="{{ False }}">
                     <input type="hidden" name="oferta_id" value="{{ oferta.id }}">
@@ -166,14 +166,14 @@
         {% else %}
             <p class="content-text">¿Desea rechazar la oferta?</p> 
             <div class="content-buttons">
-                <form action="{% url 'ver detalle publicacion' publicacion.id %}" method="POST">
+                <form action="{% url 'ver detalle publicacion' publicacion.id 0 %}" method="POST">
                     {% csrf_token %}
                     <input type="hidden" name="acepto" value="{{ False }}">
                     <input type="hidden" name="oferta_id" value="{{ oferta.id }}">
                     <input type="hidden" name="ok" value="{{ False }}">
                     <button type="submit">Confirmar</button>
                 </form>
-                <form action="{% url 'ver detalle publicacion' publicacion.id %}" method="POST">
+                <form action="{% url 'ver detalle publicacion' publicacion.id 0 %}" method="POST">
                     {% csrf_token %}
                     <input type="hidden" name="acepto" value="{{ False }}">
                     <input type="hidden" name="oferta_id" value="{{ oferta.id }}">
