@@ -31,7 +31,13 @@
 {% endblock %}
 
 {% block content %}
-    {% if mensaje and request.user.is_staff %}
-        <p>{{mensaje}}</p>
+    {% if request.user.is_staff and trueque.estado == "Pendiente" %}
+        {% if mensaje %}
+            <p>{{mensaje}}</p>
+        {% endif %}
+        <a href="{% url 'completar trueque' trueque.id %}">Validar</a>
+    {% else %}
+        <p>{{trueque.estado}}</p>
     {% endif %}
+
 {% endblock %}

@@ -51,14 +51,14 @@
                     <td>
                         {{ trueque.estado }}
                     </td>
-                    <td><form action="{% url 'ver detalle publicacion' trueque.id 0 %}" method="POST">
+                    <td><form action="" method="POST">
                         {% csrf_token %}
                         <input type="hidden" name="acepto" value="{{ True }}">
                         <input type="hidden" name="trueque_id" value="{{ trueque.id }}">
                         <input type="hidden" name="ok" value="{{ True }}">
                         <button type="submit" class="btn-primary">Validar</button>
                     </form>
-                    <form action="{% url 'ver detalle publicacion' trueque.id 0 %}" method="POST">
+                    <form action="" method="POST">
                         {% csrf_token %}
                         <input type="hidden" name="acepto" value="{{ False }}">
                         <input type="hidden" name="trueque_id" value="{{ trueque.id }}">
