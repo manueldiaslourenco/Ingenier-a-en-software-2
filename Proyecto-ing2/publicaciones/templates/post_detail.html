@@ -113,6 +113,7 @@
         {% for oferta in ofertas %}
             <div class="oferta-container">
                 <div class="oferta-info">
+                    <a href="{% url 'ver perfil' oferta.autor.id %}">{{oferta.autor}}:</a>
                     {% if oferta.vehiculo_ofertado %}
                         Vehiculo ofrecido: <a href="{% url 'ver detalle vehiculo' oferta.vehiculo_ofertado.id 0 %}">{{oferta.vehiculo_ofertado.patente}}</a>, monto: {{oferta.monto}}
                     {% else %}

@@ -53,7 +53,7 @@ def ver_detalle_vehiculo(request, id_vehiculo, ok):
         unVehiculo = Vehiculo.objects.exclude(patente__startswith='*').get(id= id_vehiculo)
         imagenes= ImagenVehiculo.objects.filter(vehiculo= unVehiculo.id)
         try:
-            Oferta.objects.get(vehiculo_ofertado= id_vehiculo)
+            Oferta.objects.filter(vehiculo_ofertado = id_vehiculo)
             oferta_aceptada= True
         except Oferta.DoesNotExist:
             oferta_aceptada= False

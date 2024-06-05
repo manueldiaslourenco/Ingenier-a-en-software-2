@@ -60,7 +60,7 @@ def ver_detalle_embarcacion(request, id_embarcacion, ok):
         unaEmbarcacion = Embarcacion.objects.exclude(matricula__startswith='*').get(id= id_embarcacion)
         imagenes= ImagenEmbarcacion.objects.filter(embarcacion= unaEmbarcacion.id)
         try:
-            Oferta.objects.get(embarcacion_ofertada= id_embarcacion)
+            Oferta.objects.filter(embarcacion_ofertada= id_embarcacion)
             oferta_aceptada= True
         except Oferta.DoesNotExist:
             oferta_aceptada= False

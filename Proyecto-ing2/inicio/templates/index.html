@@ -45,15 +45,15 @@
 {% endblock %}
 
 {% block content %}
-    {% if user.is_staff == 0 %}
     <aside>
+    {% if user.is_staff == 0 %}
         <ul>
             <li>
                 <a href="{% url 'crear publicacion' %}" class="button">Crear Publicación</a>
             </li>
         </ul>
+       {% endif %}
     </aside>
-    {% endif %}
     {% if mensaje %}
         <div class="window-mensaje">  
             <div class="mensaje-content">

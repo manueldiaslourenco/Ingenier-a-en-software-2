@@ -150,6 +150,7 @@ a:hover, a:active {
 .btn-delete:hover {
     background-color: rgb(112, 0, 0);
     border-color: rgb(112, 0, 0);
+    cursor: pointer;
 }
 
 /* Estilo para boton "BLoquear" */
@@ -165,6 +166,7 @@ a:hover, a:active {
 .btn-block:hover {
     background-color: #26a5b9;
     border-color: #26a5b9;
+    cursor: pointer;
 }
 
 /* Estilo para las últimas dos columnas */

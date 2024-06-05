@@ -99,7 +99,7 @@
             <p>{{mensaje}}</p>
         {% endif %}
         <a class='btn-acept' href="{% url 'completar trueque' trueque.id %}">Validar</a>
-        <a class='btn-rechazar' href="% url 'cancelar trueque' trueque.id %">Cancelar</a>
+        <a class='btn-rechazar' href="{% url 'cancelar trueque' trueque.id %}">Anular</a>
     {% endif %}
 {% endblock %}
 
