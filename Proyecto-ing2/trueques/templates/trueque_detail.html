@@ -2,6 +2,7 @@
 {% load static %}
 
 {% block style %}
+    <link rel="stylesheet" type="text/css" href="{% static 'styles/trueque_detail.css' %}">
 {% endblock %}
 
 {% block title %}
@@ -29,15 +30,77 @@
             </div>
         </li>
 {% endblock %}
-
 {% block content %}
+<section>       
+    <div>
+        <h1> Estado del trueque: {{ trueque.estado }}</h1>
+        <div class="box" style="display: flexbox; position:relative">
+            <div class="info-container">
+                <div>
+                    <h3> Embarcacion Publicada </h3>
+                </div>
+                <div>
+                    <p>Publicante: <a href="{% url 'ver perfil' trueque.usuario1_id %}"> {{ trueque.usuario1.mail }} </a></p>
+                </div>
+                <div>
+                    <p>Tipo: {{ trueque.embarcacion1.tipo.clase }}</p>
+                </div>
+                <div>
+                    <p>Modelo: {{trueque.embarcacion1.modelo}}</p>
+                </div>
+                <div>
+                    <p>Deuda: {{ trueque.embarcacion1.deuda }}</p>
+                </div>
+                <div>
+                    <p>Matricula: <a href="{% url 'ver detalle embarcacion' trueque.embarcacion1_id 0 %}">{{ trueque.embarcacion1.matricula }}</a></p>
+                </div>
+            <div class="info-container">
+                <div>
+                    <h3> Oferta </h3>
+                </div>
+                <div>
+                    <p>Ofertante: <a href="{% url 'ver perfil' trueque.usuario2_id %}"> {{ trueque.usuario2.mail }} </a></p>
+                </div>
+                {% if trueque.vehiculo_id %}
+                    <div>
+                        <p>Tipo: {{ trueque.vehiculo.tipo.clase }}</p>
+                    </div>
+                    <div>
+                        <p>Modelo: {{trueque.vehiculo.modelo}}</p>
+                    </div>
+                    <div>
+                        <p>Año fabricacion: {{trueque.vehiculo.año_fabricacion}}</p>
+                    </div>
+                    <div>
+                        <p>Monto: {{ trueque.monto }}</p>
+                    </div>
+                    <div>
+                        <p>Patente: <a href="{% url 'ver detalle embarcacion' trueque.vehiculo_id 0 %}">{{ trueque.vehiculo.patente }}</a></p>
+                    </div>
+                {% elif  trueque.embarcacion_id %}
+                <div>
+                    <p>Tipo: {{ trueque.embarcacion.tipo.clase }}</p>
+                </div>
+                <div>
+                    <p>Modelo: {{trueque.embarcacion1.modelo}}</p>
+                </div>
+                <div>
+                    <p>Deuda: {{ trueque.embarcacion1.deuda }}</p>
+                </div>
+                <div>
+                    <p>Matricula: <a href="{% url 'ver detalle embarcacion' trueque.embarcacion1_id 0 %}">{{ trueque.embarcacion1.matricula }}</a></p>
+                </div>
+                {% endif %}
+        </div>
+    </div> 
+</section>
     {% if request.user.is_staff and trueque.estado == "Pendiente" %}
         {% if mensaje %}
             <p>{{mensaje}}</p>
         {% endif %}
-        <a href="{% url 'completar trueque' trueque.id %}">Validar</a>
-    {% else %}
-        <p>{{trueque.estado}}</p>
+        <a class='btn-acept' href="{% url 'completar trueque' trueque.id %}">Validar</a>
+        <a class='btn-rechazar' href="% url 'cancelar trueque' trueque.id %">Cancelar</a>
     {% endif %}
-
 {% endblock %}
+
+    
