@@ -94,7 +94,7 @@
         </div>
     </div> 
 </section>
-    {% if request.user.is_staff and trueque.estado == "Pendiente" %}
+    {% if not request.user.is_superuser and request.user.is_staff and trueque.estado == "Pendiente" %}
         {% if mensaje %}
             <p>{{mensaje}}</p>
         {% endif %}
