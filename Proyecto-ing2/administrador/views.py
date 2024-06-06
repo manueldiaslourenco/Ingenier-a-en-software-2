@@ -12,6 +12,7 @@ from embarcaciones.models import Embarcacion
 from vehiculos.models import Vehiculo
 from ofertas.models import Oferta
 from publicaciones.models import Publicacion
+from trueques.models import Trueque
 
 @login_required(login_url=reverse_lazy('home'))
 def index(request):
@@ -186,3 +187,12 @@ def listar_publicaciones(request):
     
     publicaciones = Publicacion.objects.exclude(oculta = True)
     return render(request, 'posts.html', {'publicaciones': publicaciones})
+
+@login_required(login_url=reverse_lazy('home'))
+def listar_trueques(request):
+    user = request.user
+    if not user.is_staff:
+        return redirect('home')
+    
+    trueques = Trueque.objects.all()
+    return render(request, 'admin_trueques.html', {'trueques': trueques})
