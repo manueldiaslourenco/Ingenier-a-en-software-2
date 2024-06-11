@@ -12,8 +12,8 @@ from django.urls import reverse_lazy
 @login_required(login_url=reverse_lazy('iniciar sesion'))
 def publicar_oferta(request, id_publi):
     usuario_actual = request.user
-    embarcaciones = Embarcacion.objects.exclude(matricula__startswith='*').filter(dueño=usuario_actual).exclude(id__in=Publicacion.objects.values_list('embarcacion', flat=True))
-    vehiculos = Vehiculo.objects.exclude(patente__startswith='*').filter(dueño=usuario_actual)
+    embarcaciones = Embarcacion.objects.exclude(matricula__startswith='*').filter(dueño=usuario_actual).exclude(id__in=Publicacion.objects.values_list('embarcacion', flat=True)).exclude(id__in=Trueque.objects.values_list('embarcacion1', flat=True)).exclude(id__in=Trueque.objects.values_list('embarcacion2', flat=True))
+    vehiculos = Vehiculo.objects.exclude(patente__startswith='*').filter(dueño=usuario_actual).exclude(id__in=Trueque.objects.values_list('vehiculo', flat=True))
     if embarcaciones or vehiculos:
         ok=False
         form = formularioCrearOferta()
@@ -84,3 +84,14 @@ def aceptar_oferta(request):
     except:
         return render(request, '404_not_found.html')
     return redirect ('home')
+
+@login_required(login_url=reverse_lazy('iniciar sesion'))
+def rechazar_oferta(request):
+    publicacion_id = request.POST.get('publicacion_id')
+    oferta_id = request.POST.get('oferta_id')
+    oferta = Oferta.objects.get(id=oferta_id)
+    oferta.estado= "Rechazada"
+    oferta.oculta = True
+    oferta.save()
+
+    return redirect('ver detalle publicacion', publicacion_id, 0)
