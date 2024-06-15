@@ -124,14 +124,14 @@ table th, table td {
     text-align: center;
 }
 
-/* Estilo para mails */
+/* Estilo para links */
 a:link, a:visited {
     color: #5cb9c7;
 
     font-size: 16px;
 }
 
-/* Estilo para mails al pasar sobre ellos  */
+/* Estilo para links al pasar sobre ellos  */
 a:hover, a:active {
     color: #12aac2;
     font-size: 16px;

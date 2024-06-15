@@ -55,15 +55,51 @@
     display: inline-block;
     margin: 10px;
     padding: 10px;
-    border: 1px solid #000;
     text-decoration: none;
     color: #000;
 }
 
 .container .caja {
     width: calc(100% - 40px); /* Restamos 40px al ancho total para dejar un margen de 20px a cada lado */
-    border: 1px solid #000;
     margin: 20px; /* Añadido un margen de 20px */
     padding: 20px;
     text-align: left;
+}
+
+/* Estilo para la tabla */
+table {
+    width: 100%;
+    padding: 10px;
+    margin-bottom: 2px;
+    background-color: #fff;
+    table-layout: fixed;
+    border-radius: 8px;
+}
+
+/* Estilo para el texto de los titulos de la tabla */
+table thead th {
+    font-size: 24px;
+}
+
+/* Estilo para el texto del cuerpo de la tabla */
+table tbody td {
+    font-size: 20px;
+}
+
+/* Estilo para textos de la tabla */
+table th, table td {
+    padding: 8px;
+    text-align: center;
+    width: auto;
+}
+
+/* Estilo para links de la tabla */
+.caja a:link, .caja a:visited {
+    color: #5cb9c7;
+    font-weight: bold;
+}
+
+/* Estilo para links de la tabla al pasar sobre ellos  */
+.caja a:hover, .caja a:active {
+    color: #12aac2;
 }

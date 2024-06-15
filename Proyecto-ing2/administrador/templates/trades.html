@@ -14,7 +14,6 @@
     <table>
         <thead>
             <tr>
-                <th>ID</th>
                 <th>Publicante</th>
                 <th>Monto</th>
                 <th>Embarcacion publicada</th>
@@ -27,9 +26,6 @@
         <tbody>
             {% for trueque in trueques %}
                 <tr>
-                    <td>
-                        <a href="{% url 'ver detalle trueque' trueque.id %}">{{ trueque.id }}</a>
-                    </td>
                     <td>
                         <a href="{% url 'ver perfil' trueque.usuario1_id %}">{{ trueque.usuario1.mail }}</a>
                     </td>
@@ -54,29 +50,13 @@
                     </td>
                     <td>
                         {% if trueque.estado == "Completado" %}
-                            <p style="color:green"> {{ trueque.estado }}</p>
+                            <a href="{% url 'ver detalle trueque' trueque.id %}" style="color:green">{{ trueque.estado }}</a>
                         {% elif trueque.estado == "Pendiente" %}
-                            <p style="color:blue"> {{ trueque.estado }}</p>
+                            <a href="{% url 'ver detalle trueque' trueque.id %}" style="color:blue">{{ trueque.estado }}</a>
                         {% elif trueque.estado == "Cancelado" %}
-                            <p style="color:red"> {{ trueque.estado }}</p>
+                        <a href="{% url 'ver detalle trueque' trueque.id %}" style="color:red">{{ trueque.estado }}</a>
                         {% endif %}
                     </td>
-                    {% if trueques.estado == "Pendiente" %}
-                    <td><form action="{% url 'completar trueque' trueque.id %}" method="POST">
-                        {% csrf_token %}
-                        <input type="hidden" name="acepto" value="{{ True }}">
-                        <input type="hidden" name="trueque_id" value="{{ trueque.id }}">
-                        <input type="hidden" name="ok" value="{{ True }}">
-                        <button type="submit" class="btn-primary">Validar</button>
-                    </form>
-                    <form action="" method="POST">
-                        {% csrf_token %}
-                        <input type="hidden" name="acepto" value="{{ False }}">
-                        <input type="hidden" name="trueque_id" value="{{ trueque.id }}">
-                        <input type="hidden" name="ok" value="{{ True }}">
-                        <button class='btn-delete'type="submit">Rechazar</button>
-                    </form></td>
-                    {% endif %}
                 </tr>
             {% endfor %}
         </tbody>

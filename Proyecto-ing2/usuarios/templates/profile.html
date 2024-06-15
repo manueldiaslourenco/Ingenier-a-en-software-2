@@ -103,11 +103,33 @@
                         <div>
                             <h3>Embarcaciones:</h3>
                         </div>
-                        {% for embarcacion in embarcaciones %}
-                            <div>
-                                <a href="{% url 'ver detalle embarcacion' embarcacion.id 0 %}">Matricula: {{embarcacion.matricula}}, Tipo: {{embarcacion.tipo.clase}}, modelo: {{embarcacion.modelo}}, sede: {{embarcacion.sede.nombre}}, deuda: {{embarcacion.deuda}} </a>
-                            </div>
-                        {% endfor %}
+                        <table>
+                            <thead>
+                                <tr>
+                                    <th>Matricula</th>
+                                    <th>Tipo</th>
+                                    <th>Modelo</th>
+                                    <th>Sede</th>
+                                    <th>Deuda</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                    
+                                {% for embarcacion in embarcaciones %}
+
+                                    <tr>
+                                        <td>
+                                            <a href="{% url 'ver detalle embarcacion' embarcacion.id 0 %}"> {{embarcacion.matricula}} </a>
+                                        </td>
+                                        <td>{{embarcacion.tipo.clase}}</td>
+                                        <td>{{embarcacion.modelo}}</td>
+                                        <td>{{embarcacion.sede.nombre}}</td>
+                                        <td>{{embarcacion.deuda}}</td>
+                                    </tr>
+
+                                {% endfor %}
+                            </tbody>
+                        </table>
                     {% else %}
                         <div>
                             <h3>No existen embarcaciones cargadas</h3>
@@ -120,11 +142,33 @@
                         <div>
                             <h3>Vehiculos:</h3>
                         </div>
-                        {% for vehiculo in vehiculos %}
-                            <div>
-                                <a href="{% url 'ver detalle vehiculo' vehiculo.id 0 %}">Patente: {{vehiculo.patente}}, Tipo: {{vehiculo.tipo.clase}}, Marca: {{vehiculo.marca}}, Modelo: {{vehiculo.modelo}}</a>
-                            </div>
-                        {% endfor %}
+                        <table>
+                            <thead>
+                                <tr>
+                                    <th>Patente</th>
+                                    <th>Marca</th>
+                                    <th>Modelo</th>
+                                    <th>Kilometraje</th>
+                                    <th>Año de Fabricación</th>
+                                    <th>Tipo de Vehículo</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                    
+                                {% for vehiculo in vehiculos %}
+                                    <tr>
+                                        <td>
+                                            <a href="{% url 'ver detalle vehiculo' vehiculo.id 0 %}"> {{vehiculo.patente}} </a>
+                                        </td>
+                                        <td>{{ vehiculo.marca }}</td>
+                                        <td>{{ vehiculo.modelo }}</td>
+                                        <td>{{ vehiculo.kilometraje }}</td>
+                                        <td>{{ vehiculo.año_fabricacion }}</td>
+                                        <td>{{ vehiculo.tipo.clase }}</td>
+                                    </tr>
+                                {% endfor %}
+                            </tbody>
+                        </table>
                     {% else %}
                         <div>
                             <h3>No existen vehiculos cargados</h3>
@@ -137,11 +181,28 @@
                         <div>
                             <h3>Publicaciones:</h3>
                         </div>
-                        {% for publicacion in publicaciones %}
-                            <div>
-                                <a href="{% url 'ver detalle publicacion' publicacion.id 0 %}">Matricula involucrada: {{publicacion.embarcacion.matricula}}, descripcion: {{publicacion.descripcion}}, monto: {{publicacion.monto}}</a>
-                            </div>
-                        {% endfor %}
+                        <table>
+                            <thead>
+                                <tr>
+                                    <th>Embarcacion</th>
+                                    <th>Deuda</th>
+                                    <th>Tipo de embarcacion</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                {% for publicacion in publicaciones %}
+                                    <tr>
+                                        <td>
+                                            <a href="{% url 'ver detalle embarcacion' publicacion.embarcacion_id 0%}">{{ publicacion.embarcacion.matricula }}</a>
+                                        </td>
+                                        <td>{{ publicacion.monto }}</td>
+                                        <td>
+                                            <a href="{% url 'ver detalle publicacion' publicacion.id 0 %}">{{ publicacion.embarcacion.tipo.clase }}</a>
+                                        </td>
+                                    </tr>
+                                {% endfor %}
+                            </tbody>
+                        </table>
                     {% else %}
                         <div>
                             <h3>No existen publicaciones activas</h3>
@@ -154,34 +215,45 @@
                         <div>
                             <h3>Ofertas:</h3>
                         </div>
-                        {% for oferta in ofertas %}
-                            {% if oferta.estado == "Pendiente" %}
-                                <div>
-                                {% if oferta.vehiculo_ofertado %}
-                                    <a href="{% url 'ver detalle publicacion' oferta.publicacion.id 0 %}">Embarcacion ofertada: {{oferta.publicacion.embarcacion.matricula}}, Vehiculo ofrecido: {{oferta.vehiculo_ofertado.patente}}, monto: {{oferta.monto}}, estado: {{oferta.estado}}</a>
-                                {% elif oferta.embarcacion_ofertada %}
-                                    <a href="{% url 'ver detalle publicacion' oferta.publicacion.id 0 %}">Embarcacion ofertada: {{oferta.publicacion.embarcacion.matricula}}, Embarcacion ofrecida: {{oferta.embarcacion_ofertada.matricula}}, monto: {{oferta.monto}}, estado: {{oferta.estado}}</a>
-                                {% endif %}
-                                </div>
-                            {% elif oferta.estado == "Aceptada" %}
-                                <div>
-                                {% if oferta.vehiculo_ofertado %}
-                                    <a href="#">Embarcacion ofertada: {{oferta.publicacion.embarcacion.matricula}}, Vehiculo ofrecido: {{oferta.vehiculo_ofertado.patente}}, monto: {{oferta.monto}}, estado: {{oferta.estado}}</a>
-                                {% else %}
-                                    <a href="#">Embarcacion ofertada: {{oferta.publicacion.embarcacion.matricula}}, Embarcacion ofrecida: {{oferta.embarcacion_ofertada.matricula}}, monto: {{oferta.monto}}, estado: {{oferta.estado}}</a>
-                                {% endif %}
-                                </div>
-                            {% else %}
-                                <div>
-                                {% if oferta.vehiculo_ofertado %}
-                                    <a href="#">Embarcacion ofertada: {{oferta.publicacion.embarcacion.matricula}}, Vehiculo ofrecido: {{oferta.vehiculo_ofertado.patente}}, monto: {{oferta.monto}}, estado: {{oferta.estado}}</a>
-                                {% else %}
-                                    <a href="#">Embarcacion ofertada: {{oferta.publicacion.embarcacion.matricula}}, Embarcacion ofrecida: {{oferta.embarcacion_ofertada.matricula}}, monto: {{oferta.monto}}, estado: {{oferta.estado}}</a>
-                                {% endif %}
-                                </div>
-                            {% endif %}
-                        {% endfor %}
-                        
+                        <table>
+                            <thead>
+                                <tr>
+                                    <th>Vehículo/Embarcación ofertado</th>
+                                    <th>Monto</th>
+                                    <th>Publicación</th>
+                                    <th>Estado</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                {% for oferta in ofertas %}
+                                    <tr>
+                                        {% if oferta.vehiculo_ofertado %}
+                                            <td>
+                                                <a href="{% url 'ver detalle vehiculo' oferta.vehiculo_ofertado.id 0 %}">{{ oferta.vehiculo_ofertado.patente }}</a>
+                                            </td>
+                                        {% elif oferta.embarcacion_ofertada %}
+                                            <td>
+                                                <a href="{% url 'ver detalle embarcacion' oferta.embarcacion_ofertada.id 0 %}">{{ oferta.embarcacion_ofertada.tipo.clase }} - {{ oferta.embarcacion_ofertada.matricula }}</a>
+                                            </td>
+                                        {% endif %}
+
+                                        <td>{{ oferta.monto }}</td>
+
+                                        <td>{{ oferta.publicacion.embarcacion.tipo.clase }} - {{ oferta.publicacion.embarcacion.matricula }}</td>
+
+                                        {% if oferta.estado == "Pendiente" %}
+                                            <td>
+                                                <a href="{% url 'ver detalle publicacion' oferta.publicacion.id 0 %}">{{ oferta.estado }}</a>
+                                            </td>
+                                        {% elif oferta.estado == "Aceptada" %}
+                                            <td>{{ oferta.estado }}</td>
+                                        {% else %}
+                                            <td>{{ oferta.estado }}</td>
+                                        {% endif %}
+                                    </tr>
+                                {% endfor %}
+                            </tbody>
+                        </table>                        
                     {% else %}
                         <div>
                             <h3>No existen ofertas activas</h3>
@@ -193,15 +265,56 @@
                         <div>
                             <h3>Trueques:</h3>
                         </div>
-                        {% for trueque in trueques %}
-                            <div>
-                            {% if trueque.embarcacion2 %}
-                                    <a href="{% url 'ver detalle trueque' trueque.id %}">Monto: {{trueque.monto}}, Dueño de publicacion: {{trueque.usuario1.mail}}, Ofertante: {{trueque.usuario2.mail}} Embarcacion publicada: {{trueque.embarcacion1.tipo.clase}} {{trueque.embarcacion1.modelo}} {{trueque.embarcacion1.matricula}}, Embarcacion ofertada: {{trueque.embarcacion2.tipo.clase}} {{trueque.embarcacion2.modelo}} {{trueque.embarcacion2.matricula}}, estado {{trueque.estado}}</a>
-                            {% else %}
-                                    <a href="{% url 'ver detalle trueque' trueque.id %}">Monto: {{trueque.monto}}, Dueño de publicacion: {{trueque.usuario1.mail}}, Ofertante: {{trueque.usuario2.mail}} Embarcacion publicada: {{trueque.embarcacion1.tipo.clase}} {{trueque.embarcacion1.modelo}} {{trueque.embarcacion1.matricula}}, Vehiculo ofertado: {{trueque.vehiculo.marca}}, modelo: {{trueque.vehiculo.modelo}}, año fabricacion: {{trueque.vehiculo.año_fabricacion}}, patente: {{trueque.vehiculo.patente}}, estado {{trueque.estado}}</a>
-                            {% endif %}
-                            </div>
-                        {% endfor %}
+                        <table>
+                            <thead>
+                                <tr>
+                                    <th>Publicante</th>
+                                    <th>Monto</th>
+                                    <th>Embarcacion publicada</th>
+                                    <th>Ofertante</th>
+                                    <th>Vehiculo/Embaracion ofertada</th>
+                                    <th>Fecha inicio</th>
+                                    <th>Estado</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                {% for trueque in trueques %}
+                                    <tr>
+                                        <td>
+                                            <a href="{% url 'ver perfil' trueque.usuario1_id %}">{{ trueque.usuario1.mail }}</a>
+                                        </td>
+                                        <td>{{ trueque.monto }}</td>
+                                        <td>
+                                            <a href="{% url 'ver detalle embarcacion' trueque.embarcacion1_id 0 %}">{{ trueque.embarcacion1.matricula }}</a>
+                                        </td>
+                                        <td>
+                                            <a href="{% url 'ver perfil' trueque.usuario2_id %}">{{ trueque.usuario2.mail }}</a>
+                                        </td>
+                                        {% if trueque.vehiculo_id %}
+                                            <td>
+                                                <a href="{% url 'ver detalle vehiculo' trueque.vehiculo_id 0 %}">{{ trueque.vehiculo.patente }}</a>
+                                            </td>
+                                        {% elif trueque.embarcacion2_id %}
+                                            <td>
+                                                <a href="{% url 'ver detalle embarcacion' trueque.embarcacion2_id 0 %}">{{ trueque.embarcacion2.matricula }}</a>
+                                            </td>
+                                        {% endif %}
+                                        <td>
+                                            {{ trueque.fecha_inicio }}
+                                        </td>
+                                        <td>
+                                            {% if trueque.estado == "Completado" %}
+                                                <a href="{% url 'ver detalle trueque' trueque.id %}" style="color:green">{{ trueque.estado }}</a>
+                                            {% elif trueque.estado == "Pendiente" %}
+                                                <a href="{% url 'ver detalle trueque' trueque.id %}" style="color:blue">{{ trueque.estado }}</a>
+                                            {% elif trueque.estado == "Cancelado" %}
+                                            <a href="{% url 'ver detalle trueque' trueque.id %}" style="color:red">{{ trueque.estado }}</a>
+                                            {% endif %}
+                                        </td>
+                                    </tr>
+                                {% endfor %}
+                            </tbody>
+                        </table>
                     {% else %}
                         <div>
                             <h3>No existen trueques</h3>

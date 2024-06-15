@@ -195,4 +195,4 @@ def listar_trueques(request):
         return redirect('home')
     
     trueques = Trueque.objects.all()
-    return render(request, 'admin_trueques.html', {'trueques': trueques})
+    return render(request, 'trades.html', {'trueques': trueques})

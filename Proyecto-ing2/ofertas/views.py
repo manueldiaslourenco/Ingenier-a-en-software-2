@@ -12,7 +12,7 @@ from django.urls import reverse_lazy
 @login_required(login_url=reverse_lazy('iniciar sesion'))
 def publicar_oferta(request, id_publi):
     usuario_actual = request.user
-    embarcaciones = Embarcacion.objects.exclude(matricula__startswith='*').filter(dueño=usuario_actual).exclude(id__in=Publicacion.objects.values_list('embarcacion', flat=True)).exclude(id__in=Trueque.objects.values_list('embarcacion1', flat=True)).exclude(id__in=Trueque.objects.values_list('embarcacion2', flat=True))
+    embarcaciones = Embarcacion.objects.exclude(matricula__startswith='*').filter(dueño=usuario_actual).exclude(id__in=Publicacion.objects.values_list('embarcacion', flat=True)).exclude(id__in=Trueque.objects.values_list('embarcacion1', flat=True)).exclude(id__in=Trueque.objects.values_list('embarcacion2', flat=True)) #EL ultimo exlude no permite que se oferten embarcaciones
     vehiculos = Vehiculo.objects.exclude(patente__startswith='*').filter(dueño=usuario_actual).exclude(id__in=Trueque.objects.values_list('vehiculo', flat=True))
     if embarcaciones or vehiculos:
         ok=False
