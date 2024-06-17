@@ -38,7 +38,7 @@ def cargar_publicacion_back(lista, form):
 def eliminar_publicacion_fisica(id_publicacion):
     ofertas= Oferta.objects.filter(publicacion= id_publicacion)
     for oferta in ofertas:
-        oferta.estado= 'Rechazada'
+        oferta.estado= 'Publicacion eliminada'
         oferta.save()
     publicacion_borrar= Publicacion.objects.get(id= id_publicacion)
     publicacion_borrar.delete()

@@ -23,10 +23,9 @@
     $(document).ready(function(){
         $("#indice1").click(function(event){
             event.preventDefault();
-            $(".caja").hide(); // Oculta todas las cajas
-            $("#caja1").show(); // Muestra la caja correspondiente
+            $(".caja").hide();
+            $("#caja1").show();
         });
-        //no borrar imp para el futuro
         $("#indice2").click(function(event){
             event.preventDefault();
             $(".caja").hide();
@@ -46,6 +45,47 @@
             event.preventDefault();
             $(".caja").hide();
             $("#caja5").show();
+        });
+
+         // Mostrar la ventana de confirmación de eliminacion
+         $(".btn-delete").click(function(event){
+            event.preventDefault();
+            var ofertaId = $(this).data('id');
+            $("#window-confirm-delete").data('id', ofertaId).show();
+        });
+
+        // Cancelar la eliminacion
+        $(".window-cancel").click(function(){
+            $("#window-confirm-delete").hide();
+        });
+
+        // Confirmar eliminación
+        $(".window-confirm").click(function(){
+            var ofertaId = $("#window-confirm-delete").data('id');
+            $("#window-confirm-delete").hide();
+            $.ajax({
+                url: '/eliminar_oferta/' + ofertaId + '/',
+                type: 'POST',
+                data: {
+                    csrfmiddlewaretoken: '{{ csrf_token }}'  // Asegúrate de incluir el token CSRF
+                },
+                success: function(response) {
+                    if (response.status === 'success') {
+                        $("#success-message").show();
+                    } else {
+                        alert('Error: ' + response.message);
+                    }
+                },
+                error: function(xhr, status, error) {
+                    alert('Error: ' + error);
+                }
+            });
+        });
+
+        // Ocultar el mensaje de éxito
+        $(".success-accept").click(function(){
+            $("#success-message").hide();
+            location.reload();
         });
     });
 </script>
@@ -222,6 +262,7 @@
                                     <th>Monto</th>
                                     <th>Publicación</th>
                                     <th>Estado</th>
+                                    <th></th>
                                 </tr>
                             </thead>
                             <tbody>
@@ -250,6 +291,11 @@
                                         {% else %}
                                             <td>{{ oferta.estado }}</td>
                                         {% endif %}
+                                        <td>
+                                        {% if oferta.estado == "Pendiente" %}
+                                            <button type="submit" class="btn-delete" data-id="{{ oferta.id }}">Eliminar</button>
+                                        {% endif %}
+                                        </td>
                                     </tr>
                                 {% endfor %}
                             </tbody>
@@ -323,5 +369,24 @@
                 </div>
                 {% endif %}
             </div>
+    </div>
+
+    <div id="window-confirm-delete" class="window" style="display: none;">
+        <div class="window-content">
+            <p>¿Estas seguro que desea eliminar la oferta?</p>
+            <div class="window-buttons">
+                <button class="window-confirm">Confirmar</button>
+                <button class="window-cancel">Cancelar</button>
+            </div>
+        </div>
+    </div>
+    
+    <div id="success-message" class="window" style="display: none;">
+        <div class="window-content">
+            <p>La oferta se ha eliminado con éxito</p>
+            <div class="window-buttons">
+                <button class="success-accept">Aceptar</button>
+            </div>
+        </div>
     </div>
 {% endblock %}

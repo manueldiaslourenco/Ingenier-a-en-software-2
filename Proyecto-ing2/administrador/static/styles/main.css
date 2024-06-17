@@ -127,7 +127,6 @@ table th, table td {
 /* Estilo para links */
 a:link, a:visited {
     color: #5cb9c7;
-
     font-size: 16px;
 }
 
@@ -170,8 +169,7 @@ a:hover, a:active {
 }
 
 /* Estilo para las últimas dos columnas */
-td:nth-child(5),
-td:nth-child(6) {
+td:nth-child(5), td:nth-child(6) {
     width: 100px;
 }
 

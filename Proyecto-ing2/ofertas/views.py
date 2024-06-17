@@ -8,6 +8,7 @@ from .forms import formularioCrearOferta
 from .backend import crear_oferta_back, send_mail
 from django.contrib.auth.decorators import login_required
 from django.urls import reverse_lazy
+from django.http import JsonResponse
 
 @login_required(login_url=reverse_lazy('iniciar sesion'))
 def publicar_oferta(request, id_publi):
@@ -95,3 +96,14 @@ def rechazar_oferta(request):
     oferta.save()
 
     return redirect('ver detalle publicacion', publicacion_id, 0)
+
+def eliminar_oferta(request, oferta_id):
+    if request.method == 'POST':
+        try:
+            oferta = Oferta.objects.get(id=oferta_id)
+            oferta.delete()
+            return JsonResponse({'status': 'success'})
+        except Oferta.DoesNotExist:
+            return JsonResponse({'status': 'error', 'message': 'Oferta no encontrada'})
+    else:
+        return JsonResponse({'status': 'error', 'message': 'Método no permitido'}, status=405)

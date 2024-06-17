@@ -49,3 +49,7 @@ def send_mail(mail, sede, telefono_publicante, embarcacion):
     )
     email.attach_alternative(content, 'text/html')
     email.send()
+
+def eliminar_oferta(oferta_id):
+    oferta = Oferta.objects.get(id=oferta_id)
+    oferta.delete()
