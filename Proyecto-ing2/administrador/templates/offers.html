@@ -4,8 +4,55 @@
     <title>Ofertas</title>
 {% endblock %}
 
-{% block content %}
+{% block scripts %}
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+<script>
+    $(document).ready(function(){
+        // Mostrar la ventana de confirmación de eliminacion
+        $(".btn-delete").click(function(event){
+            event.preventDefault();
+            var ofertaId = $(this).data('id');
+            $("#window-confirm-delete").data('id', ofertaId).show();
+        });
 
+        // Cancelar la eliminacion
+        $(".window-cancel").click(function(){
+            $("#window-confirm-delete").hide();
+        });
+
+        // Confirmar eliminación
+        $(".window-confirm").click(function(){
+            var ofertaId = $("#window-confirm-delete").data('id');
+            $("#window-confirm-delete").hide();
+            $.ajax({
+                url: '/eliminar_oferta/' + ofertaId + '/',
+                type: 'POST',
+                data: {
+                    csrfmiddlewaretoken: '{{ csrf_token }}'  // Asegúrate de incluir el token CSRF
+                },
+                success: function(response) {
+                    if (response.status === 'success') {
+                        $("#success-message").show();
+                    } else {
+                        alert('Error: ' + response.message);
+                    }
+                },
+                error: function(xhr, status, error) {
+                    alert('Error: ' + error);
+                }
+            });
+            location.reload();
+        });
+
+        // Ocultar el mensaje de éxito
+        $(".success-accept").click(function(){
+            $("#success-message").hide();
+        });
+    });
+</script>
+{% endblock %}
+
+{% block content %}
 <div class="header">
     <h1>Ofertas</h1>
 </div>
@@ -19,6 +66,7 @@
                 <th>Vehículo/Embarcación ofertado</th>
                 <th>Publicación</th>
                 <th>Estado</th>
+                <th></th>
             </tr>
         </thead>
         <tbody>
@@ -43,6 +91,11 @@
                         <a href="{% url 'ver detalle publicacion' oferta.publicacion.id 0 %}">{{ oferta.publicacion.embarcacion.tipo.clase }}</a>
                     </td>
                     <td>{{ oferta.estado }}</td>
+                    <td>
+                        {% if oferta.estado == "Pendiente" %}
+                            <button type="submit" class="btn-delete" data-id="{{ oferta.id }}">Eliminar</button>
+                        {% endif %}
+                    </td>
                 </tr>
             {% endfor %}
         </tbody>
@@ -50,4 +103,23 @@
 {% else %}
     <h3>No existen ofertas en la plataforma.</h3>
 {% endif %}
+
+<div id="window-confirm-delete" class="window" style="display: none;">
+    <div class="window-content">
+        <p>¿Estas seguro que desea eliminar la oferta?</p>
+        <div class="window-buttons">
+            <button class="window-confirm">Confirmar</button>
+            <button class="window-cancel">Cancelar</button>
+        </div>
+    </div>
+</div>
+
+<div id="success-message" class="window" style="display: none;">
+    <div class="window-content">
+        <p>La oferta se ha eliminado con éxito</p>
+        <div class="window-buttons">
+            <button class="success-accept">Aceptar</button>
+        </div>
+    </div>
+</div>
 {% endblock %}
