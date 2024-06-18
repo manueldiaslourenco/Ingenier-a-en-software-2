@@ -84,7 +84,7 @@ def usuarios(request):
     if not user.is_superuser:
         return redirect('home')
     
-    usuarios = Usuario.objects.filter(is_staff=False)
+    usuarios = Usuario.objects.filter(is_staff=False).exclude(mail__startswith='*')
     for usuario in usuarios:
         usuario.edad = calcular_edad(usuario.fecha_nacimiento)
     return render(request, 'users.html', {
@@ -196,3 +196,41 @@ def listar_trueques(request):
     
     trueques = Trueque.objects.all()
     return render(request, 'trades.html', {'trueques': trueques})
+
+
+@login_required(login_url=reverse_lazy('home'))
+def eliminar_empleado(request):
+    user = request.user
+    if not user.is_superuser:
+        return redirect('home')
+
+    if request.method == 'POST':
+        empleado_id = request.POST.get('usuario_id')
+        empleado = Usuario.objects.get(id=empleado_id)
+        empleado.delete()
+    return redirect('lista empleados')
+
+
+@login_required(login_url=reverse_lazy('home'))
+def eliminar_usuario(request):
+    user = request.user
+    if not user.is_superuser:
+        return redirect('home')
+
+    if request.method == 'POST':
+        usr_id = request.POST.get('usuario_id')
+        usr = Usuario.objects.get(id=usr_id)
+        usr.mail = '*' + usr.mail
+        usr.save()
+        # Modificar las embarcaciones del usuario
+        embarcaciones = Embarcacion.objects.filter(dueño_id=usr_id)
+        for embarcacion in embarcaciones:
+            embarcacion.matricula = '*' + embarcacion.matricula
+            embarcacion.save()
+
+        # Modificar los vehículos del usuario
+        vehiculos = Vehiculo.objects.filter(dueño_id=usr_id)
+        for vehiculo in vehiculos:
+            vehiculo.patente = '*' + vehiculo.patente
+            vehiculo.save()
+    return redirect('lista usuarios')

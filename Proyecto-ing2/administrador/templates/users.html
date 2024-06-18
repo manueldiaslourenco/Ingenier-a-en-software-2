@@ -48,7 +48,11 @@
                         {% endif %}                    
                     </td>
                     <td>
-                        <button class="btn-delete">Eliminar</button>
+                        <form method="post" action="{% url 'eliminar usuario' %}">
+                            {% csrf_token %}
+                            <input type="hidden" name="usuario_id" value="{{ usuario.id }}">
+                            <button type="submit" class="btn-delete">Eliminar</button>
+                        </form>
                     </td>
                 </tr>
 

@@ -27,6 +27,13 @@
                 <tr>
                     <td>{{empleado.mail}}</td>
                     <td>{{empleado.sede}}</td>
+                    <td>
+                        <form method="post" action="{% url 'eliminar empleado' %}">
+                            {% csrf_token %}
+                            <input type="hidden" name="usuario_id" value="{{ empleado.id }}">
+                            <button type="submit" class="btn-delete">Eliminar</button>
+                        </form>
+                    </td>
                 </tr>
 
             {% endfor %}
