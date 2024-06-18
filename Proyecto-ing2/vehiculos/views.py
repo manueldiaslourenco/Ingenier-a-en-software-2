@@ -1,11 +1,12 @@
-from django.shortcuts import render
+from django.shortcuts import render, get_object_or_404, redirect
 from django.contrib.auth.decorators import login_required
 from django.urls import reverse_lazy
 from .forms import formularioCargarVehiculo
 from .models import TipoVehiculo, Vehiculo, ImagenVehiculo
 from ofertas.models import Oferta
 from .backend import cargar_vehiculo_back
-
+from usuarios.views import ver_perfil
+from trueques.models import Trueque
 
 @login_required(login_url=reverse_lazy('home'))
 def cuestionario_cargar_vehiculo(request):
@@ -52,11 +53,19 @@ def ver_detalle_vehiculo(request, id_vehiculo, ok):
     try:
         unVehiculo = Vehiculo.objects.exclude(patente__startswith='*').get(id= id_vehiculo)
         imagenes= ImagenVehiculo.objects.filter(vehiculo= unVehiculo.id)
-        try:
-            Oferta.objects.filter(vehiculo_ofertado = id_vehiculo)
-            oferta_aceptada= True
-        except Oferta.DoesNotExist:
-            oferta_aceptada= False
-        return render(request, 'vehicle_detail.html', {'imagenes': imagenes, 'vehiculo':  unVehiculo, 'ok':ok, 'oferta_aceptada': oferta_aceptada})
+        vehiculo_en_trueque = Trueque.objects.filter(vehiculo_id=id_vehiculo).exists()
+        
+        return render(request, 'vehicle_detail.html', {'imagenes': imagenes, 'vehiculo':  unVehiculo, 'ok':ok, 'vehiculo_en_trueque': vehiculo_en_trueque})
     except Vehiculo.DoesNotExist:
         return render(request, '404_not_found.html')
+    
+@login_required(login_url=reverse_lazy('iniciar sesion'))
+def eliminar_vehiculo(request, vehiculo_id):
+    vehiculo = Vehiculo.objects.get(id=vehiculo_id)
+
+    # Eliminar ofertas asociadas al vehículo
+    Oferta.objects.filter(vehiculo_ofertado=vehiculo).delete()
+    
+    # Eliminar el vehículo
+    vehiculo.delete()
+    return ver_perfil(request,request.user.id)  # Cambia a la vista adecuada después de eliminar

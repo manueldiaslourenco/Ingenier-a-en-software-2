@@ -70,22 +70,27 @@
                 <div>
                     <p>Año de fabricacion: {{ vehiculo.año_fabricacion }}</p>
                 </div>
-                {% if vehiculo.dueño.id == request.user.id %}
-                <div>
-                    <a class="btn" href="#">Editar vehiculo</a>
-                </div>
-                <br>
-                {% endif %}
-                {% if request.user.is_superuser or vehiculo.dueño.id == request.user.id %}
-                <div>
-                    <div class="btn-container">
-                        <a class="btn" id="eliminar-vehiculo" href="">Eliminar vehiculo</a>
+                {% if not vehiculo_en_trueque %}
+                    {% if vehiculo.dueño.id == request.user.id %}
+                    <div>
+                        <a class="btn" href="#">Editar vehiculo</a>
                     </div>
-                    <div class="confirm"id="mensaje-eliminar-vehiculo" style="display: none;">
-                        <p>¿Estas seguro de eliminar el vehiculo?</p>
-                        <a class="btn" href="#">Confirmar</a>
+                    <br>
+                    {% endif %}
+                    {% if request.user.is_superuser or vehiculo.dueño.id == request.user.id %}
+                    <div>
+                        <div class="btn-container">
+                            <a class="btn" id="eliminar-vehiculo" href="">Eliminar vehiculo</a>
+                        </div>
+                        <div class="confirm"id="mensaje-eliminar-vehiculo" style="display: none;">
+                            <p>¿Estas seguro de eliminar el vehiculo?</p>
+                            <form method="POST" action="{% url 'eliminar vehiculo' vehiculo.id %}">
+                                {% csrf_token %}
+                                <button type="submit" class="btn btn-danger">Confirmar</button>
+                            </form>
+                        </div>
                     </div>
-                </div>
+                    {% endif %}
                 {% endif %}
             </div>
             <div class="imagenesDiv">
