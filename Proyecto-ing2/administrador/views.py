@@ -13,6 +13,10 @@ from vehiculos.models import Vehiculo
 from ofertas.models import Oferta
 from publicaciones.models import Publicacion
 from trueques.models import Trueque
+from embarcaciones.backend import eliminar_logicamente_embarcacion, eliminar_imagenes_y_objeto_tabla
+from vehiculos.backend import eliminar_logicamente_vehiculo, eliminar_imagenes_y_objeto_tabla
+from usuarios.backend import eliminar_logicamente_usuario
+from publicaciones.backend import eliminar_publicacion_fisica
 
 @login_required(login_url=reverse_lazy('home'))
 def index(request):
@@ -220,17 +224,24 @@ def eliminar_usuario(request):
     if request.method == 'POST':
         usr_id = request.POST.get('usuario_id')
         usr = Usuario.objects.get(id=usr_id)
-        usr.mail = '*' + usr.mail
-        usr.save()
+        eliminar_logicamente_usuario(usr)
         # Modificar las embarcaciones del usuario
         embarcaciones = Embarcacion.objects.filter(dueño_id=usr_id)
         for embarcacion in embarcaciones:
-            embarcacion.matricula = '*' + embarcacion.matricula
-            embarcacion.save()
-
+            eliminar_logicamente_embarcacion(embarcacion)
+            eliminar_imagenes_y_objeto_tabla(embarcacion.id)
+            publicaciones= Publicacion.objects.filter(embarcacion= embarcacion.id)
+            for publi in publicaciones:
+                eliminar_publicacion_fisica(publi.id)
+            
         # Modificar los vehículos del usuario
         vehiculos = Vehiculo.objects.filter(dueño_id=usr_id)
         for vehiculo in vehiculos:
-            vehiculo.patente = '*' + vehiculo.patente
-            vehiculo.save()
+            eliminar_logicamente_vehiculo(vehiculo)
+            eliminar_imagenes_y_objeto_tabla(vehiculo.id)
+        
+        ofertas = Oferta.objects.filter(autor_id=usr_id)
+        for oferta in ofertas:
+            oferta.delete()
+
     return redirect('lista usuarios')

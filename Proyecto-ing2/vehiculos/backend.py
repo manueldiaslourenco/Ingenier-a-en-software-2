@@ -3,6 +3,9 @@ from django.core.exceptions import ValidationError
 from django.db import IntegrityError
 from usuarios.models import Usuario
 from .models import Vehiculo, ImagenVehiculo, TipoVehiculo
+from django.utils import timezone
+import os
+from django.conf import settings
 
 
 
@@ -40,3 +43,19 @@ def cargar_vehiculo_back(lista, imagenes, form):
     except IntegrityError:
         form.add_error('patente', 'La patente ingresada ya se encuentra registrada.')
         return False
+
+def eliminar_logicamente_vehiculo(objeto):
+    timestamp = timezone.now().strftime('%Y%m%d%H%M%S')
+    objeto.patente = '*' + objeto.patente + timestamp
+    objeto.save()
+
+def eliminar_imagenes_y_objeto_tabla(id_vehiculo):
+    imagenes = ImagenVehiculo.objects.filter(vehiculo_id=id_vehiculo)
+
+    for imagen in imagenes:
+        #ruta al archivo
+        file_path = os.path.join(settings.MEDIA_ROOT, imagen.nombre_especifico)
+
+        if os.path.isfile(file_path):
+            os.remove(file_path)
+        imagen.delete()

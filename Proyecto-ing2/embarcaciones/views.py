@@ -10,6 +10,7 @@ from publicaciones.models import Publicacion
 from ofertas.models import Oferta
 from empleados.models import Sede
 from .backend import cargar_embarcacion_back, eliminar_logicamente_embarcacion, eliminar_imagenes_y_objeto_tabla
+from publicaciones.backend import eliminar_publicacion_fisica
 
 @login_required(login_url=reverse_lazy('home'))
 def cuestionario_cargar_embarcacion(request):
@@ -77,7 +78,7 @@ def eliminar_embarcacion(request, id_embarcacion):
             eliminar_imagenes_y_objeto_tabla(id_embarcacion)
             publicaciones= Publicacion.objects.filter(embarcacion= embarcacion.id)
             for publi in publicaciones:
-                publi.delete()
+                eliminar_publicacion_fisica(publi.id)
             #mostrar cartel lindo de eliminacion correcta
             return redirect('ver perfil', id= request.user.id)
         else:

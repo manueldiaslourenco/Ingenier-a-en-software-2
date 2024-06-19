@@ -28,7 +28,7 @@
                 <tr>
                     <td>
                         {% if trueque.usuario1.mail|slice:"0:1" == "*" %}
-                            {{ trueque.usuario1.mail|slice:"1:" }}
+                            {{ trueque.usuario1.mail|slice:"1:-14" }}
                         {% else %}
                             <a href="{% url 'ver perfil' trueque.usuario1_id %}">{{ trueque.usuario1.mail }}</a>
                         {% endif %}
@@ -36,39 +36,43 @@
                     <td>{{ trueque.monto }}</td>
                     <td>
                         {% if trueque.embarcacion1.matricula|slice:"0:1" == "*" %}
-                            {{ trueque.embarcacion1.matricula|slice:"1:" }}
+                            {{ trueque.embarcacion1.matricula|slice:"1:-14" }}
                         {% else %}
                             <a href="{% url 'ver detalle embarcacion' trueque.embarcacion1_id 0 %}">{{ trueque.embarcacion1.matricula }}</a>
                         {% endif %}
                     </td>
                     <td>
                         {% if trueque.usuario2.mail|slice:"0:1" == "*" %}
-                            {{ trueque.usuario2.mail|slice:"1:" }}
+                            {{ trueque.usuario2.mail|slice:"1:-14" }}
                         {% else %}
                             <a href="{% url 'ver perfil' trueque.usuario2_id %}">{{ trueque.usuario2.mail }}</a>
                         {% endif %}
                     </td>
                     {% if trueque.vehiculo_id %}
                         {% if trueque.vehiculo.patente|slice:"0:1" == "*" %}
-                            <td>{{ trueque.vehiculo.patente }}</td>
+                            <td>{{ trueque.vehiculo.patente|slice:"1:-14" }}</td>
                         {% else %}
-                            <a href="{% url 'ver detalle vehiculo' trueque.vehiculo_id 0 %}"><td>{{ trueque.vehiculo.patente }}</td></a>
+                            <td><a href="{% url 'ver detalle vehiculo' trueque.vehiculo_id 0 %}">{{ trueque.vehiculo.patente }}</a></td>
                         {% endif %}
                     {% elif trueque.embarcacion2_id %}
                         {% if trueque.embarcacion2.matricula|slice:"0:1" == "*" %}
-                            <td>{{ trueque.embarcacion2.matricula }}</td>
+                            <td>{{ trueque.embarcacion2.matricula|slice:"1:-14" }}</td>
                         {% else %}
-                            <a href="{% url 'ver detalle embarcacion' trueque.embarcacion2_id 0 %}"><td>{{ trueque.embarcacion2.matricula }}</td></a>
+                            <td><a href="{% url 'ver detalle embarcacion' trueque.embarcacion2_id 0 %}">{{ trueque.embarcacion2.matricula }}</a></td>
                         {% endif %}
                     {% endif %}
                     <td>{{ trueque.fecha_inicio }}</td>
                     <td>
-                        {% if trueque.estado == "Completado" %}
-                            <a href="{% url 'ver detalle trueque' trueque.id %}" style="color:green">{{ trueque.estado }}</a>
-                        {% elif trueque.estado == "Pendiente" %}
-                            <a href="{% url 'ver detalle trueque' trueque.id %}" style="color:blue">{{ trueque.estado }}</a>
-                        {% elif trueque.estado == "Cancelado" %}
-                            <a href="{% url 'ver detalle trueque' trueque.id %}" style="color:red">{{ trueque.estado }}</a>
+                        {% if not trueque.usuario2.mail|slice:"0:1" == "*" and not trueque.usuario1.mail|slice:"0:1" == "*" %}
+                            {% if trueque.estado == "Completado" %}
+                                <a href="{% url 'ver detalle trueque' trueque.id %}" style="color:green">{{ trueque.estado }}</a>
+                            {% elif trueque.estado == "Pendiente" %}
+                                <a href="{% url 'ver detalle trueque' trueque.id %}" style="color:blue">{{ trueque.estado }}</a>
+                            {% elif trueque.estado == "Cancelado" %}
+                                <a href="{% url 'ver detalle trueque' trueque.id %}" style="color:red">{{ trueque.estado }}</a>
+                            {% endif %}
+                        {% else %}
+                            <span>{{ trueque.estado }}</span>
                         {% endif %}
                     </td>
                 </tr>

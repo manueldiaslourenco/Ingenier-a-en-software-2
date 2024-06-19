@@ -12,7 +12,7 @@ class formularioRegistro(forms.Form):
     fecha_nacimiento = forms.DateField(label='fecha de Nacimiento', error_messages={
             'required': 'Introduzca la fecha de nacimiento.',
             'invalid': 'Fecha invalida, debe estar compuesta por dd/mm/aaaa.',
-            }, input_formats=['%d/%m/%Y']
+            }, input_formats=['%Y-%m-%d']
             )
     telefono= forms.CharField(label='telefono', max_length=13, min_length=10, error_messages={
             'required': 'Introduzca el telefono.',

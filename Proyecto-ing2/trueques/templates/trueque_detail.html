@@ -75,7 +75,7 @@
                         <p>Monto: {{ trueque.monto }}</p>
                     </div>
                     <div>
-                        <p>Patente: <a href="{% url 'ver detalle embarcacion' trueque.vehiculo_id 0 %}">{{ trueque.vehiculo.patente }}</a></p>
+                        <p>Patente: <a href="{% url 'ver detalle vehiculo' trueque.vehiculo_id 0 %}">{{ trueque.vehiculo.patente }}</a></p>
                     </div>
                 {% elif  trueque.embarcacion_id %}
                 <div>
