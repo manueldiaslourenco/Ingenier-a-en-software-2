@@ -39,7 +39,7 @@ def ver_perfil(request, id):
                 publicaciones = []
 
             try:
-                vehiculos = Vehiculo.objects.filter(dueño = id)
+                vehiculos = Vehiculo.objects.exclude(patente__startswith='*').filter(dueño = id)
             except Vehiculo.DoesNotExist:
                 vehiculos = []
 

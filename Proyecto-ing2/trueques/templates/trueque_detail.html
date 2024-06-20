@@ -40,7 +40,13 @@
                     <h3> Embarcacion Publicada </h3>
                 </div>
                 <div>
-                    <p>Publicante: <a href="{% url 'ver perfil' trueque.usuario1_id %}"> {{ trueque.usuario1.mail }} </a></p>
+                    <p>Publicante: 
+                        {% if trueque.usuario1.mail|slice:"0:1" == "*" %}
+                            {{ trueque.usuario1.mail|slice:"1:-14" }}
+                        {% else %}
+                            <a href="{% url 'ver perfil' trueque.usuario1_id %}">{{ trueque.usuario1.mail }}</a>
+                        {% endif %}
+                    </p>
                 </div>
                 <div>
                     <p>Tipo: {{ trueque.embarcacion1.tipo.clase }}</p>
@@ -52,14 +58,28 @@
                     <p>Deuda: {{ trueque.embarcacion1.deuda }}</p>
                 </div>
                 <div>
-                    <p>Matricula: <a href="{% url 'ver detalle embarcacion' trueque.embarcacion1_id 0 %}">{{ trueque.embarcacion1.matricula }}</a></p>
+                    <p>Matrícula: 
+                        {% if trueque.embarcacion1.matricula|slice:"0:1" == "*" %}
+                            {{ trueque.embarcacion1.matricula|slice:"1:-14" }}
+                        {% elif trueque.estado == "Pendiente" %}
+                            <a href="{% url 'ver detalle embarcacion' trueque.embarcacion1_id 0 %}">{{ trueque.embarcacion1.matricula }}</a>
+                        {% else %}
+                            {{ trueque.embarcacion1.matricula }}
+                        {% endif %}
+                    </p>
                 </div>
             <div class="info-container">
                 <div>
                     <h3> Oferta </h3>
                 </div>
                 <div>
-                    <p>Ofertante: <a href="{% url 'ver perfil' trueque.usuario2_id %}"> {{ trueque.usuario2.mail }} </a></p>
+                    <p>Ofertante: 
+                        {% if trueque.usuario2.mail|slice:"0:1" == "*" %}
+                            {{ trueque.usuario2.mail|slice:"1:-14" }}
+                        {% else %}
+                            <a href="{% url 'ver perfil' trueque.usuario2_id %}">{{ trueque.usuario2.mail }}</a>
+                        {% endif %}
+                    </p>
                 </div>
                 {% if trueque.vehiculo_id %}
                     <div>
@@ -75,7 +95,15 @@
                         <p>Monto: {{ trueque.monto }}</p>
                     </div>
                     <div>
-                        <p>Patente: <a href="{% url 'ver detalle vehiculo' trueque.vehiculo_id 0 %}">{{ trueque.vehiculo.patente }}</a></p>
+                        <p>Patente: 
+                            {% if trueque.vehiculo.patente|slice:"0:1" == "*" %}
+                                {{ trueque.vehiculo.patente|slice:"1:-14" }}
+                            {% elif trueque.estado == "Pendiente" %}
+                                <a href="{% url 'ver detalle vehiculo' trueque.vehiculo_id 0 %}">{{ trueque.vehiculo.patente }}</a>
+                            {% else %}
+                                {{ trueque.vehiculo.patente }}
+                            {% endif %}
+                        </p>
                     </div>
                 {% elif  trueque.embarcacion_id %}
                 <div>
@@ -88,7 +116,15 @@
                     <p>Deuda: {{ trueque.embarcacion1.deuda }}</p>
                 </div>
                 <div>
-                    <p>Matricula: <a href="{% url 'ver detalle embarcacion' trueque.embarcacion1_id 0 %}">{{ trueque.embarcacion1.matricula }}</a></p>
+                    <p>Matrícula: 
+                        {% if trueque.embarcacion2.matricula|slice:"0:1" == "*" %}
+                            {{ trueque.embarcacion2.matricula|slice:"1:-14" }}
+                        {% elif trueque.estado == "Pendiente" %}
+                            <a href="{% url 'ver detalle embarcacion' trueque.embarcacion2_id 0 %}">{{ trueque.embarcacion2.matricula }}</a>
+                        {% else %}
+                            {{ trueque.embarcacion2.matricula }}
+                        {% endif %}
+                    </p>
                 </div>
                 {% endif %}
         </div>

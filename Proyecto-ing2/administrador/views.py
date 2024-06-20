@@ -244,4 +244,13 @@ def eliminar_usuario(request):
         for oferta in ofertas:
             oferta.delete()
 
+        trueques = Trueque.objects.filter(usuario1_id=usr_id)
+        for trueque in trueques:
+            trueque.estado= "Anulado"
+            trueque.save()
+            
+        trueques2 = Trueque.objects.filter(usuario2_id=usr_id)
+        for trueque in trueques2:
+            trueque.estado= "Anulado"
+            trueque.save()
     return redirect('lista usuarios')
