@@ -71,9 +71,10 @@
                     <p>Año de fabricacion: {{ vehiculo.año_fabricacion }}</p>
                 </div>
                 {% if not vehiculo_en_trueque %}
-                    {% if vehiculo.dueño.id == request.user.id %}
+                    {% if vehiculo.dueño.id == request.user.id and not oferta_aceptada%}
+
                     <div>
-                        <a class="btn" href="#">Editar vehiculo</a>
+                        <a class="btn" href="{% url 'editar vehiculo' vehiculo.id %}">Editar vehiculo</a>
                     </div>
                     <br>
                     {% endif %}

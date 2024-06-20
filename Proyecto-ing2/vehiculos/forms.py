@@ -44,3 +44,17 @@ class formularioCargarVehiculo(forms.Form):
     def clean_patente(self):
         patente = self.cleaned_data.get('patente', '').upper()
         return patente
+    
+class formularioEditarVehiculo(forms.Form):
+    kilometraje = forms.DecimalField(label='kilometraje', max_digits = 10, decimal_places = 0, error_messages={
+            'required': 'Por favor, introduce el kilometraje del vehiculo.',
+            'max_digits': 'El número ingresado es demasiado grande.',
+            'max_decimal_places': 'El número ingresado es demasiado grande.',
+            'max_whole_digits': 'El número ingresado es demasiado grande.',
+        })
+
+    imagen1 = forms.ImageField(label='imagen1', required=False, validators=[validar_extensiones])
+
+    imagen2= forms.ImageField(label='imagen2', required=False, validators=[validar_extensiones])
+
+    imagen3= forms.ImageField(label='imagen3', required=False, validators=[validar_extensiones])

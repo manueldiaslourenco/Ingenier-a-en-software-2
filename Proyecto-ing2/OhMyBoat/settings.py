@@ -133,6 +133,7 @@ STATICFILES_DIRS = [
 ]
 
 MEDIA_ROOT = os.path.join(BASE_DIR, 'embarcaciones/static/imagenes_embarcaciones')
+MEDIA_ROOTV = os.path.join(BASE_DIR, 'vehiculos/static/imagenes_vehiculos')
 MEDIA_URL = '/media/'
 # Default primary key field type
 # https://docs.djangoproject.com/en/5.0/ref/settings/#default-auto-field
