@@ -38,14 +38,14 @@
                     <input type="text" name="apellido" placeholder="Apellido" class="input-control" value="{{ form.apellido.value|default_if_none:empleado.apellido }}">
                 </div>
                 <div>
-                    <input type="date" name="fecha_nacimiento" placeholder="Fecha de Nacimiento" class="input-control" value="{{ form.fecha_nacimiento.value|default_if_none:empleado.fecha_nacimiento }}">
+                    <input type="date" name="fecha_nacimiento" placeholder="Fecha de Nacimiento" class="input-control" value="{{ form.fecha_nacimiento.value|default_if_none:empleado.fecha_nacimiento }}" 
                 </div>
                 <div>
-                    <input type="text" name="telefono" placeholder="Teléfono" class="input-control" value="{{ form.telefono.value|default_if_none:empleado.telefono }}">
+                    <input type="text" name="telefono" placeholder="Teléfono" maxlength="13" class="input-control" value="{{ form.telefono.value|default_if_none:empleado.telefono }}" onkeypress="return (event.charCode >= 48 && event.charCode <= 57)">
+                    {% if form.telefono.errors %}
+                        <div class="error">{{ form.telefono.errors }}</div>
+                    {% endif %}
                 </div>
-                {% if form.non_field_errors %}
-                    <div class="error">{{ form.non_field_errors }}</div>
-                {% endif %}
                 <button type="submit" class="btn">Guardar Cambios</button>
             </form>
 
