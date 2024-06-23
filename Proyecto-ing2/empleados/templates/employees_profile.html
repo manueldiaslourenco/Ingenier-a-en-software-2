@@ -1,0 +1,21 @@
+{% extends 'layouts/navbar_employees.html' %}
+
+{% block title %}
+    <title>Mi Perfil</title>
+{% endblock %}
+
+{% block content %}
+<div>
+    <h1>Mi Perfil</h1>
+</div>
+
+<div class="profile-container">
+    <p><strong>Nombre:</strong> {{ empleado.nombre }}</p>
+    <p><strong>Apellido:</strong> {{ empleado.apellido }}</p>
+    <p><strong>Fecha de Nacimiento:</strong> {{ empleado.fecha_nacimiento }}</p>
+    <p><strong>Teléfono:</strong> {{ empleado.telefono }}</p>
+    <p><strong>Mail:</strong> {{ empleado.mail }}</p>  
+
+    <a href="{% url 'editar_empleado' empleado_id=empleado.id %}" class="btn btn-primary">Editar</a>
+</div>
+{% endblock %}

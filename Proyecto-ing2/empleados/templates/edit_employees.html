@@ -1,0 +1,65 @@
+{% extends 'layouts/base.html' %}
+{% load static %}
+
+{% block style %}
+{% endblock %}
+
+{% block title %}
+    <title>Editar Perfil</title>
+{% endblock %}
+
+{% block scripts %}
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+<script>
+    $(document).ready(function(){
+        $("#cerrar-sesion").click(function(event){
+            event.preventDefault();
+            $("#mensaje-cerrar-sesion").toggle();
+        });
+    });
+</script>
+{% endblock %}
+
+{% block listnav %}
+
+{% endblock %}
+
+{% block content %}
+<section class="form-main">
+    <div class="form-content">
+        <div class="box">
+            <h3>Editar Perfil</h3>
+            <form action="{% url 'editar_empleado' empleado.id %}" method="post" enctype="multipart/form-data" novalidate>
+                {% csrf_token %}
+                <div>
+                    <input type="text" name="nombre" placeholder="Nombre" class="input-control" value="{{ form.nombre.value|default_if_none:empleado.nombre }}">
+                </div>
+                <div>
+                    <input type="text" name="apellido" placeholder="Apellido" class="input-control" value="{{ form.apellido.value|default_if_none:empleado.apellido }}">
+                </div>
+                <div>
+                    <input type="date" name="fecha_nacimiento" placeholder="Fecha de Nacimiento" class="input-control" value="{{ form.fecha_nacimiento.value|default_if_none:empleado.fecha_nacimiento }}">
+                </div>
+                <div>
+                    <input type="text" name="telefono" placeholder="Teléfono" class="input-control" value="{{ form.telefono.value|default_if_none:empleado.telefono }}">
+                </div>
+                {% if form.non_field_errors %}
+                    <div class="error">{{ form.non_field_errors }}</div>
+                {% endif %}
+                <button type="submit" class="btn">Guardar Cambios</button>
+            </form>
+
+            {% if ok %}
+                <div class="window-cargo" id="window-notice">  
+                    <div class="cargo-content">
+                        <p class="cargo-content-text">El perfil se actualizó correctamente</p> 
+                        <div class="cargo-content-button">
+                            <a href="{% url 'mi perfil' %}" class="btn">Aceptar</a>
+                        </div>
+                    </div>
+                </div>
+            {% endif %}
+        </div>
+    </div>
+</section>
+{% endblock %}
