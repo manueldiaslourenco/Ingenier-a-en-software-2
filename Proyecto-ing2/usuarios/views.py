@@ -9,6 +9,8 @@ from vehiculos.models import Vehiculo
 from ofertas.models import Oferta
 from trueques.models import Trueque
 from django.db.models import Q
+from calificaciones.models import Puntuacion
+from django.db.models import Sum
 
 
 @login_required(login_url=reverse_lazy('home'))
@@ -51,6 +53,16 @@ def ver_perfil(request, id):
             trueques = Trueque.objects.filter(Q(usuario1_id = id) | Q(usuario2_id = id))
             # Uso Q para utilizar 'or'
 
+            puntuaciones= Puntuacion.objects.filter(user_recibio= id)
+            puntuacion= 0
+            for puntua in puntuaciones:
+                puntuacion += puntua.calificacion
+            cantidad_registros = puntuaciones.count()
+            if puntuacion != 0 :
+                puntuacion= puntuacion/ cantidad_registros
+            else:
+                puntuacion= "-"
+                
             return render(request, 'profile.html', {
                 'param': usuario,
                 'embarcaciones': embarcaciones,
@@ -58,6 +70,7 @@ def ver_perfil(request, id):
                 'vehiculos': vehiculos,
                 'ofertas': ofertas,
                 'trueques': trueques,
+                'puntuacion': puntuacion
             })
         
     except UserModel.DoesNotExist:

@@ -116,7 +116,7 @@
                 {% if request.user.id == param.id %}
                 <li><i class="icono fas fa-calendar-alt"></i> Fecha nacimiento:  {{ param.fecha_nacimiento|date:"d-m-Y" }}</li>
                 {% endif %}
-                <li><i class="fa-solid fa-star"></i> Reputacion:</li>
+                <li><i class="fa-solid fa-star"></i> Reputacion: {{ puntuacion }}</li>
             </ul>
         </div>
         {% if request.user.id == param.id %}
@@ -368,7 +368,9 @@
                                             {% elif trueque.estado == "Pendiente" %}
                                                 <a href="{% url 'ver detalle trueque' trueque.id %}" style="color:blue">{{ trueque.estado }}</a>
                                             {% elif trueque.estado == "Cancelado" %}
-                                            <a href="{% url 'ver detalle trueque' trueque.id %}" style="color:red">{{ trueque.estado }}</a>
+                                                <a href="{% url 'ver detalle trueque' trueque.id %}" style="color:red">{{ trueque.estado }}</a>
+                                            {% elif trueque.estado == "Anulado" %}
+                                                <a href="{% url 'ver detalle trueque' trueque.id %}" style="color:red">{{ trueque.estado }}</a>
                                             {% endif %}
                                         </td>
                                     </tr>

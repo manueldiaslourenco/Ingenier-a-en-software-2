@@ -284,3 +284,31 @@
         width: 250px;
     }
   }
+  .rating {
+        display: inline-block;
+        font-size: 0; /* Elimina el espacio entre los elementos */
+    }
+
+    .rating input[type="radio"] {
+        display: none;
+    }
+
+    .rating label {
+        font-size: 24px; /* Tamaño de la estrella */
+        color: #ccc; /* Color de la estrella no seleccionada */
+        cursor: pointer;
+    }
+
+    .rating label::before {
+        content: "\2605"; /* Código Unicode para la estrella (★) */
+        display: inline-block;
+        margin-right: 5px; /* Espacio entre las estrellas */
+        opacity: 0.3; /* Todas las estrellas están ligeramente visibles */
+        transition: opacity 0.3s ease;
+    }
+
+    .rating input[type="radio"]:checked + label::before,
+    .rating input[type="radio"]:checked + label ~ input[type="radio"] + label::before {
+        opacity: 1; /* Mostrar las estrellas seleccionadas con mayor opacidad */
+        color: #fdd835; /* Color de las estrellas seleccionadas */
+    }

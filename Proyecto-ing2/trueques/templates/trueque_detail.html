@@ -68,6 +68,7 @@
                         {% endif %}
                     </p>
                 </div>
+            </div>
             <div class="info-container">
                 <div>
                     <h3> Oferta </h3>
@@ -127,8 +128,9 @@
                     </p>
                 </div>
                 {% endif %}
+            </div>
         </div>
-    </div> 
+    </div>
 </section>
     {% if not request.user.is_superuser and request.user.is_staff and trueque.estado == "Pendiente" %}
         {% if mensaje %}
@@ -136,6 +138,32 @@
         {% endif %}
         <a class='btn-acept' href="{% url 'completar trueque' trueque.id %}">Validar</a>
         <a class='btn-rechazar' href="{% url 'cancelar trueque' trueque.id %}">Anular</a>
+    {% endif %}
+    {% if falta_calificar == True %}
+    {% if not request.user.is_staff and trueque.estado == "Completado" %}
+        <div class="box" style="display: flexbox; position:relative">
+            {%if request.user.id == trueque.usuario2.id %}
+            <form action="{% url 'calificar usuario' trueque.id trueque.usuario2.id trueque.usuario1.id %}" method="post" novalidate>
+            {%else%}
+            <form action="{% url 'calificar usuario' trueque.id trueque.usuario1.id trueque.usuario2.id %}" method="post" novalidate>
+            {%endif%}
+                {% csrf_token %}
+                <div class="rating">
+                    <input type="radio" id="rating5" name="rating" value="5">
+                    <label for="rating5"></label>
+                    <input type="radio" id="rating4" name="rating" value="4">
+                    <label for="rating4"></label>
+                    <input type="radio" id="rating3" name="rating" value="3">
+                    <label for="rating3"></label>
+                    <input type="radio" id="rating2" name="rating" value="2">
+                    <label for="rating2"></label>
+                    <input type="radio" id="rating1" name="rating" value="1" checked>
+                    <label for="rating1"></label>
+                </div>
+                <input type="submit" value="Calificar">
+            </form>
+        </div>
+    {% endif %}
     {% endif %}
 {% endblock %}
 

@@ -47,6 +47,7 @@ INSTALLED_APPS = [
     'trueques',
     'usuarios',
     'vehiculos',
+    'calificaciones',
 ]
 
 MIDDLEWARE = [

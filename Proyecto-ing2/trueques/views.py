@@ -5,6 +5,7 @@ from datetime import datetime, timedelta
 from .models import Trueque
 from embarcaciones.models import ImagenEmbarcacion
 from vehiculos.models import ImagenVehiculo
+from calificaciones.models import Puntuacion
 
 # Create your views here.
 
@@ -19,11 +20,17 @@ def ver_trueque(request, id_trueque):
         imagenes_oferta = ImagenVehiculo.objects.filter(vehiculo= trueque.vehiculo.id)
     fecha_actual = datetime.now().date()
     
+    try:
+        puntuacion = Puntuacion.objects.get(user_envio_id=request.user.id, contexto=id_trueque)
+        falta_calificar= False
+    except Puntuacion.DoesNotExist:
+        falta_calificar= True
+
     if (fecha_actual - trueque.fecha_inicio.date()) >= timedelta(days=30):
         mensaje= "Pasaron mas de 30 dias del incio del trueque se recomienda su cancelación."
-        return render(request, 'trueque_detail.html', {'mensaje': mensaje, 'trueque':trueque, 'imagenes_publicacion': imagenes_publicacion, 'imagenes_oferta':imagenes_oferta})
+        return render(request, 'trueque_detail.html', {'mensaje': mensaje, 'trueque':trueque, 'imagenes_publicacion': imagenes_publicacion, 'imagenes_oferta':imagenes_oferta, 'falta_calificar': falta_calificar})
     else:
-        return render(request, 'trueque_detail.html', {'trueque':trueque, 'imagenes_publicacion': imagenes_publicacion, 'imagenes_oferta':imagenes_oferta})
+        return render(request, 'trueque_detail.html', {'trueque':trueque, 'imagenes_publicacion': imagenes_publicacion, 'imagenes_oferta':imagenes_oferta, 'falta_calificar': falta_calificar})
     
 @login_required(login_url=reverse_lazy('iniciar sesion'))
 def completar_trueque(request, id_trueque):
