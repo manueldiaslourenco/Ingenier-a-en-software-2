@@ -254,3 +254,23 @@ def eliminar_usuario(request):
             trueque.estado= "Anulado"
             trueque.save()
     return redirect('lista usuarios')
+
+@login_required(login_url=reverse_lazy('home'))
+def estadisticas(request):
+    return render(request, 'layouts/stats.html')
+
+@login_required(login_url=reverse_lazy('home'))
+def trueques_concretados(request):
+    return render(request, 'trades_completed.html')
+
+@login_required(login_url=reverse_lazy('home'))
+def trueques_no_concretados(request):
+    return render(request, 'trades_uncompleted.html')
+
+@login_required(login_url=reverse_lazy('home'))
+def trueques_por_sede(request):
+    return render(request, 'trades_sedes.html')
+
+@login_required(login_url=reverse_lazy('home'))
+def trueques_ratio_vehiculos(request):
+    return render(request, 'trades_vehicles.html')

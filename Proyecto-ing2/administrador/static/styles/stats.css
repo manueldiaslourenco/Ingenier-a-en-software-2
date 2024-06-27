@@ -1,0 +1,35 @@
+/* Estilo para el navbar */
+.stats-navbar {
+    margin: 0 auto; /* Centra el navbar horizontalmente */
+    display: flex;
+    align-items: center; /* Centra verticalmente los elementos del navbar */
+}
+
+/* Estilo para la lista del navbar */
+.stats-navbar ul {
+    display: flex;
+    justify-content: space-between;
+    margin-top: 0px;
+    margin-bottom: 0px;
+    padding: 0;
+    width: 100%; /* Ajusta el ancho al 100% del contenedor */
+}
+
+/* Estilo para cada elemento de la lista del navbar */
+.stats-navbar ul li {
+    list-style: none;
+    text-align: center;
+    flex-grow: 1; /* Permite que los elementos se expandan automáticamente */
+}
+
+/* Estilo para los links del navbar */
+.stats-navbar ul li a {
+    color: #26a5b9;
+    font-size: 20px;
+    text-decoration: none;
+}
+
+/* Estilo para links del navbar al pasar sobre ellos */
+.stats-navbar ul li a:hover {
+    color: #a9cecf;
+}

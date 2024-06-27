@@ -1,0 +1,38 @@
+{% extends 'layouts/navbar.html' %}
+
+{% block title %}
+    <title>Estadísticas</title>
+{% endblock %}
+
+{% block content %}
+    <div class="stats-wrapper">
+        <nav class="stats-navbar">
+            <ul>
+                <li>
+                    <a href="{% url 'trueques concretados' %}">
+                        <h4 class="primera-stat">Trueques concretados</h4>
+                    </a>
+                </li>
+                <li>
+                    <a href="{% url 'trueques no concretados' %}">
+                        <h4 class="segunda-stat">Trueques no concretados</h4>
+                    </a>
+                </li>
+                <li>
+                    <a href="{% url 'trueques por sede' %}">
+                        <h4 class="tercera-stat">Trueques completados por sede</h4>
+                    </a>
+                </li>
+                <li>
+                    <a href="{% url 'ratio de vehiculos' %}">
+                        <h4 class="cuarta-stat">Ratio de vehiculos intercambiados</h4>
+                    </a>
+                </li>
+            </ul>
+        </nav>
+    </div>
+
+    {% block stats %}
+    {% endblock %}
+
+{% endblock %}

@@ -115,10 +115,9 @@ nav{
   
 .normal:hover::before {
     width: 100%; 
-  }
+}
 
-
-  .normal{
+.normal{
     text-decoration: none;
     color: #fff;
     font-weight:700;

@@ -5,17 +5,19 @@
 {% endblock %}
 
 {% block content %}
-<div>
-    <h1>Mi Perfil</h1>
-</div>
 
-<div class="profile-container">
-    <p><strong>Nombre:</strong> {{ empleado.nombre }}</p>
-    <p><strong>Apellido:</strong> {{ empleado.apellido }}</p>
-    <p><strong>Fecha de Nacimiento:</strong> {{ empleado.fecha_nacimiento }}</p>
-    <p><strong>Teléfono:</strong> {{ empleado.telefono }}</p>
-    <p><strong>Mail:</strong> {{ empleado.mail }}</p>  
+    <div class="header">
+        <h1>Mi perfil</h1>
+    </div>
 
-    <a href="{% url 'editar_empleado' empleado_id=empleado.id %}" class="btn btn-primary">Editar</a>
-</div>
+    <div class="profile-container">
+        <p>Nombre: {{ empleado.nombre }}</p>
+        <p>Apellido: {{ empleado.apellido }}</p>
+        <p>Fecha de Nacimiento: {{ empleado.fecha_nacimiento }}</p>
+        <p>Teléfono: {{ empleado.telefono }}</p>
+        <p>Mail: {{ empleado.mail }}</p>  
+
+        <a href="{% url 'editar_empleado' empleado_id=empleado.id %}" class="btn-primary">Editar</a>
+    </div>
+
 {% endblock %}

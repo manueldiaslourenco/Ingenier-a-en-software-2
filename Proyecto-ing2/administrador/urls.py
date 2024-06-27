@@ -16,4 +16,9 @@ urlpatterns = [
     path('administracion/trueques/', views.listar_trueques, name='lista trueques'),
     path('administracion/empleados/eliminar_empleado/', views.eliminar_empleado, name='eliminar empleado'),
     path('administracion/usuarios/eliminar_usuario/', views.eliminar_usuario, name='eliminar usuario'),
+    path('administracion/estadisticas/', views.estadisticas, name='estadisticas'),
+    path('administracion/estadisticas/trueques_concretados', views.trueques_concretados, name='trueques concretados'),
+    path('administracion/estadisticas/trueques_no_concretados', views.trueques_no_concretados, name='trueques no concretados'),
+    path('administracion/estadisticas/trueques_por_sede', views.trueques_por_sede, name='trueques por sede'),
+    path('administracion/estadisticas/ratio_vehiculos', views.trueques_ratio_vehiculos, name='ratio de vehiculos'),
 ]

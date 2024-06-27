@@ -64,7 +64,7 @@ body {
     padding: 20px 10px;
 }
 
-/* Estilo para el header de la tabla (h1 y boton "Crear ...") */
+/* Estilo para el "titulo de la tabla" ('Empleados'/'Usuario'/...) */
 .header {
     display: flex;
     justify-content: space-between;
@@ -72,7 +72,7 @@ body {
     margin-bottom: 20px;
 }
 
-/* Estilo para el texto del head de la tabla */
+/* Estilo para el texto del titulo de la tabla */
 .header h1 {
     color: #4b463d;
     margin: 0;

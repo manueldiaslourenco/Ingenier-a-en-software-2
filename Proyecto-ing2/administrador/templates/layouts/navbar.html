@@ -7,6 +7,7 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="{% static 'styles/main.css' %}">
+    <link rel="stylesheet" href="{% static 'styles/stats.css' %}">
     {% block styles %}
     {% endblock %}
 
@@ -57,11 +58,12 @@
                     </a>
                 </li>
                 <li>
-                    <a href="{% url 'lista trueques' %}"><h3>Trueques</h3></a>
-
+                    <a href="{% url 'lista trueques' %}">
+                        <h3>Trueques</h3>
+                    </a>
                 </li>
                 <li>
-                    <a>
+                    <a href="{% url 'estadisticas' %}">
                         <h3>Estadísticas</h3>
                     </a>
                 </li> 

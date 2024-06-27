@@ -92,9 +92,10 @@ body {
 .btn-primary:hover {
     background-color: #7a9ea0;
     border-color: #7a9ea0;
+    color: #fff;
 }
 
-/* Estilo para el boton "Crear ..." al pasar sobre él */
+/* Estilo para el boton "Crear ..." una vez visitado */
 .btn-primary:visited {
     color: #fff;
 }
@@ -125,14 +126,14 @@ table th, table td {
 }
 
 /* Estilo para mails */
-a:link, a:visited {
+table a:link, table a:visited {
     color: #5cb9c7;
 
     font-size: 16px;
 }
 
 /* Estilo para mails al pasar sobre ellos  */
-a:hover, a:active {
+table a:hover, table a:active {
     color: #12aac2;
     font-size: 16px;
 }
@@ -309,4 +310,13 @@ select.input-control option::placeholder{
 select.input-control option:hover {
     background-color: #0056b3; /* Cambia el color de fondo al pasar sobre las opciones */
     color: white; /* Cambia el color del texto al pasar sobre las opciones */
+}
+
+.profile-container{
+    max-width: 1200px;
+    margin: auto;
+    padding: 10px;
+    padding-bottom: 20px;
+    background-color: #807666;
+    font-size: 18px;
 }

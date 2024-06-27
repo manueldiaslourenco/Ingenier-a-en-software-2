@@ -131,6 +131,7 @@ STATICFILES_DIRS = [
     os.path.join(BASE_DIR, 'ofertas/static'),
     os.path.join(BASE_DIR, 'publicaciones/static'),
     os.path.join(BASE_DIR, 'usuarios/static'),
+    os.path.join(BASE_DIR, 'empleados/static')
 ]
 
 MEDIA_ROOT = os.path.join(BASE_DIR, 'embarcaciones/static/imagenes_embarcaciones')
