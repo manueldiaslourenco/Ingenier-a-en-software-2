@@ -259,11 +259,15 @@ def eliminar_usuario(request):
 
 @login_required(login_url=reverse_lazy('home'))
 def estadisticas(request):
+    if not request.user.is_superuser:
+        return redirect('home')    
     return render(request, 'layouts/stats.html')
 
 @login_required(login_url=reverse_lazy('home'))
 def trueques_concretados(request):
-
+    if not request.user.is_superuser:
+        return redirect('home')
+    
     #Inicializo
     trueques_concretados = 0
     trueques_pendientes = 0
@@ -278,12 +282,6 @@ def trueques_concretados(request):
         trueques_cancelados = Trueque.objects.filter(estado='Cancelado').count()
         trueques_anulados = Trueque.objects.filter(estado='Anulado').count()
         rango = 'Histórico'
-
-    #Inicializo para testear
-    """ trueques_concretados = 2
-    trueques_pendientes = 1
-    trueques_cancelados = 5
-    trueques_anulados = 2 """
 
     mensaje_error = None
     fecha_actual = date.today()
@@ -327,7 +325,9 @@ def trueques_concretados(request):
 
 @login_required(login_url=reverse_lazy('home'))
 def trueques_por_sede(request):
-
+    if not request.user.is_superuser:
+        return redirect('home')
+    
     #Inicializo
     trueques_tigre = 0
     trueques_quilmes = 0
@@ -343,11 +343,6 @@ def trueques_por_sede(request):
         trueques_rio_santiago = trueques_concretados.filter(sede__nombre='Río Santiago').count()
 
         rango = 'Histórico'
-
-    #Inicializo para testear
-    """ trueques_tigre = 2
-    trueques_quilmes = 1
-    trueques_rio_santiago = 5 """
 
     mensaje_error = None
     fecha_actual = date.today()
@@ -390,8 +385,9 @@ def trueques_por_sede(request):
 
 @login_required(login_url=reverse_lazy('home'))
 def trueques_ratio_vehiculos(request):
-#Contar cuantos trueques tiene Velero-Auto, Velero-Camioneta, Velero-Moto, etc
-    
+    if not request.user.is_superuser:
+        return redirect('home')
+        
     #Inicializo
     trueques_catamaran_auto = 0
     trueques_catamaran_camioneta = 0
@@ -436,11 +432,6 @@ def trueques_ratio_vehiculos(request):
         trueques_velero_moto = trueques_catamaran.filter(vehiculo__tipo__clase='Moto').count()
 
         rango = 'Histórico'
-
-    #Inicializo para testear
-    """
-    
-    """
 
     mensaje_error_fecha = None
     mensaje_error_sin_trueque = None
