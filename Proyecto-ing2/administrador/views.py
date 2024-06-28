@@ -1,22 +1,24 @@
-from django.shortcuts import render, redirect
-from usuarios.models import Usuario
-from django.db import IntegrityError
 from django.contrib.auth.decorators import login_required
+from django.contrib.auth.hashers import make_password
+from django.db import IntegrityError
+from django.shortcuts import render, redirect
 from django.urls import reverse_lazy
+from django.utils.dateparse import parse_date
+from datetime import date
 from .backend import calcular_edad, es_mayor_de_18, generar_contraseña_aleatoria, send_email
 from .forms import formularioRegistro, formularioRegistroEmpleado
-from datetime import date
-from django.contrib.auth.hashers import make_password
-from empleados.models import EmpleConSede, Sede
+from embarcaciones.backend import eliminar_logicamente_embarcacion, eliminar_imagenes_y_objeto_tabla
 from embarcaciones.models import Embarcacion
-from vehiculos.models import Vehiculo
+from empleados.models import EmpleConSede, Sede
 from ofertas.models import Oferta
+from publicaciones.backend import eliminar_publicacion_fisica
 from publicaciones.models import Publicacion
 from trueques.models import Trueque
-from embarcaciones.backend import eliminar_logicamente_embarcacion, eliminar_imagenes_y_objeto_tabla
-from vehiculos.backend import eliminar_logicamente_vehiculo, eliminar_imagenes_y_objeto_tabla
 from usuarios.backend import eliminar_logicamente_usuario
-from publicaciones.backend import eliminar_publicacion_fisica
+from usuarios.models import Usuario
+from vehiculos.backend import eliminar_logicamente_vehiculo, eliminar_imagenes_y_objeto_tabla
+from vehiculos.models import Vehiculo
+
 
 @login_required(login_url=reverse_lazy('home'))
 def index(request):
@@ -261,15 +263,118 @@ def estadisticas(request):
 
 @login_required(login_url=reverse_lazy('home'))
 def trueques_concretados(request):
-    return render(request, 'trades_completed.html')
 
-@login_required(login_url=reverse_lazy('home'))
-def trueques_no_concretados(request):
-    return render(request, 'trades_uncompleted.html')
+    #Inicializo
+    trueques_concretados = 0
+    trueques_pendientes = 0
+    trueques_cancelados = 0
+    trueques_anulados = 0
+    rango = '-'
+
+    #Busco al entrar en stats
+    if request.method == 'GET':
+        trueques_concretados = Trueque.objects.filter(estado='Completado').count()
+        trueques_pendientes = Trueque.objects.filter(estado='Pendiente').count()
+        trueques_cancelados = Trueque.objects.filter(estado='Cancelado').count()
+        trueques_anulados = Trueque.objects.filter(estado='Anulado').count()
+        rango = 'Histórico'
+
+    #Inicializo para testear
+    """ trueques_concretados = 2
+    trueques_pendientes = 1
+    trueques_cancelados = 5
+    trueques_anulados = 2 """
+
+    mensaje_error = None
+    fecha_actual = date.today()
+
+    #Busco al entrar desde el botón
+    if request.method == 'POST':
+        fecha_desde = parse_date(request.POST.get('fechaDesde'))
+        fecha_hasta = parse_date(request.POST.get('fechaHasta'))
+
+        if fecha_desde and fecha_hasta:
+            if fecha_desde > fecha_hasta:
+                mensaje_error = "La primera fecha no debe ser mayor a la segunda"
+            elif fecha_hasta > fecha_actual:
+                mensaje_error = f'La segunda fecha no debe ser mayor a la actual ({fecha_actual})'
+            else:
+                rango = f'{fecha_desde} - {fecha_hasta}'
+                trueques_concretados = Trueque.objects.filter(estado='Completado', fecha_cierre__range=(fecha_desde, fecha_hasta)).count()
+                trueques_pendientes = Trueque.objects.filter(estado='Pendiente', fecha_inicio__range=(fecha_desde, fecha_hasta)).count()
+                trueques_cancelados = Trueque.objects.filter(estado='Cancelado', fecha_cierre__range=(fecha_desde, fecha_hasta)).count()
+                trueques_anulados = Trueque.objects.filter(estado='Anulado', fecha_cierre__range=(fecha_desde, fecha_hasta)).count()
+                if trueques_concretados + trueques_pendientes + trueques_cancelados + trueques_anulados == 0:
+                    mensaje_error = f'No existen trueques entre la fecha {fecha_desde} y la fecha {fecha_hasta}'
+        else:
+            mensaje_error = "Debe ingresar ambas fechas"
+
+    context = {
+        'trueques_concretados': trueques_concretados,
+        'trueques_pendientes': trueques_pendientes,
+        'trueques_cancelados': trueques_cancelados,
+        'trueques_anulados': trueques_anulados,
+        'rango':rango,
+        'mensaje_error':mensaje_error,
+        'fecha_actual':fecha_actual
+    }
+
+    return render(request, 'trades_completed.html', {'context':context})
 
 @login_required(login_url=reverse_lazy('home'))
 def trueques_por_sede(request):
-    return render(request, 'trades_sedes.html')
+
+    #Inicializo
+    trueques_tigre = 0
+    trueques_quilmes = 0
+    trueques_rio_santiago = 0
+    rango = '-'
+
+    #Busco al entrar en stats
+    if request.method == 'GET':
+        trueques_tigre = Trueque.objects.filter(sede__nombre='Tigre').count()
+        trueques_quilmes = Trueque.objects.filter(sede__nombre='Quilmes (La rivera)').count()
+        trueques_rio_santiago = Trueque.objects.filter(sede__nombre='Río Santiago').count()
+        rango = 'Histórico'
+
+    #Inicializo para testear
+    """ trueques_tigre = 2
+    trueques_quilmes = 1
+    trueques_rio_santiago = 5 """
+
+    mensaje_error = None
+    fecha_actual = date.today()
+
+    #Busco al entrar desde el botón
+    if request.method == 'POST':
+        fecha_desde = parse_date(request.POST.get('fechaDesde'))
+        fecha_hasta = parse_date(request.POST.get('fechaHasta'))
+
+        if fecha_desde and fecha_hasta:
+            if fecha_desde > fecha_hasta:
+                mensaje_error = "La primera fecha no debe ser mayor a la segunda"
+            elif fecha_hasta > fecha_actual:
+                mensaje_error = f'La segunda fecha no debe ser mayor a la actual ({fecha_actual})'
+            else:
+                rango = f'{fecha_desde} - {fecha_hasta}'
+                trueques_tigre = Trueque.objects.filter(sede__nombre='Tigre', fecha_cierre__range=(fecha_desde, fecha_hasta)).count()
+                trueques_quilmes = Trueque.objects.filter(sede__nombre='Quilmes (La rivera)', fecha_inicio__range=(fecha_desde, fecha_hasta)).count()
+                trueques_rio_santiago = Trueque.objects.filter(sede__nombre='Río Santiago', fecha_cierre__range=(fecha_desde, fecha_hasta)).count()
+                if trueques_tigre + trueques_quilmes + trueques_rio_santiago == 0:
+                    mensaje_error = f'No existen trueques entre la fecha {fecha_desde} y la fecha {fecha_hasta}'
+        else:
+            mensaje_error = "Debe ingresar ambas fechas"
+
+    context = {
+        'trueques_tigre': trueques_tigre,
+        'trueques_quilmes': trueques_quilmes,
+        'trueques_rio_santiago': trueques_rio_santiago,
+        'rango':rango,
+        'mensaje_error':mensaje_error,
+        'fecha_actual':fecha_actual
+    }
+
+    return render(request, 'trades_sedes.html', {'context':context})    
 
 @login_required(login_url=reverse_lazy('home'))
 def trueques_ratio_vehiculos(request):

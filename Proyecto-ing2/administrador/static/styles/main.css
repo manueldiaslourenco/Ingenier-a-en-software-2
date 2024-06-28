@@ -8,8 +8,8 @@
 
 /* Estilo para el cuerpo del html */
 body {
-    background: #e8d8ba;
-    color: rgb(255, 255, 255);
+    background: #e8d8ba !important;
+    color: #fff;
     font-family: arial;
     margin: 0;
 }

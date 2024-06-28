@@ -327,7 +327,11 @@
                                 {% for trueque in trueques %}
                                     <tr>
                                         <td>
-                                            <a href="{% url 'ver perfil' trueque.usuario1_id %}">{{ trueque.usuario1.mail }}</a>
+                                            {% if trueque.usuario1.mail|slice:"0:1" == "*" %}
+                                                {{ trueque.usuario1.mail|slice:"1:-14" }}
+                                            {% else %}
+                                                <a href="{% url 'ver perfil' trueque.usuario1_id %}">{{ trueque.usuario1.mail }}</a>
+                                            {% endif %}
                                         </td>
                                         <td>{{ trueque.monto }}</td>
                                         <td>
