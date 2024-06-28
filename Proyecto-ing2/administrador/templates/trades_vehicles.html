@@ -6,6 +6,530 @@
             text-decoration: underline;
         }
     </style>
+    
+    <br>
 
-    <h1>Trueques por vehiculos</h1>
+    <h3>Rango actual: {{ context.rango }}</h3>
+
+    <form action="{% url 'ratio de vehiculos' %}" method="post">
+        {% csrf_token %}
+
+        <label for="fechaDesde">Desde: </label>
+        <input type="date" name="fechaDesde" value="{{ form.fechaDesde.value|default_if_none:'' }}">
+
+        <label for="fechaHasta">Hasta: </label>
+        <input type="date" name="fechaHasta" value="{{ form.fechaDesde.value|default:context.fecha_actual|date:'Y-m-d' }}">
+
+        <button type="submit" class="btn-select-fechas">Seleccionar</button>
+
+    </form>
+
+    <br>
+
+
+    {% if context.mensaje_error_fecha %}
+        <div class="error">{{ context.mensaje_error_fecha }}</div>
+    {% endif %}
+
+    {% if context.error_general == 4 %}
+        <div class="error">{{context.mensaje_error_sin_trueque}}</div>
+    {% endif %}
+    <div class="row ">
+        <div class="col-md-6 my-4">
+            <div class="bg-white">
+                <div class="card-body">
+                    <canvas id="myChart" width="400" height="300"></canvas>
+                    <script>
+                        var ctx = document.getElementById('myChart').getContext('2d');
+                        var myChart1 = new Chart(ctx, {
+                            type: 'pie',
+                            data: {
+                                labels: ['Cat-Aut' , 'Cat-Cam', 'Cat-Mot',
+                                    'Cru-Aut' , 'Cru-Cam', 'Cru-Mot',
+                                    'Lan-Aut' , 'Lan-Cam', 'Lan-Mot',
+                                    'Vel-Aut' , 'Vel-Cam', 'Vel-Mot',
+                                ],
+                                datasets: [{
+                                    label: 'Proporcion de trueques por vehiculo',
+                                    data: ['{{context.trueques_catamaran_auto}}', '{{context.trueques_catamaran_camioneta}}', '{{context.trueques_catamaran_moto}}',
+                                        '{{context.trueques_crucero_auto}}', '{{context.trueques_crucero_camioneta}}', '{{context.trueques_crucero_moto}}',
+                                        '{{context.trueques_lancha_auto}}', '{{context.trueques_lancha_camioneta}}', '{{context.trueques_lancha_moto}}',
+                                        '{{context.trueques_velero_auto}}', '{{context.trueques_velero_camioneta}}', '{{context.trueques_velero_moto}}'
+                                    ],
+                                    backgroundColor: [
+                                        'rgba(255, 99, 132, 1)',
+                                        'rgba(54, 162, 235, 1)',
+                                        'rgba(255, 206, 86, 1)',
+                                        'rgba(75, 192, 192, 1)',
+                                        'rgba(153, 102, 255, 1)',
+                                        'rgba(255, 159, 64, 1)',
+                                        'rgba(100, 180, 220, 1)',
+                                        'rgba(255, 130, 180, 1)',
+                                        'rgba(120, 210, 160, 1)',
+                                        'rgba(255, 180, 100, 1)',
+                                        'rgba(180, 120, 240, 1)',
+                                        'rgba(220, 190, 80, 1)',
+                                    ],
+                                    borderColor: [
+                                        'rgba(255, 99, 132, 1)',
+                                        'rgba(54, 162, 235, 1)',
+                                        'rgba(255, 206, 86, 1)',
+                                        'rgba(75, 192, 192, 1)',
+                                        'rgba(153, 102, 255, 1)',
+                                        'rgba(255, 159, 64, 1)',
+                                        'rgba(100, 180, 220, 1)',
+                                        'rgba(255, 130, 180, 1)',
+                                        'rgba(120, 210, 160, 1)',
+                                        'rgba(255, 180, 100, 1)',
+                                        'rgba(180, 120, 240, 1)',
+                                        'rgba(220, 190, 80, 1)',
+                                    ],
+                                    borderWidth: 1
+                                }]
+                            },
+                        options: {
+                            scales: {
+                                yAxes: [{
+                                    ticks: {
+                                        beginAtZero: true
+                                    }
+                                }]
+                            }
+                        }
+                        });
+                    </script>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-6 my-4">
+            <div class="bg-white">
+                <div class="card-body">
+                    <canvas id="myChart0" width="400" height="300"></canvas>
+                    <script>
+                        var ctx = document.getElementById('myChart0').getContext('2d');
+                        var myChart = new Chart(ctx, {
+                            type: 'bar',
+                            data: {
+                                labels: ['Cat-Aut' , 'Cat-Cam', 'Cat-Mot',
+                                        'Cru-Aut' , 'Cru-Cam', 'Cru-Mot',
+                                        'Lan-Aut' , 'Lan-Cam', 'Lan-Mot',
+                                        'Vel-Aut' , 'Vel-Cam', 'Vel-Mot',
+                                ],
+                                datasets: [{
+                                label: 'Cantidad de trueques por vehiculo',
+                                data: ['{{context.trueques_catamaran_auto}}', '{{context.trueques_catamaran_camioneta}}', '{{context.trueques_catamaran_moto}}',
+                                    '{{context.trueques_crucero_auto}}', '{{context.trueques_crucero_camioneta}}', '{{context.trueques_crucero_moto}}',
+                                    '{{context.trueques_lancha_auto}}', '{{context.trueques_lancha_camioneta}}', '{{context.trueques_lancha_moto}}',
+                                    '{{context.trueques_velero_auto}}', '{{context.trueques_velero_camioneta}}', '{{context.trueques_velero_moto}}'
+                                ],
+                                backgroundColor: [
+                                    'rgba(255, 99, 132, 1)',
+                                    'rgba(54, 162, 235, 1)',
+                                    'rgba(255, 206, 86, 1)',
+                                    'rgba(75, 192, 192, 1)',
+                                    'rgba(153, 102, 255, 1)',
+                                    'rgba(255, 159, 64, 1)',
+                                    'rgba(100, 180, 220, 1)',
+                                    'rgba(255, 130, 180, 1)',
+                                    'rgba(120, 210, 160, 1)',
+                                    'rgba(255, 180, 100, 1)',
+                                    'rgba(180, 120, 240, 1)',
+                                    'rgba(220, 190, 80, 1)',
+                                ],
+                                borderColor: [
+                                    'rgba(255, 99, 132, 1)',
+                                    'rgba(54, 162, 235, 1)',
+                                    'rgba(255, 206, 86, 1)',
+                                    'rgba(75, 192, 192, 1)',
+                                    'rgba(153, 102, 255, 1)',
+                                    'rgba(255, 159, 64, 1)',
+                                    'rgba(100, 180, 220, 1)',
+                                    'rgba(255, 130, 180, 1)',
+                                    'rgba(120, 210, 160, 1)',
+                                    'rgba(255, 180, 100, 1)',
+                                    'rgba(180, 120, 240, 1)',
+                                    'rgba(220, 190, 80, 1)',
+                                ],
+                                borderWidth: 1
+                                }]
+                            },
+                        options: {
+                            scales: {
+                                yAxes: [{
+                                    ticks: {
+                                        beginAtZero: true
+                                    }
+                                }]
+                            }
+                        }
+                        });
+                    </script>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <br>
+
+    <h4 style="margin: 0;">Catamaranes:</h4>
+
+    {% if context.error_catamaran %}
+        <div class="error">{{context.mensaje_error_sin_trueque}}</div>
+    {% endif %}
+
+    <div class="row ">
+        <div class="col-md-6 my-4">
+            <div class="bg-white">
+                <div class="card-body">
+                    <canvas id="myChart1" width="400" height="300"></canvas>
+                    <script>
+                        var ctx = document.getElementById('myChart1').getContext('2d');
+                        var myChart1 = new Chart(ctx, {
+                            type: 'pie',
+                            data: {
+                                labels: ['Auto' , 'Camioneta', 'Moto'],
+                        datasets: [{
+                            label: 'Proporcion de trueques por catamaranes',
+                            data: ['{{context.trueques_catamaran_auto}}', '{{context.trueques_catamaran_camioneta}}', '{{context.trueques_catamaran_moto}}'],
+                            backgroundColor: [
+                                'rgba(255, 99, 132, 1)',
+                                'rgba(54, 162, 235, 1)',
+                                'rgba(255, 206, 86, 1)',
+                            ],
+                                borderColor: [
+                                    'rgba(255, 99, 132, 1)',
+                                    'rgba(54, 162, 235, 1)',
+                                    'rgba(255, 206, 86, 1)',
+                                ],
+                                    borderWidth: 1
+                        }]
+                            },
+                        options: {
+                            scales: {
+                                yAxes: [{
+                                    ticks: {
+                                        beginAtZero: true
+                                    }
+                                }]
+                            }
+                        }
+                        });
+                    </script>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-6 my-4">
+            <div class="bg-white">
+                <div class="card-body">
+                    <canvas id="myChart2" width="400" height="300"></canvas>
+                    <script>
+                        var ctx = document.getElementById('myChart2').getContext('2d');
+                        var myChart = new Chart(ctx, {
+                            type: 'bar',
+                            data: {
+                                labels: ['Auto' , 'Camioneta', 'Moto'],
+                        datasets: [{
+                            label: 'Cantidad de trueques por catamaranes',
+                            data: ['{{context.trueques_catamaran_auto}}', '{{context.trueques_catamaran_camioneta}}', '{{context.trueques_catamaran_moto}}'],
+                            backgroundColor: [
+                                'rgba(255, 99, 132, 1)',
+                                'rgba(54, 162, 235, 1)',
+                                'rgba(255, 206, 86, 1)',
+                            ],
+                                borderColor: [
+                                    'rgba(255, 99, 132, 1)',
+                                    'rgba(54, 162, 235, 1)',
+                                    'rgba(255, 206, 86, 1)',
+                                ],
+                                    borderWidth: 1
+                        }]
+                            },
+                        options: {
+                            scales: {
+                                yAxes: [{
+                                    ticks: {
+                                        beginAtZero: true
+                                    }
+                                }]
+                            }
+                        }
+                        });
+                    </script>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <br>
+
+    <h4 style="margin: 0;">Cruceros:</h4>
+
+    {% if context.error_crucero %}
+        <div class="error">{{context.mensaje_error_sin_trueque}}</div>
+    {% endif %}
+
+    <div class="row ">
+        <div class="col-md-6 my-4">
+            <div class="bg-white">
+                <div class="card-body">
+                    <canvas id="myChart3" width="400" height="300"></canvas>
+                    <script>
+                        var ctx = document.getElementById('myChart3').getContext('2d');
+                        var myChart1 = new Chart(ctx, {
+                            type: 'pie',
+                            data: {
+                                labels: ['Auto' , 'Camioneta', 'Moto'],
+                        datasets: [{
+                            label: 'Proporcion de trueques por cruceros',
+                            data: ['{{context.trueques_crucero_auto}}', '{{context.trueques_crucero_camioneta}}', '{{context.trueques_crucero_moto}}'],
+                            backgroundColor: [
+                                'rgba(255, 99, 132, 1)',
+                                'rgba(54, 162, 235, 1)',
+                                'rgba(255, 206, 86, 1)',
+                            ],
+                                borderColor: [
+                                    'rgba(255, 99, 132, 1)',
+                                    'rgba(54, 162, 235, 1)',
+                                    'rgba(255, 206, 86, 1)',
+                                ],
+                                    borderWidth: 1
+                        }]
+                            },
+                        options: {
+                            scales: {
+                                yAxes: [{
+                                    ticks: {
+                                        beginAtZero: true
+                                    }
+                                }]
+                            }
+                        }
+                        });
+                    </script>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-6 my-4">
+            <div class="bg-white">
+                <div class="card-body">
+                    <canvas id="myChart4" width="400" height="300"></canvas>
+                    <script>
+                        var ctx = document.getElementById('myChart4').getContext('2d');
+                        var myChart = new Chart(ctx, {
+                            type: 'bar',
+                            data: {
+                                labels: ['Auto' , 'Camioneta', 'Moto'],
+                        datasets: [{
+                            label: 'Cantidad de trueques por cruceros',
+                            data: ['{{context.trueques_crucero_auto}}', '{{context.trueques_crucero_camioneta}}', '{{context.trueques_crucero_moto}}'],
+                            backgroundColor: [
+                                'rgba(255, 99, 132, 1)',
+                                'rgba(54, 162, 235, 1)',
+                                'rgba(255, 206, 86, 1)',
+                            ],
+                                borderColor: [
+                                    'rgba(255, 99, 132, 1)',
+                                    'rgba(54, 162, 235, 1)',
+                                    'rgba(255, 206, 86, 1)',
+                                ],
+                                    borderWidth: 1
+                        }]
+                            },
+                        options: {
+                            scales: {
+                                yAxes: [{
+                                    ticks: {
+                                        beginAtZero: true
+                                    }
+                                }]
+                            }
+                        }
+                        });
+                    </script>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <br>
+
+    <h4 style="margin: 0;">Lanchas:</h4>
+
+    {% if context.error_lancha %}
+        <div class="error">{{context.mensaje_error_sin_trueque}}</div>
+    {% endif %}
+
+    <div class="row ">
+        <div class="col-md-6 my-4">
+            <div class="bg-white">
+                <div class="card-body">
+                    <canvas id="myChart5" width="400" height="300"></canvas>
+                    <script>
+                        var ctx = document.getElementById('myChart5').getContext('2d');
+                        var myChart1 = new Chart(ctx, {
+                            type: 'pie',
+                            data: {
+                                labels: ['Auto' , 'Camioneta', 'Moto'],
+                        datasets: [{
+                            label: 'Proporcion de trueques por lanchas',
+                            data: ['{{context.trueques_lancha_auto}}', '{{context.trueques_lancha_camioneta}}', '{{context.trueques_lancha_moto}}'],
+                            backgroundColor: [
+                                'rgba(255, 99, 132, 1)',
+                                'rgba(54, 162, 235, 1)',
+                                'rgba(255, 206, 86, 1)',
+                            ],
+                                borderColor: [
+                                    'rgba(255, 99, 132, 1)',
+                                    'rgba(54, 162, 235, 1)',
+                                    'rgba(255, 206, 86, 1)',
+                                ],
+                                    borderWidth: 1
+                        }]
+                            },
+                        options: {
+                            scales: {
+                                yAxes: [{
+                                    ticks: {
+                                        beginAtZero: true
+                                    }
+                                }]
+                            }
+                        }
+                        });
+                    </script>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-6 my-4">
+            <div class="bg-white">
+                <div class="card-body">
+                    <canvas id="myChart6" width="400" height="300"></canvas>
+                    <script>
+                        var ctx = document.getElementById('myChart6').getContext('2d');
+                        var myChart = new Chart(ctx, {
+                            type: 'bar',
+                            data: {
+                                labels: ['Auto' , 'Camioneta', 'Moto'],
+                        datasets: [{
+                            label: 'Cantidad de trueques por lanchas',
+                            data: ['{{context.trueques_lancha_auto}}', '{{context.trueques_lancha_camioneta}}', '{{context.trueques_lancha_moto}}'],
+                            backgroundColor: [
+                                'rgba(255, 99, 132, 1)',
+                                'rgba(54, 162, 235, 1)',
+                                'rgba(255, 206, 86, 1)',
+                            ],
+                                borderColor: [
+                                    'rgba(255, 99, 132, 1)',
+                                    'rgba(54, 162, 235, 1)',
+                                    'rgba(255, 206, 86, 1)',
+                                ],
+                                    borderWidth: 1
+                        }]
+                            },
+                        options: {
+                            scales: {
+                                yAxes: [{
+                                    ticks: {
+                                        beginAtZero: true
+                                    }
+                                }]
+                            }
+                        }
+                        });
+                    </script>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <br>
+
+    <h4 style="margin: 0;">Veleros:</h4>
+
+    {% if context.error_velero %}
+        <div class="error">{{context.mensaje_error_sin_trueque}}</div>
+    {% endif %}
+
+    <div class="row ">
+        <div class="col-md-6 my-4">
+            <div class="bg-white">
+                <div class="card-body">
+                    <canvas id="myChart7" width="400" height="300"></canvas>
+                    <script>
+                        var ctx = document.getElementById('myChart7').getContext('2d');
+                        var myChart1 = new Chart(ctx, {
+                            type: 'pie',
+                            data: {
+                                labels: ['Auto' , 'Camioneta', 'Moto'],
+                        datasets: [{
+                            label: 'Proporcion de trueques por veleros',
+                            data: ['{{context.trueques_velero_auto}}', '{{context.trueques_velero_camioneta}}', '{{context.trueques_velero_moto}}'],
+                            backgroundColor: [
+                                'rgba(255, 99, 132, 1)',
+                                'rgba(54, 162, 235, 1)',
+                                'rgba(255, 206, 86, 1)',
+                            ],
+                                borderColor: [
+                                    'rgba(255, 99, 132, 1)',
+                                    'rgba(54, 162, 235, 1)',
+                                    'rgba(255, 206, 86, 1)',
+                                ],
+                                    borderWidth: 1
+                        }]
+                            },
+                        options: {
+                            scales: {
+                                yAxes: [{
+                                    ticks: {
+                                        beginAtZero: true
+                                    }
+                                }]
+                            }
+                        }
+                        });
+                    </script>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-6 my-4">
+            <div class="bg-white">
+                <div class="card-body">
+                    <canvas id="myChart8" width="400" height="300"></canvas>
+                    <script>
+                        var ctx = document.getElementById('myChart8').getContext('2d');
+                        var myChart = new Chart(ctx, {
+                            type: 'bar',
+                            data: {
+                                labels: ['Auto' , 'Camioneta', 'Moto'],
+                        datasets: [{
+                            label: 'Cantidad de trueques por veleros',
+                            data: ['{{context.trueques_velero_auto}}', '{{context.trueques_velero_camioneta}}', '{{context.trueques_velero_moto}}'],
+                            backgroundColor: [
+                                'rgba(255, 99, 132, 1)',
+                                'rgba(54, 162, 235, 1)',
+                                'rgba(255, 206, 86, 1)',
+                            ],
+                                borderColor: [
+                                    'rgba(255, 99, 132, 1)',
+                                    'rgba(54, 162, 235, 1)',
+                                    'rgba(255, 206, 86, 1)',
+                                ],
+                                    borderWidth: 1
+                        }]
+                            },
+                        options: {
+                            scales: {
+                                yAxes: [{
+                                    ticks: {
+                                        beginAtZero: true
+                                    }
+                                }]
+                            }
+                        }
+                        });
+                    </script>
+                </div>
+            </div>
+        </div>
+    </div>
 {% endblock %}

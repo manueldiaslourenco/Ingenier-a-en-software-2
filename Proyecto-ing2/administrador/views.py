@@ -299,11 +299,15 @@ def trueques_concretados(request):
             elif fecha_hasta > fecha_actual:
                 mensaje_error = f'La segunda fecha no debe ser mayor a la actual ({fecha_actual})'
             else:
-                rango = f'{fecha_desde} - {fecha_hasta}'
-                trueques_concretados = Trueque.objects.filter(estado='Completado', fecha_cierre__range=(fecha_desde, fecha_hasta)).count()
+                trueques_rango = Trueque.objects.filter(fecha_cierre__range=(fecha_desde, fecha_hasta))
+
+                trueques_concretados = trueques_rango.filter(estado='Completado').count()
                 trueques_pendientes = Trueque.objects.filter(estado='Pendiente', fecha_inicio__range=(fecha_desde, fecha_hasta)).count()
-                trueques_cancelados = Trueque.objects.filter(estado='Cancelado', fecha_cierre__range=(fecha_desde, fecha_hasta)).count()
-                trueques_anulados = Trueque.objects.filter(estado='Anulado', fecha_cierre__range=(fecha_desde, fecha_hasta)).count()
+                trueques_cancelados = trueques_rango.filter(estado='Cancelado').count()
+                trueques_anulados = trueques_rango.filter(estado='Anulado').count()
+
+                rango = f'{fecha_desde} - {fecha_hasta}'
+
                 if trueques_concretados + trueques_pendientes + trueques_cancelados + trueques_anulados == 0:
                     mensaje_error = f'No existen trueques entre la fecha {fecha_desde} y la fecha {fecha_hasta}'
         else:
@@ -332,9 +336,12 @@ def trueques_por_sede(request):
 
     #Busco al entrar en stats
     if request.method == 'GET':
-        trueques_tigre = Trueque.objects.filter(sede__nombre='Tigre').count()
-        trueques_quilmes = Trueque.objects.filter(sede__nombre='Quilmes (La rivera)').count()
-        trueques_rio_santiago = Trueque.objects.filter(sede__nombre='Río Santiago').count()
+        trueques_concretados = Trueque.objects.filter(estado='Completado')
+        
+        trueques_tigre = trueques_concretados.filter(sede__nombre='Tigre').count()
+        trueques_quilmes = trueques_concretados.filter(sede__nombre='Quilmes (La rivera)').count()
+        trueques_rio_santiago = trueques_concretados.filter(sede__nombre='Río Santiago').count()
+
         rango = 'Histórico'
 
     #Inicializo para testear
@@ -356,10 +363,15 @@ def trueques_por_sede(request):
             elif fecha_hasta > fecha_actual:
                 mensaje_error = f'La segunda fecha no debe ser mayor a la actual ({fecha_actual})'
             else:
+                trueques_concretados = Trueque.objects.filter(estado='Completado')
+                trueques_rango = trueques_concretados.filter(fecha_cierre__range=(fecha_desde, fecha_hasta))
+                
+                trueques_tigre = trueques_rango.filter(sede__nombre='Tigre').count()
+                trueques_quilmes = trueques_rango.filter(sede__nombre='Quilmes (La rivera)').count()
+                trueques_rio_santiago = trueques_rango.filter(sede__nombre='Río Santiago').count()
+                
                 rango = f'{fecha_desde} - {fecha_hasta}'
-                trueques_tigre = Trueque.objects.filter(sede__nombre='Tigre', fecha_cierre__range=(fecha_desde, fecha_hasta)).count()
-                trueques_quilmes = Trueque.objects.filter(sede__nombre='Quilmes (La rivera)', fecha_inicio__range=(fecha_desde, fecha_hasta)).count()
-                trueques_rio_santiago = Trueque.objects.filter(sede__nombre='Río Santiago', fecha_cierre__range=(fecha_desde, fecha_hasta)).count()
+                
                 if trueques_tigre + trueques_quilmes + trueques_rio_santiago == 0:
                     mensaje_error = f'No existen trueques entre la fecha {fecha_desde} y la fecha {fecha_hasta}'
         else:
@@ -378,4 +390,151 @@ def trueques_por_sede(request):
 
 @login_required(login_url=reverse_lazy('home'))
 def trueques_ratio_vehiculos(request):
-    return render(request, 'trades_vehicles.html')
+#Contar cuantos trueques tiene Velero-Auto, Velero-Camioneta, Velero-Moto, etc
+    
+    #Inicializo
+    trueques_catamaran_auto = 0
+    trueques_catamaran_camioneta = 0
+    trueques_catamaran_moto = 0
+
+    trueques_crucero_auto = 0
+    trueques_crucero_camioneta = 0
+    trueques_crucero_moto = 0
+
+    trueques_lancha_auto = 0
+    trueques_lancha_camioneta = 0
+    trueques_lancha_moto = 0
+
+    trueques_velero_auto = 0
+    trueques_velero_camioneta = 0
+    trueques_velero_moto = 0
+
+    rango = '-'
+
+    #Busco al entrar en stats
+    if request.method == 'GET':
+        trueques_concretados = Trueque.objects.filter(estado='Completado')
+
+        trueques_catamaran = trueques_concretados.filter(embarcacion1__tipo__clase='Catamaran')
+        trueques_catamaran_auto = trueques_catamaran.filter(vehiculo__tipo__clase='Auto').count()
+        trueques_catamaran_camioneta = trueques_catamaran.filter(vehiculo__tipo__clase='Camioneta').count()
+        trueques_catamaran_moto = trueques_catamaran.filter(vehiculo__tipo__clase='Moto').count()
+
+        trueques_crucero = trueques_concretados.filter(embarcacion1__tipo__clase='Crucero')
+        trueques_crucero_auto = trueques_catamaran.filter(vehiculo__tipo__clase='Auto').count()
+        trueques_crucero_camioneta = trueques_catamaran.filter(vehiculo__tipo__clase='Camioneta').count()
+        trueques_crucero_moto = trueques_catamaran.filter(vehiculo__tipo__clase='Moto').count()
+
+        trueques_lancha = trueques_concretados.filter(embarcacion1__tipo__clase='Lancha')
+        trueques_lancha_auto = trueques_catamaran.filter(vehiculo__tipo__clase='Auto').count()
+        trueques_lancha_camioneta = trueques_catamaran.filter(vehiculo__tipo__clase='Camioneta').count()
+        trueques_lancha_moto = trueques_catamaran.filter(vehiculo__tipo__clase='Moto').count()
+
+        trueques_velero = trueques_concretados.filter(embarcacion1__tipo__clase='Velero')
+        trueques_velero_auto = trueques_catamaran.filter(vehiculo__tipo__clase='Auto').count()
+        trueques_velero_camioneta = trueques_catamaran.filter(vehiculo__tipo__clase='Camioneta').count()
+        trueques_velero_moto = trueques_catamaran.filter(vehiculo__tipo__clase='Moto').count()
+
+        rango = 'Histórico'
+
+    #Inicializo para testear
+    """
+    
+    """
+
+    mensaje_error_fecha = None
+    mensaje_error_sin_trueque = None
+    error_catamaran = False
+    error_crucero = False
+    error_lancha = False
+    error_velero = False
+    error_general = 0
+    fecha_actual = date.today()
+
+    #Busco al entrar desde el botón
+    if request.method == 'POST':
+        fecha_desde = parse_date(request.POST.get('fechaDesde'))
+        fecha_hasta = parse_date(request.POST.get('fechaHasta'))
+
+        if fecha_desde and fecha_hasta:
+            if fecha_desde > fecha_hasta:
+                mensaje_error_fecha = "La primera fecha no debe ser mayor a la segunda"
+            elif fecha_hasta > fecha_actual:
+                mensaje_error_fecha = f'La segunda fecha no debe ser mayor a la actual ({fecha_actual})'
+            else:
+                rango = f'{fecha_desde} - {fecha_hasta}'
+
+                trueques_concretados = Trueque.objects.filter(estado='Completado')
+                trueques_rango = trueques_concretados.filter(fecha_cierre__range=(fecha_desde, fecha_hasta))
+
+                trueques_catamaran = trueques_rango.filter(embarcacion1__tipo__clase='Catamaran')
+                trueques_catamaran_auto = trueques_catamaran.filter(vehiculo__tipo__clase='Auto').count()
+                trueques_catamaran_camioneta = trueques_catamaran.filter(vehiculo__tipo__clase='Camioneta').count()
+                trueques_catamaran_moto = trueques_catamaran.filter(vehiculo__tipo__clase='Moto').count()
+
+                trueques_crucero = trueques_rango.filter(embarcacion1__tipo__clase='Crucero')
+                trueques_crucero_auto = trueques_crucero.filter(vehiculo__tipo__clase='Auto').count()
+                trueques_crucero_camioneta = trueques_crucero.filter(vehiculo__tipo__clase='Camioneta').count()
+                trueques_crucero_moto = trueques_crucero.filter(vehiculo__tipo__clase='Moto').count()
+
+                trueques_lancha = trueques_rango.filter(embarcacion1__tipo__clase='Lancha')
+                trueques_lancha_auto = trueques_lancha.filter(vehiculo__tipo__clase='Auto').count()
+                trueques_lancha_camioneta = trueques_lancha.filter(vehiculo__tipo__clase='Camioneta').count()
+                trueques_lancha_moto = trueques_lancha.filter(vehiculo__tipo__clase='Moto').count()
+
+                trueques_velero = trueques_rango.filter(embarcacion1__tipo__clase='Velero')
+                trueques_velero_auto = trueques_velero.filter(vehiculo__tipo__clase='Auto').count()
+                trueques_velero_camioneta = trueques_velero.filter(vehiculo__tipo__clase='Camioneta').count()
+                trueques_velero_moto = trueques_velero.filter(vehiculo__tipo__clase='Moto').count()
+
+                if trueques_catamaran_auto + trueques_catamaran_camioneta + trueques_catamaran_moto == 0:
+                    error_catamaran = True
+                    error_general += 1
+                
+                if trueques_crucero_auto + trueques_crucero_camioneta + trueques_crucero_moto == 0:
+                    error_crucero = True
+                    error_general += 1
+
+                if trueques_lancha_auto + trueques_lancha_camioneta + trueques_lancha_moto == 0:
+                    error_lancha = True
+                    error_general += 1
+
+                if trueques_velero_auto + trueques_velero_camioneta + trueques_velero_moto == 0:
+                    error_velero = True
+                    error_general += 1
+                
+                mensaje_error_sin_trueque = f'No existen trueques entre la fecha {fecha_desde} y la fecha {fecha_hasta}'
+                
+        else:
+            mensaje_error_fecha = "Debe ingresar ambas fechas"
+
+    context = {
+        'trueques_catamaran_auto':trueques_catamaran_auto,
+        'trueques_catamaran_camioneta':trueques_catamaran_camioneta,
+        'trueques_catamaran_moto':trueques_catamaran_moto,
+
+        'trueques_crucero_auto':trueques_crucero_auto,
+        'trueques_crucero_camioneta':trueques_crucero_camioneta,
+        'trueques_crucero_moto':trueques_crucero_moto,
+
+        'trueques_lancha_auto':trueques_lancha_auto,
+        'trueques_lancha_camioneta':trueques_lancha_camioneta,
+        'trueques_lancha_moto':trueques_lancha_moto,
+
+        'trueques_velero_auto':trueques_velero_auto,
+        'trueques_velero_camioneta':trueques_velero_camioneta,
+        'trueques_velero_moto':trueques_velero_moto,
+
+        'rango':rango,
+
+        'mensaje_error_fecha':mensaje_error_fecha,
+        'mensaje_error_sin_trueque':mensaje_error_sin_trueque,
+        'error_catamaran':error_catamaran,
+        'error_crucero':error_crucero,
+        'error_lancha':error_lancha,
+        'error_velero':error_velero,
+        'error_general':error_general,
+        'fecha_actual':fecha_actual
+    }
+
+    return render(request, 'trades_vehicles.html', {'context':context})
