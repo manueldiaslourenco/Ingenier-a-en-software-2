@@ -1,7 +1,7 @@
 from django.shortcuts import render, redirect
 from django.contrib.auth.decorators import login_required
 from django.urls import reverse_lazy
-from .forms import formularioCrearPublicacion
+from .forms import formularioCrearPublicacion, formularioEditarPublicacion
 from embarcaciones.models import Embarcacion, ImagenEmbarcacion
 from ofertas.models import Oferta
 from .models import Publicacion
@@ -68,3 +68,31 @@ def ver_detalle_publicacion(request, id_publicacion, eliminar):
 def eliminar_publicacion_vista(request, id_publicacion):
     eliminar_publicacion_fisica(id_publicacion)
     return redirect('home')
+
+@login_required(login_url=reverse_lazy('iniciar sesion'))
+def editar_publicacion(request, id_publicacion):
+
+    ok = False
+    publicacion = Publicacion.objects.get(id=id_publicacion)
+    imagenes= ImagenEmbarcacion.objects.filter(embarcacion= publicacion.embarcacion.id)
+
+    if request.method == 'POST':
+        form = formularioEditarPublicacion(request.POST)
+        if form.is_valid():
+            if form.cleaned_data.get('descripcion'):
+                publicacion.descripcion = form.cleaned_data.get('descripcion')
+                publicacion.save()
+                ok = True
+    else:
+        form = formularioEditarPublicacion(initial={
+            'descripcion':publicacion.descripcion
+        })
+    
+    context = {
+        'ok':ok,
+        'publicacion':publicacion,
+        'imagenes':imagenes,
+        'form':form
+    }
+
+    return render(request, 'edit_post.html', {'context':context})

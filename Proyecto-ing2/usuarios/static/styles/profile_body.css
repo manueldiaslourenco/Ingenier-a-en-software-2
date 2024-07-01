@@ -41,7 +41,7 @@
     display: flex;
     justify-content: space-between;
     margin: 30px;
-  }
+}
 
 .containerIndices{
     width: 100%;
@@ -190,4 +190,30 @@ th:nth-child(5) {
 .window .window-content .window-buttons button:hover {
     background: linear-gradient(to right, #85857b, #4e6589);
     cursor: pointer;
+}
+
+.button {
+    width: 200px;
+    height: 4vh;
+    border: none;
+    background-color: #fff;
+    border-radius: 8px;
+    display: flex;
+    justify-content: center;
+    text-decoration: none;
+    align-items: center;
+    cursor: pointer;
+    letter-spacing: 0.03em;
+    font-weight: 600;
+    font-style: normal;
+    font-size: 1rem;
+    color: #26a5b9;
+    transition: all 0.10s;
+    -webkit-box-shadow: 0px 0px 4px 1px rgba(255,255,255,0);
+    -moz-box-shadow: 0px 0px 4px 1px rgba(255,255,255,0);
+    box-shadow: 0px 0px 4px 1px rgba(255,255,255,0);
+}
+
+.button:hover {
+    box-shadow: 0px 0px 4px 1px rgba(93, 93, 93, 0.5);
 }

@@ -528,4 +528,4 @@ def trueques_ratio_vehiculos(request):
         'fecha_actual':fecha_actual
     }
 
-    return render(request, 'trades_vehicles.html', {'context':context})
+    return render(request, 'trades_vehicles.html', context)

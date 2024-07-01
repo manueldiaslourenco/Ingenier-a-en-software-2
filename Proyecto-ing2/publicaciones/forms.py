@@ -14,3 +14,9 @@ class formularioCrearPublicacion(forms.Form):
     descripcion = forms.CharField(label='descripcion', max_length=250, required=False, error_messages= {
         'max_legth': 'El límite de caracteres es 250'
     })
+
+class formularioEditarPublicacion(forms.Form):
+    
+    descripcion = forms.CharField(label='descripcion', max_length=250, required=False, error_messages= {
+        'max_legth': 'El límite de caracteres es 250'
+    })

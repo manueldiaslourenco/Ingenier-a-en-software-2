@@ -69,17 +69,20 @@
                 <div>
                     <p>Matricula: <a href="{% url 'ver detalle embarcacion' publicacion.embarcacion.id 0 %}">{{publicacion.embarcacion.matricula}}</a></p>
                 </div>
-                {% if request.user.is_superuser or request.user == publicacion.autor %}
-                <div>
-                    <div class="btn-container">
-                        <a class="btn" id="eliminar-publicacion" href="">Eliminar publicacion</a>
-                    </div>
-                    <div class="confirm" id="mensaje-eliminar-publicacion" style="display: none;">
-                        <p>¿Estas seguro de eliminar la publicacion?</p>
-                        <a class="btn" href="{% url 'ver detalle publicacion' publicacion.id 1 %}">Confirmar</a>
+                {% if request.user == publicacion.autor %}
+                    <div>
+                        <div class="btn-container">
+                            <a class="btn-editar" href="{% url 'editar publicacion' publicacion.id %}">Editar</a>
+                            {% if request.user.is_superuser or request.user == publicacion.autor %}
+                                <a class="btn" id="eliminar-publicacion" href="">Eliminar publicacion</a>
+                            </div>
+                            <div class="confirm" id="mensaje-eliminar-publicacion" style="display: none;">
+                                <p>¿Estas seguro de eliminar la publicacion?</p>
+                                <a class="btn" href="{% url 'ver detalle publicacion' publicacion.id 1 %}">Confirmar</a>
+                                </div>
+                            </div>
+                            {% endif %}
                         </div>
-                    </div>
-                </div>
                 {% endif %}
             <div class='imagenesDiv'>
                 {% for imagen in imagenes %}

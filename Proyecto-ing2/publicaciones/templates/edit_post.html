@@ -1,0 +1,100 @@
+{% extends 'layouts/base.html' %}
+{% load static %}
+
+{% block style %}
+    <link rel="stylesheet" type="text/css" href="{% static 'styles/post_detail.css' %}">
+{% endblock %}
+
+{% block title %}
+    <title>Editar publicacion</title>
+{% endblock %}
+
+{% block scripts %}
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+<script>
+    $(document).ready(function(){
+        $("#cerrar-sesion").click(function(event){
+            event.preventDefault();
+            $("#mensaje-cerrar-sesion").toggle();
+        });
+    });
+</script>
+<script>
+    $(document).ready(function(){
+        $("#eliminar-publicacion").click(function(event){
+            event.preventDefault();
+            $("#mensaje-eliminar-publicacion").toggle();
+        });
+    });
+</script>
+{% endblock %}
+
+{% block listnav %}
+    {% if request.user.is_authenticated %}
+        <li><a class="normal" href="{% url 'ver perfil' id=request.user.id %}"><i class="fa-solid fa-user"></i></a></li>
+    {% endif %}
+    {% if request.user.is_authenticated %}
+        <li class="modal"><a id="cerrar-sesion" class="normal"  href=""><i class="fa-solid fa-arrow-right-from-bracket"></i></a>
+            <div id="mensaje-cerrar-sesion" class="mensaje" style="display: none;">
+                <p>Estas seguro de cerrar la sesion?</p>
+                <a href="{% url 'cerrar sesion' %}" class="buton2">Confirmar</a>
+            </div>
+        </li>
+    {% else %}
+        <li><a href="{% url 'crear cuenta' %}" class="buton">Crear cuenta</a></li>
+        <li><a href="{% url 'iniciar sesion' %}" class="buton">Iniciar Sesion</a></li>
+    {% endif %}
+{% endblock %}
+
+{% block content %}
+<section>       
+    <div>
+        <div class="box">
+            <div class="info-container">
+                <form action="{% url 'editar publicacion' context.publicacion.id %}" method="post">
+                    {% csrf_token %}
+                    <div>
+                        Dueño: {{ context.publicacion.autor.mail }}
+                    </div>
+                    <div>
+                        <p>Tipo: {{context.publicacion.embarcacion.tipo.clase}}</p>
+                    </div>
+                    <div>
+                        <p>Modelo: {{context.publicacion.embarcacion.modelo}}</p>
+                    </div>
+                    <div>
+                        <label for="descripcion">Descripcion:</label>
+                        <br>
+                        <textarea name="descripcion" id="descripcion" class="desc-input">{{ form.descripcion.value|default:context.publicacion.descripcion }}</textarea>
+                    </div>
+                    <div>
+                        <p>Monto: {{context.publicacion.monto}}</p>
+                    </div>
+                    <div>
+                        <p>Matricula: {{context.publicacion.embarcacion.matricula}}</p>
+                    </div>
+                <button type="submit">Guardar</button>
+                </form>
+            <div class='imagenesDiv'>
+                {% for imagen in context.imagenes %}
+                    {% with 'imagenes_embarcaciones/'|add:imagen.nombre_especifico as ruta_imagen %}
+                    <div class='image-container'>
+                        <div class="p1">
+                            <img src="{% static ruta_imagen %}" style="width:480px">
+                        </div>
+                    </div>
+                    {% endwith %}
+                {% endfor %}
+            </div>
+        </div>
+    </div> 
+</section>
+{% if context.ok %}
+    <div class="window-mensaje">  
+        <div class="mensaje-content">
+            <p class="mensaje-content-text" style="margin-bottom: 4px;">Descripcion actualizada.</p> 
+            <div class="mensaje-content-button"><a href="{% url 'ver detalle publicacion' context.publicacion.id 0 %}">Aceptar</a></div>
+        </div>
+    </div>
+{% endif %}
+{% endblock %}
