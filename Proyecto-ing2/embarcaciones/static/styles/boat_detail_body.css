@@ -19,7 +19,7 @@
 }
 
 .box .window-eliminar .eliminar-content {
-    background: linear-gradient(to right, var(--blue), var(--violet));;
+    background: linear-gradient(to right, #a3a397, #6785b4);;
     border-radius: 2px;
     box-shadow: 0 1px 3px rgba(33, 41, 52, .75);
     box-sizing: content-box;
@@ -37,19 +37,10 @@
     justify-content: center;
 }
 
-.box .window-eliminar .eliminar-content .eliminar-content-text p{
-    display: block;
-    height: 45px;
-    width: 100%;
-    background-color: transparent;
-    border: none;
-    border-bottom: 1px solid var(--border-color);
-    color: white solid;
-    font-weight: inherit;
-    font-family: inherit;
+.box .window-eliminar .eliminar-content .eliminar-content-text {
     font-size: 24px;
-    align-items: center;
-    justify-content: center;
+    margin-bottom: 12px;
+    text-align: center;
 }
 
 .box .window-eliminar .eliminar-content .eliminar-content-button a{
@@ -57,7 +48,7 @@
     text-decoration: none;
     box-sizing: border-box;
     box-shadow: 0 1px 3px rgba(33, 41, 52, .75);
-    background: linear-gradient(to right, var(--green), var(--lead));
+    background: linear-gradient(to right, #a3a397, #6785b4);
     padding: 10px;
     border-radius: 20px;
 }

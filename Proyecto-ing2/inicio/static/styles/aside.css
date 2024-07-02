@@ -107,3 +107,15 @@ aside form button {
 aside form button:hover {
     background-color: #1b8096;
 }
+
+.filtros{
+    width: 100%;
+    border: 2px solid rgba(38, 165, 185, 0.3); /* Ajusta el grosor, estilo y color del borde según tus preferencias */
+    padding: 10px; /* Agrega padding para separar el contenido del borde */
+    border-radius: 10px; /* Opcional: agrega esquinas redondeadas */
+
+}
+
+.filtros h4 {
+    text-align: center;
+}

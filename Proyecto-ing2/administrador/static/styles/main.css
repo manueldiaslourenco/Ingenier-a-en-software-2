@@ -367,3 +367,65 @@ select.input-control option:hover {
     background: linear-gradient(to right, #85857b, #4e6589);
     cursor: pointer;
 }
+
+.window-eliminar {
+    color: #fff;
+    background: rgba(33, 41, 52, .85);
+    left: 0;
+    bottom: 0;
+    right: 0;
+    top: 0;
+    display: flex;
+    position: fixed;
+    z-index: 999;
+  }
+  
+  .window-eliminar .eliminar-content {
+    background: linear-gradient(to right, #a3a397, #6785b4);
+    border-radius: 10px;
+    box-shadow: 0 1px 3px rgba(33, 41, 52, .75);
+    box-sizing: content-box;
+    display: flex;
+    flex-direction: column;
+    margin: auto;
+    max-width: 600px;
+    min-width: 320px !important;
+    overflow: hidden;
+    position: relative;
+    width: 100%;
+    padding: 2rem;
+    font-size: 1.3rem;
+    align-items: center;
+    justify-content: center;
+  }
+  
+  .window-eliminar .eliminar-content .eliminar-content-text {
+    height: 45px;
+    font-size: 24px;
+    margin-bottom: 5px;
+    text-align: center;
+  }
+  
+  .window-eliminar .eliminar-content .content-buttons{
+    display: flex;
+  }
+
+  .window-eliminar .eliminar-content .content-buttons button {
+    color: var(--text-white);
+    text-decoration: none;
+    box-sizing: border-box;
+    box-shadow: 0 1px 3px rgba(33, 41, 52, .75);
+    background: linear-gradient(to right, #a3a397, #6785b4);
+    padding: 10px;
+    border-radius: 20px;
+  }
+
+  .profile-container{
+    max-width: 1200px;
+    margin: auto;
+    padding: 10px;
+    padding-bottom: 20px;
+    background-color: #807666;
+    font-size: 18px;
+    color: #fff;
+}

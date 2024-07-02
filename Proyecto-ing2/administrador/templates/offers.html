@@ -28,7 +28,7 @@
                 url: '/eliminar_oferta/' + ofertaId + '/',
                 type: 'POST',
                 data: {
-                    csrfmiddlewaretoken: '{{ csrf_token }}'  // Asegúrate de incluir el token CSRF
+                    csrfmiddlewaretoken: '{{ csrf_token }}'
                 },
                 success: function(response) {
                     if (response.status === 'success') {
@@ -41,11 +41,11 @@
                     alert('Error: ' + error);
                 }
             });
-            location.reload();
         });
 
         // Ocultar el mensaje de éxito
         $(".success-accept").click(function(){
+            location.reload();
             $("#success-message").hide();
         });
     });
@@ -116,7 +116,7 @@
 
 <div id="success-message" class="window" style="display: none;">
     <div class="window-content">
-        <p>La oferta se ha eliminado con éxito</p>
+        <p>La oferta se ha eliminado con éxito.</p>
         <div class="window-buttons">
             <button class="success-accept">Aceptar</button>
         </div>

@@ -237,7 +237,7 @@ td:nth-child(6) {
     border-color: #26a5b9; /* Cambia el color del borde al pasar sobre el botón */
 }
 
-.form-content .window-notice {
+.window-cargo {
     background: rgba(33, 41, 52, .85);
     left: 0;
     bottom: 0;
@@ -248,7 +248,7 @@ td:nth-child(6) {
     z-index: 999;
 }
 
-.form-content .window-notice .content {
+.window-cargo .cargo-content {
     background: linear-gradient(to right,#a3a397, var(--azul1));;
     border-radius: 2px; 
     box-shadow: 0 1px 3px rgba(33, 41, 52, .75);
@@ -267,7 +267,7 @@ td:nth-child(6) {
     justify-content: center;
 }
 
-.form-content .window-notice .content .content-text p{
+.window-cargo .cargo-content .cargo-content-text p{
     display: block;
     height: 45px;
     width: 100%;
@@ -282,7 +282,7 @@ td:nth-child(6) {
     justify-content: center;
 }
 
-.form-content .window-notice .content .content-button a{
+.window-cargo .cargo-content .cargo-content-button a{
     color: var(--text-white);
     text-decoration: none;
     box-sizing: border-box;

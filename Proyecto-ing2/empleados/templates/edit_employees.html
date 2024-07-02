@@ -1,4 +1,4 @@
-{% extends 'layouts/base.html' %}
+{% extends 'layouts/navbar_employees.html' %}
 {% load static %}
 
 {% block style %}
@@ -20,39 +20,35 @@
 </script>
 {% endblock %}
 
-{% block listnav %}
-
-{% endblock %}
-
 {% block content %}
 <section class="form-main">
     <div class="form-content">
         <div class="box">
             <h3>Editar Perfil</h3>
-            <form action="{% url 'editar_empleado' empleado.id %}" method="post" enctype="multipart/form-data" novalidate>
+            <form action="{% url 'editar empleado' %}" method="post" enctype="multipart/form-data" novalidate>
                 {% csrf_token %}
                 <div>
-                    <input type="text" name="nombre" placeholder="Nombre" class="input-control" value="{{ form.nombre.value|default_if_none:empleado.nombre }}">
+                    <input type="text" name="nombre" placeholder="Nombre" class="input-control" value="{{ form.nombre.value|default:context.empleado.nombre }}">
                 </div>
                 <div>
-                    <input type="text" name="apellido" placeholder="Apellido" class="input-control" value="{{ form.apellido.value|default_if_none:empleado.apellido }}">
+                    <input type="text" name="apellido" placeholder="Apellido" class="input-control" value="{{ form.apellido.value|default:context.empleado.apellido }}">
                 </div>
                 <div>
-                    <input type="date" name="fecha_nacimiento" placeholder="Fecha de Nacimiento" class="input-control" value="{{ form.fecha_nacimiento.value|default_if_none:empleado.fecha_nacimiento }}" 
+                    <input type="date" name="fecha_nacimiento" placeholder="Fecha de Nacimiento" class="input-control" value="{{ form.fecha_nacimiento.value|default:context.empleado.fecha_nacimiento }}">
                 </div>
                 <div>
-                    <input type="text" name="telefono" placeholder="Teléfono" maxlength="13" class="input-control" value="{{ form.telefono.value|default_if_none:empleado.telefono }}" onkeypress="return (event.charCode >= 48 && event.charCode <= 57)">
+                    <input type="text" name="telefono" placeholder="Teléfono" maxlength="13" class="input-control" value="{{ form.telefono.value|default:context.empleado.telefono }}" onkeypress="return (event.charCode >= 48 && event.charCode <= 57)">
                     {% if form.telefono.errors %}
                         <div class="error">{{ form.telefono.errors }}</div>
                     {% endif %}
                 </div>
-                <button type="submit" class="btn">Guardar Cambios</button>
+                <button type="submit" class="btn-primary">Guardar Cambios</button>
             </form>
 
-            {% if ok %}
+            {% if context.ok %}
                 <div class="window-cargo" id="window-notice">  
                     <div class="cargo-content">
-                        <p class="cargo-content-text">El perfil se actualizó correctamente</p> 
+                        <p class="cargo-content-text">El perfil se actualizó correctamente.</p> 
                         <div class="cargo-content-button">
                             <a href="{% url 'mi perfil' %}" class="btn">Aceptar</a>
                         </div>

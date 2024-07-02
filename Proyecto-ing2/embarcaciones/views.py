@@ -79,7 +79,6 @@ def eliminar_embarcacion(request, id_embarcacion):
             publicaciones= Publicacion.objects.filter(embarcacion= embarcacion.id)
             for publi in publicaciones:
                 eliminar_publicacion_fisica(publi.id)
-            #mostrar cartel lindo de eliminacion correcta
             return redirect('ver perfil', id= request.user.id)
         else:
             return render(request, '404_not_found.html')
@@ -131,8 +130,8 @@ def editar_embarcacion(request, id_embarcacion):
                                 imagen_id = f"{embarcacion.id}{chr(96 + len(imagenes_actuales) + 1)}.png"
                                 fs.save(imagen_id, imagen_field)
                                 ImagenEmbarcacion.objects.create(
-                                nombre_especifico=imagen_id,
-                                embarcacion=embarcacion,
+                                    nombre_especifico=imagen_id,
+                                    embarcacion=embarcacion,
                                 )
                     ok= True
         else:

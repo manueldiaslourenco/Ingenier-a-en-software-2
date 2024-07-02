@@ -63,7 +63,11 @@ def ver_detalle_vehiculo(request, id_vehiculo, ok):
             oferta_aceptada = False
         vehiculo_en_trueque = Trueque.objects.filter(vehiculo_id=id_vehiculo).exists()
         
-        return render(request, 'vehicle_detail.html', {'imagenes': imagenes, 'vehiculo':  unVehiculo, 'ok':ok, 'vehiculo_en_trueque': vehiculo_en_trueque, 'ofertado': oferta_aceptada})
+        return render(request, 'vehicle_detail.html', {'imagenes':imagenes,
+                                                       'vehiculo':unVehiculo,
+                                                       'ok':ok,
+                                                       'vehiculo_en_trueque':vehiculo_en_trueque,
+                                                       'ofertado': oferta_aceptada})
     except Vehiculo.DoesNotExist:
         return render(request, '404_not_found.html')
     
@@ -76,7 +80,7 @@ def eliminar_vehiculo(request, vehiculo_id):
     
     # Eliminar el vehículo
     vehiculo.delete()
-    return ver_perfil(request,request.user.id)  # Cambia a la vista adecuada después de eliminar
+    return ver_perfil(request,request.user.id)
 
 @login_required(login_url=reverse_lazy('iniciar sesion'))
 def editar_vehiculo(request, vehiculo_id):
@@ -90,38 +94,32 @@ def editar_vehiculo(request, vehiculo_id):
             if request.method == 'POST':
                 form = formularioEditarVehiculo(request.POST, request.FILES)
                 if form.is_valid():
+                    vehiculo.marca = form.cleaned_data.get('marca')
+                    vehiculo.modelo = form.cleaned_data.get('modelo')
+                    vehiculo.año_fabricacion = form.cleaned_data.get('año_fabricacion')
+                    vehiculo.kilometraje = form.cleaned_data.get('kilometraje')
 
-                    kilometraje = form.cleaned_data.get('kilometraje')
-                    try: 
-                        if kilometraje > vehiculo.kilometraje:
-                            vehiculo.kilometraje = form.cleaned_data.get('kilometraje')
-                            print('Kilometraje valido')
-                        elif kilometraje < vehiculo.kilometraje:
-                            raise
-                    
-                        vehiculo.save()
-                        imagenes_actuales = ImagenVehiculo.objects.filter(vehiculo=vehiculo)
+                    vehiculo.save()
 
-                        for i in range(1,4):
-                            imagen_field = form.cleaned_data.get(f'imagen{i}')
-                            if imagen_field:
-                                try:
-                                    imagen = imagenes_actuales.get(nombre_especifico=f"{vehiculo.id}{chr(96 + i)}.png")
-                                    if os.path.isfile(os.path.join(settings.MEDIA_ROOTV, imagen.nombre_especifico)):
+                    imagenes_actuales = ImagenVehiculo.objects.filter(vehiculo=vehiculo)
 
-                                        os.remove(os.path.join(settings.MEDIA_ROOTV, imagen.nombre_especifico))
-                                    fs.save(imagen.nombre_especifico, imagen_field)
-                                except ImagenVehiculo.DoesNotExist:
-                                    imagen_id = f'{vehiculo.id}{chr(96 + len(imagenes_actuales) + 1)}.png'
-                                    fs.save(imagen_id, imagen_field)
-                                    print('Se guarda la imagen si no existe')
-                                    ImagenVehiculo.objects.create(
+                    for i in range(1,4):
+                        imagen_field = form.cleaned_data.get(f'imagen{i}')
+                        if imagen_field:
+                            try:
+                                imagen = imagenes_actuales.get(nombre_especifico=f"{vehiculo.id}{chr(96 + i)}.png")
+                                if os.path.isfile(os.path.join(settings.MEDIA_ROOTV, imagen.nombre_especifico)):
+
+                                    os.remove(os.path.join(settings.MEDIA_ROOTV, imagen.nombre_especifico))
+                                fs.save(imagen.nombre_especifico, imagen_field)
+                            except ImagenVehiculo.DoesNotExist:
+                                imagen_id = f'{vehiculo.id}{chr(96 + len(imagenes_actuales) + 1)}.png'
+                                fs.save(imagen_id, imagen_field)
+                                ImagenVehiculo.objects.create(
                                     nombre_especifico=imagen_id,
                                     vehiculo=vehiculo,
-                                    )
-                        ok= True
-                    except:
-                        form.add_error('kilometraje', 'El kilometraje no puede ser menor al anterior')
+                                )
+                    ok= True
         else:
             return render(request, '404_not_found.html')
     except Vehiculo.DoesNotExist:

@@ -5,7 +5,7 @@ from publicaciones.models import Publicacion
 from trueques.models import Trueque
 from .models import Oferta
 from .forms import formularioCrearOferta
-from .backend import crear_oferta_back, send_mail
+from .backend import crear_oferta_back, send_mail, send_mail_oferta_rechazada
 from django.contrib.auth.decorators import login_required
 from django.urls import reverse_lazy
 from django.http import JsonResponse
@@ -89,9 +89,15 @@ def aceptar_oferta(request):
 @login_required(login_url=reverse_lazy('iniciar sesion'))
 def rechazar_oferta(request):
     publicacion_id = request.POST.get('publicacion_id')
-    oferta_id = request.POST.get('oferta_id')
-    oferta = Oferta.objects.get(id=oferta_id)
+
+    oferta = Oferta.objects.get(id=request.POST.get('oferta_id'))
     oferta.estado= "Rechazada"
+
+    publicacion = Publicacion.objects.get(id=publicacion_id)
+    embarcacion_ofertada = publicacion.embarcacion.matricula
+    mail = oferta.autor.mail
+    send_mail_oferta_rechazada(mail, embarcacion_ofertada)
+
     oferta.oculta = True
     oferta.save()
 

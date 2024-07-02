@@ -83,6 +83,16 @@ def cuestionario_crear_empleado(request):
                 form.add_error('mail', 'El correo ingresado ya se encuentra registrado.')
     return render(request, 'create_employee.html', {'form': form, 'ok': ok, 'sedes': sedes})
 
+@login_required(login_url=reverse_lazy('home'))
+def ver_perfil_empleado(request, empleado_id):
+    user = request.user
+    if not user.is_superuser:
+        return redirect('home')
+    
+    # Obtener el usuario actual (empleado)
+    empleado = Usuario.objects.get(id=empleado_id)
+
+    return render(request, 'employee.html', {'empleado':empleado})
 
 @login_required(login_url=reverse_lazy('home'))
 def usuarios(request):
@@ -212,9 +222,23 @@ def eliminar_empleado(request):
 
     if request.method == 'POST':
         empleado_id = request.POST.get('usuario_id')
+        eliminar = request.POST.get('eliminar')
         empleado = Usuario.objects.get(id=empleado_id)
-        empleado.delete()
-    return redirect('lista empleados')
+        context = {
+            'empleado':empleado,
+            'eliminar':eliminar
+        }
+        if eliminar == "2":
+            empleado.delete()
+    
+    empleados = Usuario.objects.filter(is_staff=True, is_superuser=False)
+    for empleado in empleados:
+        emple_sede = EmpleConSede.objects.get(user_id=empleado.id)
+        sede = Sede.objects.get(id=emple_sede.sede_id)
+        empleado.sede = sede.nombre
+
+    return render(request,'employees.html',{'context':context,
+                                            'empleados':empleados})
 
 
 @login_required(login_url=reverse_lazy('home'))
@@ -528,4 +552,4 @@ def trueques_ratio_vehiculos(request):
         'fecha_actual':fecha_actual
     }
 
-    return render(request, 'trades_vehicles.html', context)
+    return render(request, 'trades_vehicles.html', {'context':context})

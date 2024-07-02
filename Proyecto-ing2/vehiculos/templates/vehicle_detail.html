@@ -85,7 +85,7 @@
                         </div>
                         <div class="confirm"id="mensaje-eliminar-vehiculo" style="display: none;">
                             <p>¿Estas seguro de eliminar el vehiculo?</p>
-                            <form method="POST" action="{% url 'eliminar vehiculo' vehiculo.id %}">
+                            <form method="POST" action="{% url 'ver detalle vehiculo' vehiculo.id 1 %}">
                                 {% csrf_token %}
                                 <button type="submit" class="btn btn-danger">Confirmar</button>
                             </form>
@@ -108,4 +108,12 @@
         </div>
     </div>
 </section>
+{% if ok == 1 %}
+<div class="window-eliminar" id="window-eliminar">  
+    <div class="eliminar-content">
+        <p class="eliminar-content-text">El vehiculo se eliminó correctamente.</p> 
+        <div class="eliminar-content-button"><a href="{% url 'eliminar vehiculo' vehiculo.id %}">Aceptar</a></div>
+    </div>
+</div>
+{% endif %}  
 {% endblock %}

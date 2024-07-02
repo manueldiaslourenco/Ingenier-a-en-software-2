@@ -25,12 +25,13 @@
             {% for empleado in empleados %}
 
                 <tr>
-                    <td>{{empleado.mail}}</td>
+                    <td> <a href="{% url 'empleado' empleado.id %}">{{empleado.mail}}</a></td>
                     <td>{{empleado.sede}}</td>
                     <td>
                         <form method="post" action="{% url 'eliminar empleado' %}">
                             {% csrf_token %}
                             <input type="hidden" name="usuario_id" value="{{ empleado.id }}">
+                            <input type="hidden" name="eliminar" value="{{ 1 }}">
                             <button type="submit" class="btn-delete">Eliminar</button>
                         </form>
                     </td>
@@ -44,5 +45,23 @@
     <h3>No existen empleados en la plataforma.</h3>
 {% endif %}
 
-
+{% if context.eliminar == "1" %}
+<div class="window-eliminar" id="window-eliminar">  
+    <div class="eliminar-content">
+        <p class="eliminar-content-text">¿Desea eliminar al empleado {{context.empleado.mail}}?</p> 
+        <div class="content-buttons">
+            <form action="{% url 'eliminar empleado' %}" method="POST">
+                {% csrf_token %}
+                <input type="hidden" name="usuario_id" value="{{ context.empleado.id }}">
+                <input type="hidden" name="eliminar" value="{{ 2 }}">
+                <button type="submit">Confirmar</button>
+            </form>
+            <form action="{% url 'lista empleados' %}" method="POST">
+                {% csrf_token %}
+                <button type="submit">Cancelar</button>
+            </form>
+        </div>
+    </div>
+</div>
+{% endif%}
 {% endblock %}

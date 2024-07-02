@@ -22,14 +22,13 @@
 
         <button type="submit" class="btn-select-fechas">Seleccionar</button>
 
+        {% if context.mensaje_error_fecha %}
+            <div class="error">{{ context.mensaje_error_fecha }}</div>
+        {% endif %}
+    
     </form>
 
     <br>
-
-
-    {% if context.mensaje_error_fecha %}
-        <div class="error">{{ context.mensaje_error_fecha }}</div>
-    {% endif %}
 
     {% if context.error_general == 4 %}
         <div class="error">{{context.mensaje_error_sin_trueque}}</div>

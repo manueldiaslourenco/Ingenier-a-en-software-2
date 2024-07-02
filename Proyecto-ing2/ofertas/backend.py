@@ -50,6 +50,21 @@ def send_mail(mail, sede, telefono_publicante, embarcacion):
     email.attach_alternative(content, 'text/html')
     email.send()
 
+def send_mail_oferta_rechazada(mail, embarcacion):
+    context = {'mail':mail, 'embarcacion':embarcacion}
+
+    template = get_template('mail_reject_offer.html')
+    content = template.render(context)
+
+    email = EmailMultiAlternatives(
+        'Tu oferta ha sido rechazada',
+        'Hemos recibido la notificacion de que tu oferta ha sido rechazada',
+        settings.EMAIL_HOST_USER,
+        [mail],
+    )
+    email.attach_alternative(content, 'text/html')
+    email.send()
+
 def eliminar_oferta(oferta_id):
     oferta = Oferta.objects.get(id=oferta_id)
     oferta.delete()

@@ -20,13 +20,6 @@
     });
 </script>
 <script>
-    $(document).ready(function(){
-        $("#checkbox-deudas").change(function(event){
-            $("#deudas").toggle();
-        });
-    });
-</script>
-<script>
     function mostrarImagen(input) {
         if (input.files && input.files[0]) {
             var reader = new FileReader();
@@ -68,19 +61,31 @@
             <form action="{% url 'editar vehiculo' vehiculo.id %}" method="post" enctype="multipart/form-data" novalidate>
                 {% csrf_token %}
                 <div>
-                    <input type="text" name="patente"  class="input-control" value="{{ vehiculo.patente }}" readonly>
+                    <input type="text" name="patente" class="input-control" value="{{ vehiculo.patente }}" readonly>
                 </div>
                 <div>
-                    <input type="text" name="marca"  class="input-control" value="{{ vehiculo.marca }}" readonly>
+                    <input type="text" name="marca" placeholder="Marca" maxlength="50" class="input-control" value="{{ form.marca.value|default:vehiculo.marca }}" onkeypress="return (event.charCode >= 32 && event.charCode <= 59 || event.charCode >= 65 && event.charCode <= 90 || event.charCode >= 97 && event.charCode <= 122)">
+                    {% if form.marca.errors %}
+                        <div class="error">{{ form.marca.errors }}</div>
+                    {% endif %}
                 </div>
                 <div>
-                    <input type="text" name="modelo"  class="input-control" value="{{ vehiculo.modelo }}" readonly>
+                    <input type="text" name="modelo" placeholder="Modelo" maxlength="50" class="input-control" value="{{ form.modelo.value|default:vehiculo.modelo }}" onkeypress="return (event.charCode >= 32 && event.charCode <= 59 || event.charCode >= 65 && event.charCode <= 90 || event.charCode >= 97 && event.charCode <= 122)">
+                    {% if form.modelo.errors %}
+                        <div class="error">{{ form.modelo.errors }}</div>
+                    {% endif %}
                 </div>
                 <div>
                     <input type="text" name="tipo"  class="input-control" value="{{ vehiculo.tipo.clase }}" readonly>
                 </div>
                 <div>
-                    <input type="text" name="kilometraje" placeholder="Kilometraje del vehiculo" class="input-control" value="{{ form.kilometraje.value|default_if_none:vehiculo.kilometraje }}" onkeypress="return (event.charCode >= 48 && event.charCode <= 57 || event.charCode == 46)">
+                    <input type="text" name="año_fabricacion" placeholder="Año de fabricacion" class="input-control" value="{{ form.año_fabricacion.value|default:vehiculo.año_fabricacion }}" onkeypress="return (event.charCode >= 48 && event.charCode <= 57)">
+                    {% if form.año_fabricacion.errors %}
+                        <div class="error">{{ form.año_fabricacion.errors }}</div>
+                    {% endif %}
+                </div>
+                <div>
+                    <input type="text" name="kilometraje" placeholder="Kilometraje" class="input-control" value="{{ form.kilometraje.value|default:vehiculo.kilometraje }}" onkeypress="return (event.charCode >= 48 && event.charCode <= 57)">
                     {% if form.kilometraje.errors %}
                         <div class="error">{{ form.kilometraje.errors }}</div>
                     {% endif %}
@@ -89,32 +94,24 @@
                     <input id="imagen1" type="file" name="imagen1" accept="image/*" onchange="mostrarImagen(this)">
                 </div>
                 {% if form.imagen1.errors %}
-                        <div class="error">{{ form.imagen1.errors }}</div>
+                    <div class="error">{{ form.imagen1.errors }}</div>
                 {% endif %}
                 <div>
                     <input id="imagen2" type="file" name="imagen2" onchange="mostrarImagen(this)">
                 </div>
                 {% if form.imagen2.errors %}
-                        <div class="error">{{ form.imagen2.errors }}</div>
+                    <div class="error">{{ form.imagen2.errors }}</div>
                 {% endif %}
                 <div>
                     <input id="imagen3" type="file" name="imagen3" onchange="mostrarImagen(this)">
                 </div>
                 {% if form.imagen3.errors %}
-                        <div class="error">{{ form.imagen3.errors }}</div>
+                    <div class="error">{{ form.imagen3.errors }}</div>
                 {% endif %}
                 {% if form.non_field_errors %}
-                <div class="error">{{ form.non_field_errors }}</div>
-                {% elif ok == True %}
-                    <div class="window-cargo" id="window-notice">  
-                        <div class="cargo-content">
-                            <p class="cargo-content-text"> El vehiculo se actualizo correctamente </p> 
-                            <div class="cargo-content-button"><a href="{% url 'ver detalle vehiculo' vehiculo.id 0 %}">Aceptar</a></div>
-                        </div>
-                    </div>
+                    <div class="error">{{ form.non_field_errors }}</div>
                 {% endif %}
                 <button type="submit" class="btn">Guardar Cambios</button>
-
             </form>
         </div>
     </div>
@@ -128,5 +125,12 @@
         </div>
     </div>
 </section>
-
+{% if ok == True %}
+    <div class="window-cargo" id="window-notice">  
+        <div class="cargo-content">
+            <p class="cargo-content-text" style="margin-bottom: 12px;">El vehiculo se actualizo correctamente.</p> 
+            <div class="cargo-content-button"><a href="{% url 'ver detalle vehiculo' vehiculo.id 0 %}">Aceptar</a></div>
+        </div>
+    </div>
+{% endif %}
 {% endblock %}

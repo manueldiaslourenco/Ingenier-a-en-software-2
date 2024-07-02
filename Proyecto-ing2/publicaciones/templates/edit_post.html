@@ -66,6 +66,9 @@
                         <label for="descripcion">Descripcion:</label>
                         <br>
                         <textarea name="descripcion" id="descripcion" class="desc-input">{{ form.descripcion.value|default:context.publicacion.descripcion }}</textarea>
+                        {% if context.form.descripcion.errors %}
+                            <div class="error">{{ context.form.descripcion.errors }}</div>
+                        {% endif %}
                     </div>
                     <div>
                         <p>Monto: {{context.publicacion.monto}}</p>

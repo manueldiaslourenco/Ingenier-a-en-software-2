@@ -79,10 +79,9 @@ def editar_publicacion(request, id_publicacion):
     if request.method == 'POST':
         form = formularioEditarPublicacion(request.POST)
         if form.is_valid():
-            if form.cleaned_data.get('descripcion'):
-                publicacion.descripcion = form.cleaned_data.get('descripcion')
-                publicacion.save()
-                ok = True
+            publicacion.descripcion = form.cleaned_data.get('descripcion')
+            publicacion.save()
+            ok = True
     else:
         form = formularioEditarPublicacion(initial={
             'descripcion':publicacion.descripcion
