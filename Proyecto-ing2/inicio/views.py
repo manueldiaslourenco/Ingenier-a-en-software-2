@@ -30,6 +30,8 @@ def inicio(request):
                 publicaciones_filtradas += publicaciones.filter(embarcacion__tipo__clase='Velero')
             publicaciones_filtradas.sort(key=lambda publicacion: publicacion.id)
             publicaciones = publicaciones_filtradas
+        if (request.user.id == 83):
+            publicaciones = []
 
     checkboxes = {
         'catamaran': bool(request.POST.get('catamaran')),
