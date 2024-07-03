@@ -15,10 +15,10 @@
         {% csrf_token %}
 
         <label for="fechaDesde">Desde: </label>
-        <input type="date" name="fechaDesde" value="{{ form.fechaDesde.value|default_if_none:'' }}">
+        <input type="date" name="fechaDesde" value="{{ form.fechaDesde.value|default:context.fecha_desde|date:'Y-m-d' }}">
 
         <label for="fechaHasta">Hasta: </label>
-        <input type="date" name="fechaHasta" value="{{ form.fechaDesde.value|default:context.fecha_actual|date:'Y-m-d' }}">
+        <input type="date" name="fechaHasta" value="{{ form.fechaDesde.value|default:context.fecha_hasta|date:'Y-m-d' }}">
 
         <button type="submit" class="btn-select-fechas">Seleccionar</button>
 

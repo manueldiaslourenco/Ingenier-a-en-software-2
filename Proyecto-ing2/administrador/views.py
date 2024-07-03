@@ -4,7 +4,7 @@ from django.db import IntegrityError
 from django.shortcuts import render, redirect
 from django.urls import reverse_lazy
 from django.utils.dateparse import parse_date
-from datetime import date
+from datetime import date, timedelta
 from .backend import calcular_edad, es_mayor_de_18, generar_contraseña_aleatoria, send_email
 from .forms import formularioRegistro, formularioRegistroEmpleado
 from embarcaciones.backend import eliminar_logicamente_embarcacion, eliminar_imagenes_y_objeto_tabla
@@ -327,7 +327,8 @@ def trueques_concretados(request):
         rango = 'Histórico'
 
     mensaje_error = None
-    fecha_actual = date.today()
+    fecha_desde = None
+    fecha_actual = date.today() + timedelta(days=1)
 
     #Busco al entrar desde el botón
     if request.method == 'POST':
@@ -337,13 +338,11 @@ def trueques_concretados(request):
         if fecha_desde and fecha_hasta:
             if fecha_desde > fecha_hasta:
                 mensaje_error = "La primera fecha no debe ser posterior a la segunda."
-            elif fecha_hasta > fecha_actual:
-                mensaje_error = f'La segunda fecha no debe ser posterior a la actual ({fecha_actual}).'
             else:
-                trueques_rango = Trueque.objects.filter(fecha_cierre__range=(fecha_desde, fecha_hasta))
+                trueques_rango = Trueque.objects.filter(fecha_inicio__range=(fecha_desde, fecha_hasta))
 
                 trueques_concretados = trueques_rango.filter(estado='Completado').count()
-                trueques_pendientes = Trueque.objects.filter(estado='Pendiente', fecha_inicio__range=(fecha_desde, fecha_hasta)).count()
+                trueques_pendientes = trueques_rango.filter(estado='Pendiente').count()
                 trueques_cancelados = trueques_rango.filter(estado='Cancelado').count()
                 trueques_anulados = trueques_rango.filter(estado='Anulado').count()
 
@@ -351,8 +350,11 @@ def trueques_concretados(request):
 
                 if trueques_concretados + trueques_pendientes + trueques_cancelados + trueques_anulados == 0:
                     mensaje_error = f'No existen trueques entre la fecha {fecha_desde} y la fecha {fecha_hasta}.'
+                
+            fecha_actual = fecha_hasta
         else:
             mensaje_error = "Debe ingresar ambas fechas."
+            fecha_actual = fecha_hasta
 
     context = {
         'trueques_concretados': trueques_concretados,
@@ -361,7 +363,8 @@ def trueques_concretados(request):
         'trueques_anulados': trueques_anulados,
         'rango':rango,
         'mensaje_error':mensaje_error,
-        'fecha_actual':fecha_actual
+        'fecha_desde':fecha_desde,
+        'fecha_hasta':fecha_actual
     }
 
     return render(request, 'trades_completed.html', {'context':context})
@@ -388,7 +391,8 @@ def trueques_por_sede(request):
         rango = 'Histórico'
 
     mensaje_error = None
-    fecha_actual = date.today()
+    fecha_desde = None
+    fecha_actual = date.today() + timedelta(days=1)
 
     #Busco al entrar desde el botón
     if request.method == 'POST':
@@ -398,11 +402,9 @@ def trueques_por_sede(request):
         if fecha_desde and fecha_hasta:
             if fecha_desde > fecha_hasta:
                 mensaje_error = "La primera fecha no debe ser posterior a la segunda."
-            elif fecha_hasta > fecha_actual:
-                mensaje_error = f'La segunda fecha no debe ser posterior a la actual ({fecha_actual}).'
             else:
                 trueques_concretados = Trueque.objects.filter(estado='Completado')
-                trueques_rango = trueques_concretados.filter(fecha_cierre__range=(fecha_desde, fecha_hasta))
+                trueques_rango = trueques_concretados.filter(fecha_inicio__range=(fecha_desde, fecha_hasta))
                 
                 trueques_tigre = trueques_rango.filter(sede__nombre='Tigre').count()
                 trueques_quilmes = trueques_rango.filter(sede__nombre='Quilmes (La rivera)').count()
@@ -412,8 +414,11 @@ def trueques_por_sede(request):
                 
                 if trueques_tigre + trueques_quilmes + trueques_rio_santiago == 0:
                     mensaje_error = f'No existen trueques entre la fecha {fecha_desde} y la fecha {fecha_hasta}.'
+            fecha_actual = fecha_hasta
+
         else:
             mensaje_error = "Debe ingresar ambas fechas."
+            fecha_actual = fecha_hasta
 
     context = {
         'trueques_tigre': trueques_tigre,
@@ -421,7 +426,8 @@ def trueques_por_sede(request):
         'trueques_rio_santiago': trueques_rio_santiago,
         'rango':rango,
         'mensaje_error':mensaje_error,
-        'fecha_actual':fecha_actual
+        'fecha_desde':fecha_desde,
+        'fecha_hasta':fecha_actual
     }
 
     return render(request, 'trades_sedes.html', {'context':context})    
@@ -454,7 +460,7 @@ def trueques_ratio_vehiculos(request):
     if request.method == 'GET':
         trueques_concretados = Trueque.objects.filter(estado='Completado')
 
-        trueques_catamaran = trueques_concretados.filter(embarcacion1__tipo__clase='Catamaran')
+        trueques_catamaran = trueques_concretados.filter(embarcacion1__tipo__clase='Catamarán')
         trueques_catamaran_auto = trueques_catamaran.filter(vehiculo__tipo__clase='Auto').count()
         trueques_catamaran_camioneta = trueques_catamaran.filter(vehiculo__tipo__clase='Camioneta').count()
         trueques_catamaran_moto = trueques_catamaran.filter(vehiculo__tipo__clase='Moto').count()
@@ -483,7 +489,8 @@ def trueques_ratio_vehiculos(request):
     error_lancha = False
     error_velero = False
     error_general = 0
-    fecha_actual = date.today()
+    fecha_desde = None
+    fecha_actual = date.today() + timedelta(days=1)
 
     #Busco al entrar desde el botón
     if request.method == 'POST':
@@ -493,15 +500,13 @@ def trueques_ratio_vehiculos(request):
         if fecha_desde and fecha_hasta:
             if fecha_desde > fecha_hasta:
                 mensaje_error_fecha = "La primera fecha no debe ser posterior a la segunda."
-            elif fecha_hasta > fecha_actual:
-                mensaje_error_fecha = f'La segunda fecha no debe ser posterior a la actual ({fecha_actual}).'
             else:
                 rango = f'{fecha_desde} - {fecha_hasta}'
 
                 trueques_concretados = Trueque.objects.filter(estado='Completado')
-                trueques_rango = trueques_concretados.filter(fecha_cierre__range=(fecha_desde, fecha_hasta))
+                trueques_rango = trueques_concretados.filter(fecha_inicio__range=(fecha_desde, fecha_hasta))
 
-                trueques_catamaran = trueques_rango.filter(embarcacion1__tipo__clase='Catamaran')
+                trueques_catamaran = trueques_rango.filter(embarcacion1__tipo__clase='Catamarán')
                 trueques_catamaran_auto = trueques_catamaran.filter(vehiculo__tipo__clase='Auto').count()
                 trueques_catamaran_camioneta = trueques_catamaran.filter(vehiculo__tipo__clase='Camioneta').count()
                 trueques_catamaran_moto = trueques_catamaran.filter(vehiculo__tipo__clase='Moto').count()
@@ -538,9 +543,11 @@ def trueques_ratio_vehiculos(request):
                     error_general += 1
                 
                 mensaje_error_sin_trueque = f'No existen trueques entre la fecha {fecha_desde} y la fecha {fecha_hasta}.'
+                fecha_actual = fecha_hasta
                 
         else:
             mensaje_error_fecha = "Debe ingresar ambas fechas."
+            fecha_actual = fecha_hasta
 
     context = {
         'trueques_catamaran_auto':trueques_catamaran_auto,
@@ -568,7 +575,8 @@ def trueques_ratio_vehiculos(request):
         'error_lancha':error_lancha,
         'error_velero':error_velero,
         'error_general':error_general,
-        'fecha_actual':fecha_actual
+        'fecha_desde':fecha_desde,
+        'fecha_hasta':fecha_actual
     }
 
     return render(request, 'trades_vehicles.html', {'context':context})
