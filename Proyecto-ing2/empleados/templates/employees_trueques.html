@@ -10,7 +10,7 @@
     <h1>Trueques</h1>
 </div>
 
-{% if trueques %}
+{% if trueques and not request.user.id == 83 %}
     <table>
         <thead>
             <tr>

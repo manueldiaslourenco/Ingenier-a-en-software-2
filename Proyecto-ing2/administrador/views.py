@@ -222,8 +222,10 @@ def eliminar_empleado(request):
 
     if request.method == 'POST':
         empleado_id = request.POST.get('usuario_id')
-        eliminar = request.POST.get('eliminar')
         empleado = Usuario.objects.get(id=empleado_id)
+        
+        eliminar = request.POST.get('eliminar')
+
         context = {
             'empleado':empleado,
             'eliminar':eliminar
@@ -250,36 +252,53 @@ def eliminar_usuario(request):
     if request.method == 'POST':
         usr_id = request.POST.get('usuario_id')
         usr = Usuario.objects.get(id=usr_id)
-        eliminar_logicamente_usuario(usr)
-        # Modificar las embarcaciones del usuario
-        embarcaciones = Embarcacion.objects.filter(dueño_id=usr_id)
-        for embarcacion in embarcaciones:
-            eliminar_logicamente_embarcacion(embarcacion)
-            eliminar_imagenes_y_objeto_tabla(embarcacion.id)
-            publicaciones= Publicacion.objects.filter(embarcacion= embarcacion.id)
-            for publi in publicaciones:
-                eliminar_publicacion_fisica(publi.id)
-            
-        # Modificar los vehículos del usuario
-        vehiculos = Vehiculo.objects.filter(dueño_id=usr_id)
-        for vehiculo in vehiculos:
-            eliminar_logicamente_vehiculo(vehiculo)
-            eliminar_imagenes_y_objeto_tabla(vehiculo.id)
         
-        ofertas = Oferta.objects.filter(autor_id=usr_id)
-        for oferta in ofertas:
-            oferta.delete()
+        eliminar = request.POST.get('eliminar')
 
-        trueques = Trueque.objects.filter(usuario1_id=usr_id)
-        for trueque in trueques:
-            trueque.estado= "Anulado"
-            trueque.save()
+        context = {
+            'usuario':usr,
+            'eliminar':eliminar
+        }
+
+        if eliminar == "2":
+        
+            eliminar_logicamente_usuario(usr)
+            # Modificar las embarcaciones del usuario
+            embarcaciones = Embarcacion.objects.filter(dueño_id=usr_id)
+            for embarcacion in embarcaciones:
+                eliminar_logicamente_embarcacion(embarcacion)
+                eliminar_imagenes_y_objeto_tabla(embarcacion.id)
+                publicaciones= Publicacion.objects.filter(embarcacion= embarcacion.id)
+                for publi in publicaciones:
+                    eliminar_publicacion_fisica(publi.id)
+                
+            # Modificar los vehículos del usuario
+            vehiculos = Vehiculo.objects.filter(dueño_id=usr_id)
+            for vehiculo in vehiculos:
+                eliminar_logicamente_vehiculo(vehiculo)
+                eliminar_imagenes_y_objeto_tabla(vehiculo.id)
             
-        trueques2 = Trueque.objects.filter(usuario2_id=usr_id)
-        for trueque in trueques2:
-            trueque.estado= "Anulado"
-            trueque.save()
-    return redirect('lista usuarios')
+            ofertas = Oferta.objects.filter(autor_id=usr_id)
+            for oferta in ofertas:
+                oferta.delete()
+
+            trueques = Trueque.objects.filter(usuario1_id=usr_id)
+            for trueque in trueques:
+                trueque.estado= "Anulado"
+                trueque.save()
+                
+            trueques2 = Trueque.objects.filter(usuario2_id=usr_id)
+            for trueque in trueques2:
+                trueque.estado= "Anulado"
+                trueque.save()
+
+        usuarios = Usuario.objects.filter(is_staff=False).exclude(mail__startswith='*')
+        for usuario in usuarios:
+            usuario.edad = calcular_edad(usuario.fecha_nacimiento)
+
+    return render(request,'users.html', {'usuarios':usuarios,
+                                         'context':context})
+
 
 @login_required(login_url=reverse_lazy('home'))
 def estadisticas(request):
