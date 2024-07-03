@@ -21,9 +21,9 @@ def inicio(request):
         publicaciones_filtradas = []
         if (catamaran or crucero or lancha or velero):
             if (catamaran):
-                publicaciones_filtradas += publicaciones.filter(embarcacion__tipo__clase='Catamaran')
+                publicaciones_filtradas += publicaciones.filter(embarcacion__tipo__clase='Catamarán')
             if (crucero):
-                publicaciones_filtradas += publicaciones.filter(embarcacion__tipo__clase='Cucero')
+                publicaciones_filtradas += publicaciones.filter(embarcacion__tipo__clase='Crucero')
             if (lancha):
                 publicaciones_filtradas += publicaciones.filter(embarcacion__tipo__clase='Lancha')
             if (velero):
