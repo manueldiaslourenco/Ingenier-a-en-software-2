@@ -116,7 +116,7 @@
                 {% if request.user.id == param.id %}
                 <li><i class="icono fas fa-calendar-alt"></i> Fecha nacimiento:  {{ param.fecha_nacimiento|date:"d-m-Y" }}</li>
                 {% endif %}
-                <li><i class="fa-solid fa-star"></i> Reputacion: {{ puntuacion }}</li>
+                <li><i class="fa-solid fa-star"></i> Reputacion: {{ puntuacion|floatformat:1 }}</li>
             </ul>
         </div>
         {% if request.user.id == param.id %}

@@ -10,6 +10,6 @@ class Oferta(models.Model):
     autor = models.ForeignKey(Usuario, on_delete=models.SET_NULL, null=True)
     vehiculo_ofertado = models.ForeignKey(Vehiculo, on_delete=models.SET_NULL, null=True)
     embarcacion_ofertada = models.ForeignKey(Embarcacion, on_delete=models.SET_NULL, null=True)
-    publicacion= models.ForeignKey(Publicacion, on_delete=models.CASCADE)
+    publicacion= models.ForeignKey(Publicacion, on_delete=models.SET_NULL, null=True)
     estado= models.CharField(max_length=50, default='Pendiente')
     oculta = models.BooleanField(default=False)

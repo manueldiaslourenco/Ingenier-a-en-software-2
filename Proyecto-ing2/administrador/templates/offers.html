@@ -88,7 +88,11 @@
                         <td>No se ofreció un vehículo o embarcación</td>
                     {% endif %}
                     <td>
-                        <a href="{% url 'ver detalle publicacion' oferta.publicacion.id 0 %}">{{ oferta.publicacion.embarcacion.tipo.clase }}</a>
+                        {% if oferta.publicacion %}
+                            <a href="{% url 'ver detalle publicacion' oferta.publicacion.id 0 %}">{{ oferta.publicacion.embarcacion.tipo.clase }}</a>
+                        {% else %}
+                            <p>-</p>
+                        {% endif %}
                     </td>
                     <td>{{ oferta.estado }}</td>
                     <td>
