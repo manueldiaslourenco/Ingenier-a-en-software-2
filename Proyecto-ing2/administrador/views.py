@@ -466,19 +466,19 @@ def trueques_ratio_vehiculos(request):
         trueques_catamaran_moto = trueques_catamaran.filter(vehiculo__tipo__clase='Moto').count()
 
         trueques_crucero = trueques_concretados.filter(embarcacion1__tipo__clase='Crucero')
-        trueques_crucero_auto = trueques_catamaran.filter(vehiculo__tipo__clase='Auto').count()
-        trueques_crucero_camioneta = trueques_catamaran.filter(vehiculo__tipo__clase='Camioneta').count()
-        trueques_crucero_moto = trueques_catamaran.filter(vehiculo__tipo__clase='Moto').count()
+        trueques_crucero_auto = trueques_crucero.filter(vehiculo__tipo__clase='Auto').count()
+        trueques_crucero_camioneta = trueques_crucero.filter(vehiculo__tipo__clase='Camioneta').count()
+        trueques_crucero_moto = trueques_crucero.filter(vehiculo__tipo__clase='Moto').count()
 
         trueques_lancha = trueques_concretados.filter(embarcacion1__tipo__clase='Lancha')
-        trueques_lancha_auto = trueques_catamaran.filter(vehiculo__tipo__clase='Auto').count()
-        trueques_lancha_camioneta = trueques_catamaran.filter(vehiculo__tipo__clase='Camioneta').count()
-        trueques_lancha_moto = trueques_catamaran.filter(vehiculo__tipo__clase='Moto').count()
+        trueques_lancha_auto = trueques_lancha.filter(vehiculo__tipo__clase='Auto').count()
+        trueques_lancha_camioneta = trueques_lancha.filter(vehiculo__tipo__clase='Camioneta').count()
+        trueques_lancha_moto = trueques_lancha.filter(vehiculo__tipo__clase='Moto').count()
 
         trueques_velero = trueques_concretados.filter(embarcacion1__tipo__clase='Velero')
-        trueques_velero_auto = trueques_catamaran.filter(vehiculo__tipo__clase='Auto').count()
-        trueques_velero_camioneta = trueques_catamaran.filter(vehiculo__tipo__clase='Camioneta').count()
-        trueques_velero_moto = trueques_catamaran.filter(vehiculo__tipo__clase='Moto').count()
+        trueques_velero_auto = trueques_velero.filter(vehiculo__tipo__clase='Auto').count()
+        trueques_velero_camioneta = trueques_velero.filter(vehiculo__tipo__clase='Camioneta').count()
+        trueques_velero_moto = trueques_velero.filter(vehiculo__tipo__clase='Moto').count()
 
         rango = 'Histórico'
 
